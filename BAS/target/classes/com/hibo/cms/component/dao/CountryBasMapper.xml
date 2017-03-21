@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.component.dao.CountryBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.component.model.CountryBas" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="locked" property="locked" jdbcType="BIT" />
+    <result column="country_1" property="country1" jdbcType="VARCHAR" />
+    <result column="country_2" property="country2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, code, locked, country_1, country_2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_country
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_country
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.component.model.CountryBas" >
+    insert into bas_country (id, title, code, 
+      locked, country_1, country_2
+      )
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{locked,jdbcType=BIT}, #{country1,jdbcType=VARCHAR}, #{country2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.component.model.CountryBas" >
+    insert into bas_country
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="country1 != null" >
+        country_1,
+      </if>
+      <if test="country2 != null" >
+        country_2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=BIT},
+      </if>
+      <if test="country1 != null" >
+        #{country1,jdbcType=VARCHAR},
+      </if>
+      <if test="country2 != null" >
+        #{country2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.component.model.CountryBas" >
+    update bas_country
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=BIT},
+      </if>
+      <if test="country1 != null" >
+        country_1 = #{country1,jdbcType=VARCHAR},
+      </if>
+      <if test="country2 != null" >
+        country_2 = #{country2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.component.model.CountryBas" >
+    update bas_country
+    set title = #{title,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=BIT},
+      country_1 = #{country1,jdbcType=VARCHAR},
+      country_2 = #{country2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectAll" resultType="String" parameterType="java.lang.String" >
+    select 
+    title
+    from bas_country
+  </select>
+  
+   <select id="selectByCondition" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from bas_country
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    </where>
+   </select>
+   
+    <select id="selectList" resultMap="BaseResultMap" >
+    select 
+  	<include refid="Base_Column_List" />
+    from bas_country
+    <if test="title != null and title != '' ">
+		where  title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')
+   </if>
+   </select>
+  
+</mapper>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.readexcel.dao.ReadexceldefgMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.readexcel.model.Readexceldefg" >
+    <id column="fldname" property="fldname" jdbcType="VARCHAR" />
+    <id column="rxcode" property="rxcode" jdbcType="VARCHAR" />
+    <result column="flddisplayname" property="flddisplayname" jdbcType="VARCHAR" />
+    <result column="excelcol" property="excelcol" jdbcType="VARCHAR" />
+    <result column="fldtype" property="fldtype" jdbcType="VARCHAR" />
+    <result column="fldsize" property="fldsize" jdbcType="SMALLINT" />
+    <result column="flddecimal" property="flddecimal" jdbcType="SMALLINT" />
+    <result column="flddefault" property="flddefault" jdbcType="VARCHAR" />
+    <result column="groupdesc" property="groupdesc" jdbcType="VARCHAR" />
+    <result column="idx" property="idx" jdbcType="SMALLINT" />
+    <result column="groovy" property="groovy" jdbcType="LONGVARCHAR" />
+    <result column="flags" property="flags" jdbcType="SMALLINT" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fldname, rxcode, flddisplayname, excelcol, fldtype, fldsize, flddecimal, flddefault, 
+    groupdesc, idx, groovy, flags, operator, createDate, modifyDate
+  </sql>
+  <select id="select" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bas_readexceldefg
+    where fldname = #{fldname,jdbcType=VARCHAR}
+      and rxcode = #{rxcode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from bas_readexceldefg
+  </select>
+  <select id="selectByRxcode" parameterType="String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from bas_readexceldefg
+    where rxcode = #{rxcode,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete">
+    delete from bas_readexceldefg
+    where fldname = #{fldname,jdbcType=VARCHAR}
+      and rxcode = #{rxcode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByRxcode" parameterType="String">
+  	delete from bas_readexceldefg
+  	where rxcode = #{rxcode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.readexcel.model.Readexceldefg" >
+    insert into bas_readexceldefg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fldname != null" >
+        fldname,
+      </if>
+      <if test="rxcode != null" >
+        rxcode,
+      </if>
+      <if test="flddisplayname != null" >
+        flddisplayname,
+      </if>
+      <if test="excelcol != null" >
+        excelcol,
+      </if>
+      <if test="fldtype != null" >
+        fldtype,
+      </if>
+      <if test="fldsize != null" >
+        fldsize,
+      </if>
+      <if test="flddecimal != null" >
+        flddecimal,
+      </if>
+      <if test="flddefault != null" >
+        flddefault,
+      </if>
+      <if test="groupdesc != null" >
+        groupdesc,
+      </if>
+      <if test="idx != null" >
+        idx,
+      </if>
+      <if test="flags != null" >
+        flags,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate,
+      </if>
+      <if test="groovy != null" >
+        groovy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fldname != null" >
+        #{fldname,jdbcType=VARCHAR},
+      </if>
+      <if test="rxcode != null" >
+        #{rxcode,jdbcType=VARCHAR},
+      </if>
+      <if test="flddisplayname != null" >
+        #{flddisplayname,jdbcType=VARCHAR},
+      </if>
+      <if test="excelcol != null" >
+        #{excelcol,jdbcType=VARCHAR},
+      </if>
+      <if test="fldtype != null" >
+        #{fldtype,jdbcType=VARCHAR},
+      </if>
+      <if test="fldsize != null" >
+        #{fldsize,jdbcType=SMALLINT},
+      </if>
+      <if test="flddecimal != null" >
+        #{flddecimal,jdbcType=SMALLINT},
+      </if>
+      <if test="flddefault != null" >
+        #{flddefault,jdbcType=VARCHAR},
+      </if>
+      <if test="groupdesc != null" >
+        #{groupdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="idx != null" >
+        #{idx,jdbcType=SMALLINT},
+      </if>
+      <if test="flags != null" >
+        #{flags,jdbcType=SMALLINT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groovy != null" >
+        #{groovy,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByOldKey" parameterType="com.hibo.cms.readexcel.model.Readexceldefg" >
+    update bas_readexceldefg
+    <set >
+    	<if test="rdexdefg.rxcode != null" >
+        rxcode = #{rdexdefg.rxcode,jdbcType=VARCHAR},
+      </if>
+    	<if test="rdexdefg.fldname != null" >
+        fldname = #{rdexdefg.fldname,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdefg.flddisplayname != null" >
+        flddisplayname = #{rdexdefg.flddisplayname,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdefg.excelcol != null" >
+        excelcol = #{rdexdefg.excelcol,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdefg.fldtype != null" >
+        fldtype = #{rdexdefg.fldtype,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdefg.fldsize != null" >
+        fldsize = #{rdexdefg.fldsize,jdbcType=SMALLINT},
+      </if>
+      <if test="rdexdefg.flddecimal != null" >
+        flddecimal = #{rdexdefg.flddecimal,jdbcType=SMALLINT},
+      </if>
+      <if test="rdexdefg.flddefault != null" >
+        flddefault = #{rdexdefg.flddefault,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdefg.groupdesc != null" >
+        groupdesc = #{rdexdefg.groupdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdefg.idx != null" >
+        idx = #{rdexdefg.idx,jdbcType=SMALLINT},
+      </if>
+      <if test="rdexdefg.flags != null" >
+        flags = #{rdexdefg.flags,jdbcType=SMALLINT},
+      </if>
+      <if test="rdexdefg.operator != null" >
+        operator = #{rdexdefg.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdefg.modifyDate != null" >
+        modifyDate = #{rdexdefg.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rdexdefg.groovy != null" >
+        groovy = #{rdexdefg.groovy,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where fldname = #{oldfldname,jdbcType=VARCHAR}
+      and rxcode = #{oldrxcode,jdbcType=VARCHAR}
+  </update>
+  <update id="update" parameterType="com.hibo.cms.readexcel.model.Readexceldefg" >
+    update bas_readexceldefg
+    <set >
+      <if test="flddisplayname != null" >
+        flddisplayname = #{flddisplayname,jdbcType=VARCHAR},
+      </if>
+      <if test="excelcol != null" >
+        excelcol = #{excelcol,jdbcType=VARCHAR},
+      </if>
+      <if test="fldtype != null" >
+        fldtype = #{fldtype,jdbcType=VARCHAR},
+      </if>
+      <if test="fldsize != null" >
+        fldsize = #{fldsize,jdbcType=SMALLINT},
+      </if>
+      <if test="flddecimal != null" >
+        flddecimal = #{flddecimal,jdbcType=SMALLINT},
+      </if>
+      <if test="flddefault != null" >
+        flddefault = #{flddefault,jdbcType=VARCHAR},
+      </if>
+      <if test="groupdesc != null" >
+        groupdesc = #{groupdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="idx != null" >
+        idx = #{idx,jdbcType=SMALLINT},
+      </if>
+      <if test="flags != null" >
+        flags = #{flags,jdbcType=SMALLINT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groovy != null" >
+        groovy = #{groovy,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where fldname = #{fldname,jdbcType=VARCHAR}
+      and rxcode = #{rxcode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateRxcode">
+  	update bas_readexceldefg
+  	set rxcode = #{rxcode,jdbcType=VARCHAR}
+  	where rxcode = #{oldrxcode,jdbcType=VARCHAR}
+  </update>
+<!--   <update id="update" parameterType="com.hibo.cms.readexcel.model.Readexceldefg" >
+    update bas_readexceldefg
+    set flddisplayname = #{flddisplayname,jdbcType=VARCHAR},
+      excelcol = #{excelcol,jdbcType=VARCHAR},
+      fldtype = #{fldtype,jdbcType=VARCHAR},
+      fldsize = #{fldsize,jdbcType=SMALLINT},
+      flddecimal = #{flddecimal,jdbcType=SMALLINT},
+      flddefault = #{flddefault,jdbcType=VARCHAR},
+      groupdesc = #{groupdesc,jdbcType=VARCHAR},
+      idx = #{idx,jdbcType=SMALLINT},
+      flags = #{flags,jdbcType=SMALLINT},
+      operator = #{operator,jdbcType=VARCHAR},
+      modifyDate = #{modifyDate,jdbcType=TIMESTAMP},
+      groovy = #{groovy,jdbcType=LONGVARCHAR}
+    where fldname = #{fldname,jdbcType=VARCHAR}
+      and rxcode = #{rxcode,jdbcType=VARCHAR}
+  </update> -->
+  <!--   <insert id="insert" parameterType="com.hibo.cms.readexcel.model.Readexceldefg" >
+    insert into bas_readexceldefg (fldname, rxcode, flddisplayname, 
+      excelcol, fldtype, fldsize, 
+      flddecimal, flddefault, groupdesc, 
+      idx, flags, operator, 
+      createDate, modifyDate, groovy
+      )
+    values (#{fldname,jdbcType=VARCHAR}, #{rxcode,jdbcType=VARCHAR}, #{flddisplayname,jdbcType=VARCHAR}, 
+      #{excelcol,jdbcType=VARCHAR}, #{fldtype,jdbcType=VARCHAR}, #{fldsize,jdbcType=SMALLINT}, 
+      #{flddecimal,jdbcType=SMALLINT}, #{flddefault,jdbcType=VARCHAR}, #{groupdesc,jdbcType=VARCHAR}, 
+      #{idx,jdbcType=SMALLINT}, #{flags,jdbcType=SMALLINT}, #{operator,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{groovy,jdbcType=LONGVARCHAR}
+      )
+  </insert> -->
+</mapper>

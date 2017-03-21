@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.language.dao.LanguageBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.language.model.LanguageBas" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="en" property="en" jdbcType="VARCHAR" />
+    <result column="zh" property="zh" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, code, en, zh, operator, create_date, modify_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_language
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_language
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.language.model.LanguageBas" >
+    insert into bas_language (id, code, en, 
+      zh, operator, create_date, 
+      modify_date)
+    values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{en,jdbcType=VARCHAR}, 
+      #{zh,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.language.model.LanguageBas" >
+    insert into bas_language
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="en != null" >
+        en,
+      </if>
+      <if test="zh != null" >
+        zh,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="en != null" >
+        #{en,jdbcType=VARCHAR},
+      </if>
+      <if test="zh != null" >
+        #{zh,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.language.model.LanguageBas" >
+    update bas_language
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="en != null" >
+        en = #{en,jdbcType=VARCHAR},
+      </if>
+      <if test="zh != null" >
+        zh = #{zh,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.language.model.LanguageBas" >
+    update bas_language
+    set code = #{code,jdbcType=VARCHAR},
+      en = #{en,jdbcType=VARCHAR},
+      zh = #{zh,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_language
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    </where>
+    ORDER BY code
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_language
+  </select>
+</mapper>

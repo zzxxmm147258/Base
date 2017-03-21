@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.bas.coderule.dao.CodeMapper">
+	<select id="selectCodeList" resultType="org.apache.commons.collections.map.CaseInsensitiveMap" parameterType="java.lang.String">
+		${sql}
+	</select>
+	<update id="updateCodeTrue">
+		update bas_quartz_update set locked=#{lock,jdbcType=INTEGER} where id = #{id,jdbcType=VARCHAR} and locked=0
+	</update>
+	<update id="updateCode">
+		update bas_quartz_update set locked=#{lock,jdbcType=INTEGER} where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<insert id="insertCode">
+	  insert into bas_quartz_update (id,update_name,locked) values (#{id,jdbcType=VARCHAR},#{updateName,jdbcType=VARCHAR},#{lock,jdbcType=INTEGER})
+	</insert>
+	<select id="selectCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+		select count(id) from bas_quartz_update where id=#{id}
+	</select>
+	<select id="selectLock" resultType="org.apache.commons.collections.map.CaseInsensitiveMap" parameterType="java.lang.String">
+		select locked from bas_quartz_update where id=#{id}
+	</select>
+</mapper>

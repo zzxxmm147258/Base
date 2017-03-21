@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hibo.cms.articlenew.dao.BasArticleCategoryGMapper">
+  <resultMap id="BaseResultMap" type="com.hibo.cms.articlenew.model.BasArticleCategoryG">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="lcode" jdbcType="VARCHAR" property="lcode" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="attr1" jdbcType="VARCHAR" property="attr1" />
+    <result column="attr2" jdbcType="VARCHAR" property="attr2" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, lcode, code, cname, sort, attr1, attr2
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bas_article_categoryg
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bas_article_categoryg
+  </select>
+  <select id="selectByLcode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bas_article_categoryg
+    where lcode = #{lcode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from bas_article_categoryg
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.articlenew.model.BasArticleCategoryG">
+    insert into bas_article_categoryg (id, lcode, code, 
+      cname, sort, attr1, 
+      attr2)
+    values (#{id,jdbcType=VARCHAR}, #{lcode,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{cname,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{attr1,jdbcType=VARCHAR}, 
+      #{attr2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.articlenew.model.BasArticleCategoryG">
+    insert into bas_article_categoryg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="lcode != null">
+        lcode,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="cname != null">
+        cname,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="attr1 != null">
+        attr1,
+      </if>
+      <if test="attr2 != null">
+        attr2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="lcode != null">
+        #{lcode,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null">
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="attr1 != null">
+        #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null">
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.articlenew.model.BasArticleCategoryG">
+    update bas_article_categoryg
+    <set>
+      <if test="lcode != null">
+        lcode = #{lcode,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null">
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="attr1 != null">
+        attr1 = #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null">
+        attr2 = #{attr2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.articlenew.model.BasArticleCategoryG">
+    update bas_article_categoryg
+    set lcode = #{lcode,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      cname = #{cname,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      attr1 = #{attr1,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

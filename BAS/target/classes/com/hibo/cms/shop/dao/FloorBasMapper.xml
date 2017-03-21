@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.shop.dao.FloorBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.shop.model.FloorBas" >
+    <id column="floor_id" property="floorId" jdbcType="VARCHAR" />
+    <result column="floor_no" property="floorNo" jdbcType="VARCHAR" />
+    <result column="building_id" property="buildingId" jdbcType="VARCHAR" />
+    <result column="floor_name" property="floorName" jdbcType="VARCHAR" />
+    <result column="floor_logo" property="floorLogo" jdbcType="VARCHAR" />
+    <result column="idx" property="idx" jdbcType="INTEGER" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="tour_img" property="tourImg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    floor_id, floor_no, building_id, floor_name, floor_logo, idx, availabe, operator, 
+    create_date, modify_date,tour_img
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_floor
+    where floor_id = #{floorId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_floor
+    where floor_id = #{floorId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.shop.model.FloorBas" >
+    insert into bas_floor (floor_id, floor_no, building_id, 
+      floor_name, floor_logo, idx, 
+      availabe, operator, create_date, 
+      modify_date,tour_img)
+    values (#{floorId,jdbcType=VARCHAR}, #{floorNo,jdbcType=VARCHAR}, #{buildingId,jdbcType=VARCHAR}, 
+      #{floorName,jdbcType=VARCHAR}, #{floorLogo,jdbcType=VARCHAR}, #{idx,jdbcType=INTEGER}, 
+      #{availabe,jdbcType=BIT}, #{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyDate,jdbcType=TIMESTAMP},#{tourImg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.shop.model.FloorBas" >
+    insert into bas_floor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="floorId != null" >
+        floor_id,
+      </if>
+      <if test="floorNo != null" >
+        floor_no,
+      </if>
+      <if test="buildingId != null" >
+        building_id,
+      </if>
+      <if test="floorName != null" >
+        floor_name,
+      </if>
+      <if test="floorLogo != null" >
+        floor_logo,
+      </if>
+      <if test="idx != null" >
+        idx,
+      </if>
+      <if test="availabe != null" >
+        availabe,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="tourImg != null" >
+        tour_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="floorId != null" >
+        #{floorId,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNo != null" >
+        #{floorNo,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null" >
+        #{buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="floorName != null" >
+        #{floorName,jdbcType=VARCHAR},
+      </if>
+      <if test="floorLogo != null" >
+        #{floorLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="idx != null" >
+        #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="availabe != null" >
+        #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tourImg != null" >
+        #{tourImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.shop.model.FloorBas" >
+    update bas_floor
+    <set >
+      <if test="floorNo != null" >
+        floor_no = #{floorNo,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingId != null" >
+        building_id = #{buildingId,jdbcType=VARCHAR},
+      </if>
+      <if test="floorName != null" >
+        floor_name = #{floorName,jdbcType=VARCHAR},
+      </if>
+      <if test="floorLogo != null" >
+        floor_logo = #{floorLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="idx != null" >
+        idx = #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="availabe != null" >
+        availabe = #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tourImg != null" >
+        tour_img = #{tourImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where floor_id = #{floorId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.shop.model.FloorBas" >
+    update bas_floor
+    set floor_no = #{floorNo,jdbcType=VARCHAR},
+      building_id = #{buildingId,jdbcType=VARCHAR},
+      floor_name = #{floorName,jdbcType=VARCHAR},
+      floor_logo = #{floorLogo,jdbcType=VARCHAR},
+      idx = #{idx,jdbcType=INTEGER},
+      availabe = #{availabe,jdbcType=BIT},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      tour_img = #{tourImg,jdbcType=VARCHAR}
+    where floor_id = #{floorId,jdbcType=VARCHAR}
+  </update>
+    <select id="selectAllAvailableByBuilding" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT
+	<include refid="Base_Column_List" /> 
+  	FROM bas_floor 
+  	WHERE building_id = #{buildingId,jdbcType=VARCHAR} 
+  	AND availabe = 1 ORDER BY idx ASC
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from bas_floor
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap">
+  	select * from (
+  	SELECT
+	bf.floor_id,
+	bf.floor_no,
+	bu.building_name building_id,
+	concat(concat(bd.disname,bb.block_name),concat(bu.building_name,bf.floor_name)) floor_name,
+	bf.floor_logo,
+	bf.idx,
+	bf.availabe,
+	bf.operator,
+	bf.create_date,
+	bf.modify_date,
+	bf.tour_img
+    FROM
+	bas_floor bf
+    LEFT JOIN bas_building bu ON bf.building_id = bu.building_id
+    LEFT JOIN bas_block bb ON bb.block_id=bu.block_id
+    LEFT JOIN bas_district bd ON bd.district=bb.district
+    WHERE 1=1 ORDER BY bf.idx
+  	) a
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+	bf.floor_id,
+	bf.floor_no,
+	bu.building_name building_id,
+	concat(concat(bd.disname,bb.block_name),concat(bu.building_name,bf.floor_name)) floor_name,
+	bf.floor_logo,
+	bf.idx,
+	bf.availabe,
+	bf.operator,
+	bf.create_date,
+	bf.modify_date,
+	bf.tour_img
+    FROM
+	bas_floor bf
+    LEFT JOIN bas_building bu ON bf.building_id = bu.building_id
+    LEFT JOIN bas_block bb ON bb.block_id=bu.block_id
+    LEFT JOIN bas_district bd ON bd.district=bb.district
+    WHERE bf.floor_id = #{floorId,jdbcType=VARCHAR} ORDER BY bf.idx
+  </select>
+  
+  <select id="selectAllName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+	bf.floor_id,
+	bf.floor_no,
+	bu.building_name building_id,
+	concat(concat(bd.disname,bb.block_name),concat(bu.building_name,bf.floor_name)) floor_name,
+	bf.floor_logo,
+	bf.idx,
+	bf.availabe,
+	bf.operator,
+	bf.create_date,
+	bf.modify_date,
+	bf.tour_img
+    FROM
+	bas_floor bf
+    LEFT JOIN bas_building bu ON bf.building_id = bu.building_id
+    LEFT JOIN bas_block bb ON bb.block_id=bu.block_id
+    LEFT JOIN bas_district bd ON bd.district=bb.district
+    WHERE 1=1 ORDER BY bf.idx
+  </select>
+  
+  <select id="selectByAllName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from (
+    SELECT
+	bf.floor_id,
+	bf.floor_no,
+	bu.building_name building_id,
+	concat(concat(bd.disname,bb.block_name),concat(bu.building_name,bf.floor_name)) floor_name,
+	bf.floor_logo,
+	bf.idx,
+	bf.availabe,
+	bf.operator,
+	bf.create_date,
+	bf.modify_date,
+	bf.tour_img
+    FROM
+	bas_floor bf
+    LEFT JOIN bas_building bu ON bf.building_id = bu.building_id
+    LEFT JOIN bas_block bb ON bb.block_id=bu.block_id
+    LEFT JOIN bas_district bd ON bd.district=bb.district
+    WHERE 1=1 ORDER BY bf.idx
+     ) a
+    <if test="floorName !=null">
+     where a.floor_name	 like CONCAT('%',#{floorName,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
+  
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.lims.dao.BusheetlimMapper">
+	<resultMap type="com.hibo.cms.lims.model.Busheetlim" id="BaseResultMap">
+		 <id column="idx" property="idx" jdbcType="SMALLINT" />
+         <id column="limid" property="limid" jdbcType="VARCHAR" />
+         <id column="resourceid" property="resourceid" jdbcType="VARCHAR" />
+         <result column="resname" property="resname" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		limid,resourceid,idx,resname
+	</sql>
+	
+	
+	<delete id="delete" parameterType="String">
+		delete from busheetlim
+		where  limid= #{limid}
+	</delete>
+	
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from busheetlim   where 1=1 ORDER BY  idx
+	</select>
+	
+	<select id="selectBusheetlim" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from busheetlim
+		where limid = #{datalimmid}
+	</select>
+	
+	
+	
+	<delete id="deleteByBusheetlimId" parameterType="int">
+		delete from busheetlim
+		where idx = #{busheetlimid}
+	</delete>
+	
+	
+	<update id="updateByBusheetlimId" parameterType="com.hibo.cms.lims.model.Busheetlim">
+		update busheetlim 
+		<set>
+			<if test="busheetlim.limid != null">
+				limid = #{busheetlim.limid,jdbcType=VARCHAR},
+			</if>
+			<if test="busheetlim.resourceid != null">
+				resourceid = #{busheetlim.resourceid,jdbcType=VARCHAR},
+			</if>
+			<if test="busheetlim.idx != null">
+				idx = #{busheetlim.idx,jdbcType=INTEGER},
+			</if>
+			<if test="busheetlim.resname != null">
+				resname = #{busheetlim.resname,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where idx = #{oldbusheetlimid,jdbcType=INTEGER}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.hibo.cms.lims.model.BusheetlimKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from busheetlim
+    where idx = #{idx,jdbcType=SMALLINT}
+      and limid = #{limid,jdbcType=VARCHAR}
+      and resourceid = #{resourceid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.hibo.cms.lims.model.BusheetlimKey" >
+    delete from busheetlim
+    where idx = #{idx,jdbcType=SMALLINT}
+      and limid = #{limid,jdbcType=VARCHAR}
+      and resourceid = #{resourceid,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.hibo.cms.lims.model.Busheetlim" >
+    insert into busheetlim (idx, limid, resourceid, 
+      resname)
+    values (#{idx,jdbcType=SMALLINT}, #{limid,jdbcType=VARCHAR}, #{resourceid,jdbcType=VARCHAR}, 
+      #{resname,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  <insert id="insertSelective" parameterType="com.hibo.cms.lims.model.Busheetlim" >
+    insert into busheetlim
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idx != null" >
+        idx,
+      </if>
+      <if test="limid != null" >
+        limid,
+      </if>
+      <if test="resourceid != null" >
+        resourceid,
+      </if>
+      <if test="resname != null" >
+        resname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idx != null" >
+        #{idx,jdbcType=SMALLINT},
+      </if>
+      <if test="limid != null" >
+        #{limid,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceid != null" >
+        #{resourceid,jdbcType=VARCHAR},
+      </if>
+      <if test="resname != null" >
+        #{resname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.lims.model.Busheetlim" >
+    update busheetlim
+    <set >
+      <if test="record.resname != null" >
+        resname = #{record.resname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceid != null" >
+        resourceid = #{record.resourceid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idx != null" >
+        idx = #{record.idx,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where idx = #{key.idx,jdbcType=SMALLINT}
+      and limid = #{key.limid,jdbcType=VARCHAR}
+      and resourceid = #{key.resourceid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.lims.model.Busheetlim" >
+    update busheetlim
+    set resname = #{resname,jdbcType=VARCHAR}
+    where idx = #{idx,jdbcType=SMALLINT}
+      and limid = #{limid,jdbcType=VARCHAR}
+      and resourceid = #{resourceid,jdbcType=VARCHAR}
+  </update>
+	
+	
+</mapper>

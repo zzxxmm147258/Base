@@ -1,0 +1,2 @@
+1、发送GET请求时   如果参数中文乱码  在tomcat的conf/server.xml文件  修改如下 添加  URIEncoding="UTF-8"
+<Connector port="80" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" URIEncoding="UTF-8" />

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.comment.dao.CommentUserBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.comment.model.CommentUserBas" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="m_id" property="mId" jdbcType="VARCHAR" />
+    <result column="comment_userid" property="commentUserid" jdbcType="VARCHAR" />
+    <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
+    <result column="praise_num" property="praiseNum" jdbcType="INTEGER" />
+    <result column="reply_num" property="replyNum" jdbcType="INTEGER" />
+    <result column="coimg_url" property="coimgUrl" jdbcType="VARCHAR" />
+    <result column="coimg_smallurl" property="coimgSmallurl" jdbcType="VARCHAR" />
+    <result column="coimg_smaother" property="coimgSmaother" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="attr1" property="attr1" jdbcType="VARCHAR" />
+    <result column="attr2" property="attr2" jdbcType="VARCHAR" />
+    <result column="attr3" property="attr3" jdbcType="VARCHAR" />
+    <result column="attr4" property="attr4" jdbcType="VARCHAR" />
+    <result column="attr5" property="attr5" jdbcType="VARCHAR" />
+    
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="headpicture" property="headpicture" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, m_id, comment_userid, comment_content, praise_num, reply_num, coimg_url, coimg_smallurl, 
+    coimg_smaother, type, operator, create_date, modify_date, attr1, attr2, attr3, attr4, 
+    attr5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_comment_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_comment_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.comment.model.CommentUserBas" >
+    insert into bas_comment_user (id, m_id, comment_userid, 
+      comment_content, praise_num, reply_num, 
+      coimg_url, coimg_smallurl, coimg_smaother, 
+      type, operator, create_date, 
+      modify_date, attr1, attr2, 
+      attr3, attr4, attr5
+      )
+    values (#{id,jdbcType=VARCHAR}, #{mId,jdbcType=VARCHAR}, #{commentUserid,jdbcType=VARCHAR}, 
+      #{commentContent,jdbcType=VARCHAR}, #{praiseNum,jdbcType=INTEGER}, #{replyNum,jdbcType=INTEGER}, 
+      #{coimgUrl,jdbcType=VARCHAR}, #{coimgSmallurl,jdbcType=VARCHAR}, #{coimgSmaother,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{attr1,jdbcType=VARCHAR}, #{attr2,jdbcType=VARCHAR}, 
+      #{attr3,jdbcType=VARCHAR}, #{attr4,jdbcType=VARCHAR}, #{attr5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.comment.model.CommentUserBas" >
+    insert into bas_comment_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="commentUserid != null" >
+        comment_userid,
+      </if>
+      <if test="commentContent != null" >
+        comment_content,
+      </if>
+      <if test="praiseNum != null" >
+        praise_num,
+      </if>
+      <if test="replyNum != null" >
+        reply_num,
+      </if>
+      <if test="coimgUrl != null" >
+        coimg_url,
+      </if>
+      <if test="coimgSmallurl != null" >
+        coimg_smallurl,
+      </if>
+      <if test="coimgSmaother != null" >
+        coimg_smaother,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="attr1 != null" >
+        attr1,
+      </if>
+      <if test="attr2 != null" >
+        attr2,
+      </if>
+      <if test="attr3 != null" >
+        attr3,
+      </if>
+      <if test="attr4 != null" >
+        attr4,
+      </if>
+      <if test="attr5 != null" >
+        attr5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="mId != null" >
+        #{mId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentUserid != null" >
+        #{commentUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null" >
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="praiseNum != null" >
+        #{praiseNum,jdbcType=INTEGER},
+      </if>
+      <if test="replyNum != null" >
+        #{replyNum,jdbcType=INTEGER},
+      </if>
+      <if test="coimgUrl != null" >
+        #{coimgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="coimgSmallurl != null" >
+        #{coimgSmallurl,jdbcType=VARCHAR},
+      </if>
+      <if test="coimgSmaother != null" >
+        #{coimgSmaother,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attr1 != null" >
+        #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="attr4 != null" >
+        #{attr4,jdbcType=VARCHAR},
+      </if>
+      <if test="attr5 != null" >
+        #{attr5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.comment.model.CommentUserBas" >
+    update bas_comment_user
+    <set >
+      <if test="mId != null" >
+        m_id = #{mId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentUserid != null" >
+        comment_userid = #{commentUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null" >
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="praiseNum != null" >
+        praise_num = #{praiseNum,jdbcType=INTEGER},
+      </if>
+      <if test="replyNum != null" >
+        reply_num = #{replyNum,jdbcType=INTEGER},
+      </if>
+      <if test="coimgUrl != null" >
+        coimg_url = #{coimgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="coimgSmallurl != null" >
+        coimg_smallurl = #{coimgSmallurl,jdbcType=VARCHAR},
+      </if>
+      <if test="coimgSmaother != null" >
+        coimg_smaother = #{coimgSmaother,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attr1 != null" >
+        attr1 = #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        attr2 = #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        attr3 = #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="attr4 != null" >
+        attr4 = #{attr4,jdbcType=VARCHAR},
+      </if>
+      <if test="attr5 != null" >
+        attr5 = #{attr5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.comment.model.CommentUserBas" >
+    update bas_comment_user
+    set m_id = #{mId,jdbcType=VARCHAR},
+      comment_userid = #{commentUserid,jdbcType=VARCHAR},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      praise_num = #{praiseNum,jdbcType=INTEGER},
+      reply_num = #{replyNum,jdbcType=INTEGER},
+      coimg_url = #{coimgUrl,jdbcType=VARCHAR},
+      coimg_smallurl = #{coimgSmallurl,jdbcType=VARCHAR},
+      coimg_smaother = #{coimgSmaother,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      attr1 = #{attr1,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR},
+      attr3 = #{attr3,jdbcType=VARCHAR},
+      attr4 = #{attr4,jdbcType=VARCHAR},
+      attr5 = #{attr5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBymId" resultMap="BaseResultMap"  >
+    SELECT
+	bcu.id,
+	bcu.m_id,
+	bcu.comment_userid,
+	bcu.comment_content,
+	bcu.praise_num,
+	bcu.reply_num,
+	bcu.coimg_url,
+	bcu.coimg_smallurl,
+	bcu.coimg_smaother,
+	bcu.type,
+	bcu.operator,
+	bcu.create_date,
+	bcu.modify_date,
+	bcu.attr1,
+	bcu.attr2,
+	bcu.attr3,
+	bcu.attr4,
+	bcu.attr5,
+	mm.username username,
+	mmb.truename truename,
+	mmd.headpicture headpicture,
+	mmd.nickname nickname
+    FROM
+	bas_comment_user bcu
+    LEFT JOIN mem_member mm ON bcu.comment_userid = mm.userid
+    LEFT JOIN mem_basic_info mmb ON mm.userid = mmb.userid
+    LEFT JOIN mem_detailed_info mmd ON mm.userid = mmd.userid
+    WHERE m_id = #{mId,jdbcType=VARCHAR}
+    ORDER BY create_date
+    limit #{page},#{limit}
+  </select>
+  
+</mapper>

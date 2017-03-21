@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.comment.dao.CommentBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.comment.model.Comment" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="conunt" property="conunt" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="headpicture" property="headpicture" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    
+    <result column="busername" property="busername" jdbcType="VARCHAR" />
+    <result column="btruename" property="btruename" jdbcType="VARCHAR" />
+    <result column="bheadpicture" property="bheadpicture" jdbcType="VARCHAR" />
+    <result column="bnickname" property="bnickname" jdbcType="VARCHAR" />
+    <result column="buserid" property="buserid" jdbcType="VARCHAR" />    
+    
+    <result column="praiseNum" property="praiseNum" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    
+    <result column="coimg_url" property="coimgUrl" jdbcType="VARCHAR" />
+    <result column="coimg_smallurl" property="coimgSmallurl" jdbcType="VARCHAR" />
+    <result column="coimg_smaother" property="coimgSmaother" jdbcType="VARCHAR" />
+    
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="isRead" property="isRead" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <select id="selectBymId" resultMap="BaseResultMap"  >
+  select * from (
+    SELECT
+	bcu.id,
+	bcu.comment_content conunt,
+	bcu.comment_userid userid,
+	 CONCAT(bcu.reply_num，'') num,
+	bcu.create_date,
+	bcu.coimg_url,
+    bcu.coimg_smallurl,
+    bcu.coimg_smaother,
+	mm.username username,
+	mmb.truename truename,
+	mmd.headpicture headpicture,
+	mmd.nickname nickname,
+	m.username busername,
+	m.userid buserid,
+	mb.truename btruename,
+	md.headpicture bheadpicture,
+	md.nickname bnickname
+    FROM
+	bas_comment_user bcu
+    LEFT JOIN mem_member mm ON bcu.comment_userid = mm.userid
+    LEFT JOIN mem_basic_info mmb ON mm.userid = mmb.userid
+    LEFT JOIN mem_detailed_info mmd ON mm.userid = mmd.userid
+    LEFT JOIN mem_member m ON bcu.attr5 = m.userid
+    LEFT JOIN mem_basic_info mb ON m.userid = mb.userid
+    LEFT JOIN mem_detailed_info md ON m.userid = md.userid
+    WHERE
+	bcu.m_id = #{mId,jdbcType=VARCHAR}
+	<if test="type != null" >
+     and   bcu.type = #{type,jdbcType=VARCHAR},
+    </if>
+    UNION
+	SELECT
+		bru.id,
+		bru.reply_content conunt,
+		bru.reply_userid userid,
+		bru.attr1 num,
+		bru.create_date,
+		bru.reimg_url coimg_url,
+        bru.reimg_smallurl coimg_smallurl,
+        bru.reimg_smaother coimg_smaother,
+		mm.username username,
+		mmb.truename truename,
+		mmd.headpicture headpicture,
+		mmd.nickname nickname,
+		m.username busername,
+		m.userid buserid,
+		mb.truename btruename,
+		md.headpicture bheadpicture,
+		md.nickname bnickname
+	FROM
+		bas_reply_user bru
+	LEFT JOIN mem_member mm ON bru.reply_userid = mm.userid
+	LEFT JOIN mem_basic_info mmb ON mm.userid = mmb.userid
+	LEFT JOIN mem_detailed_info mmd ON mm.userid = mmd.userid
+	LEFT JOIN mem_member m ON bru.comment_userid = m.userid
+	LEFT JOIN mem_basic_info mb ON m.userid = mb.userid
+	LEFT JOIN mem_detailed_info md ON m.userid = md.userid
+	WHERE
+		bru.m_id = #{mId,jdbcType=VARCHAR}
+	    <if test="type != null" >
+         and   bru.type = #{type,jdbcType=VARCHAR},
+        </if>
+   ) a 
+    ORDER BY a.create_date desc
+  </select>
+  
+  <select id="selectByName" resultMap="BaseResultMap"  parameterType="java.lang.String">
+  select * from (
+    SELECT
+	bcu.id,
+	bcu.comment_content conunt,
+	bcu.comment_userid userid,
+	 CONCAT(bcu.reply_num，'') num,
+	bcu.create_date,
+	mm.username username,
+	mmb.truename truename,
+	mmd.headpicture headpicture,
+	mmd.nickname nickname,
+	m.username busername,
+	m.userid buserid,
+	mb.truename btruename,
+	md.headpicture bheadpicture,
+	md.nickname bnickname
+    FROM
+	bas_comment_user bcu
+    LEFT JOIN mem_member mm ON bcu.comment_userid = mm.userid
+    LEFT JOIN mem_basic_info mmb ON mm.userid = mmb.userid
+    LEFT JOIN mem_detailed_info mmd ON mm.userid = mmd.userid
+    LEFT JOIN mem_member m ON bcu.attr5 = m.userid
+    LEFT JOIN mem_basic_info mb ON m.userid = mb.userid
+    LEFT JOIN mem_detailed_info md ON m.userid = md.userid
+    WHERE
+	bcu.id = #{id,jdbcType=VARCHAR}
+    UNION
+	SELECT
+		bru.id,
+		bru.reply_content conunt,
+		bru.reply_userid userid,
+		bru.attr1 num,
+		bru.create_date,
+		mm.username username,
+		mmb.truename truename,
+		mmd.headpicture headpicture,
+		mmd.nickname nickname,
+		m.username busername,
+		m.userid buserid,
+		mb.truename btruename,
+		md.headpicture bheadpicture,
+		md.nickname bnickname
+	FROM
+		bas_reply_user bru
+	LEFT JOIN mem_member mm ON bru.reply_userid = mm.userid
+	LEFT JOIN mem_basic_info mmb ON mm.userid = mmb.userid
+	LEFT JOIN mem_detailed_info mmd ON mm.userid = mmd.userid
+	LEFT JOIN mem_member m ON bru.comment_userid = m.userid
+	LEFT JOIN mem_basic_info mb ON m.userid = mb.userid
+	LEFT JOIN mem_detailed_info md ON m.userid = md.userid
+	WHERE
+		bru.id = #{id,jdbcType=VARCHAR}
+   ) a 
+    ORDER BY a.create_date desc
+  </select>
+  
+  
+  <select id="selectByUserId" resultMap="BaseResultMap"  >
+	SELECT
+		bru.id,
+		bru.reply_content conunt,
+		bru.reply_userid userid,
+		bru.attr1 num,
+		bru.create_date,
+		bru.reimg_url coimg_url,
+        bru.reimg_smallurl coimg_smallurl,
+        bru.reimg_smaother coimg_smaother,
+        bru.type type,
+        bru.attr1 isRead,
+		mm.username username,
+		mmb.truename truename,
+		mmd.headpicture headpicture,
+		mmd.nickname nickname,
+		m.username busername,
+		m.userid buserid,
+		mb.truename btruename,
+		md.headpicture bheadpicture,
+		md.nickname bnickname
+	FROM
+		bas_reply_user bru
+	LEFT JOIN mem_member mm ON bru.reply_userid = mm.userid
+	LEFT JOIN mem_basic_info mmb ON mm.userid = mmb.userid
+	LEFT JOIN mem_detailed_info mmd ON mm.userid = mmd.userid
+	LEFT JOIN mem_member m ON bru.comment_userid = m.userid
+	LEFT JOIN mem_basic_info mb ON m.userid = mb.userid
+	LEFT JOIN mem_detailed_info md ON m.userid = md.userid
+	WHERE
+		bru.comment_userid = #{userId,jdbcType=VARCHAR}
+		and bru.attr2='1'
+    ORDER BY bru.create_date desc
+  </select>
+  
+</mapper>

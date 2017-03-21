@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.shop.dao.ShopBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.shop.model.ShopBas" >
+    <id column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="shopname" property="shopname" jdbcType="VARCHAR" />
+    <result column="enshopname" property="enshopname" jdbcType="VARCHAR" />
+    <result column="floor_id" property="floorId" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="disname" property="disename" jdbcType="VARCHAR" />
+    <result column="shop_address" property="shopAddress" jdbcType="VARCHAR" />
+    <result column="shop_type" property="shopType" jdbcType="VARCHAR" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+     <result column="shop_logo" property="shopLogo" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="nice" property="nice" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="TINYINT" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="per_consume" property="perConsume" jdbcType="VARCHAR" />
+    <result column="images" property="images" jdbcType="VARCHAR" />
+    <result column="cha_icon" property="chaIcon" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="reply_no" property="replyNo" jdbcType="VARCHAR" />
+    <result column="district_index" property="districtIndex" jdbcType="INTEGER" />
+    <result column="block_index" property="blockIndex" jdbcType="INTEGER" />
+    <result column="building_index" property="buildingIndex" jdbcType="INTEGER" />
+    <result column="floor_index" property="floorIndex" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    shop_id, shopname,enshopname, floor_id, shop_address,shop_type, availabe, operator,shop_logo, 
+    create_date, modify_date,longitude,latitude,nice,sort,phone,per_consume,images,
+    cha_icon,reply_no,district_index,block_index,building_index,floor_index
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_shop
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_shop
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.shop.model.ShopBas" >
+    insert into bas_shop (shop_id, shopname,enshopname, floor_id, 
+      shop_address,shop_type, availabe, operator, shop_logo,
+      create_date, modify_date,longitude,latitude,nice,sort,phone,
+      per_consume,images,cha_icon,reply_no,district_index,block_index,building_index,floors,floor_index)
+    values (#{shopId,jdbcType=VARCHAR}, #{shopname,jdbcType=VARCHAR},#{enshopname,jdbcType=VARCHAR}, #{floorId,jdbcType=VARCHAR}, 
+      #{shopAddress,jdbcType=VARCHAR}, #{shopType,jdbcType=VARCHAR},
+      #{availabe,jdbcType=BIT}, #{operator,jdbcType=VARCHAR}, #{shopLogo,jdbcType=VARCHAR},
+      #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+      #{longitude,jdbcType=VARCHAR},#{latitude,jdbcType=VARCHAR},#{nice,jdbcType=BIT},
+      #{sort,jdbcType=BIT},#{phone,jdbcType=VARCHAR},
+      #{perConsume,jdbcType=VARCHAR},#{images,jdbcType=VARCHAR},#{chaIcon,jdbcType=VARCHAR},
+      #{replyNo,jdbcType=VARCHAR},#{districtIndex,jdbcType=BIT},#{blockIndex,jdbcType=VARCHAR},
+      #{buildingIndex,jdbcType=BIT},#{floorIndex,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.shop.model.ShopBas" >
+    insert into bas_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="shopname != null" >
+        shopname,
+      </if>
+      <if test="enshopname != null" >
+        enshopname,
+      </if>
+      <if test="floorId != null" >
+        floor_id,
+      </if>
+      <if test="shopAddress != null" >
+        shop_address,
+      </if>
+      <if test="shopType != null" >
+        shop_type,
+      </if>
+      <if test="availabe != null" >
+        availabe,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="shopLogo != null" >
+        shop_logo,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="nice != null" >
+        nice,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="perConsume != null" >
+        per_consume,
+      </if>
+      <if test="images != null" >
+        images,
+      </if>
+      <if test="chaIcon != null" >
+        cha_icon,
+      </if>
+      <if test="replyNo != null" >
+        reply_no,
+      </if>
+      <if test="districtIndex != null" >
+        district_index,
+      </if>
+      <if test="blockIndex != null" >
+        block_index,
+      </if>
+      <if test="buildingIndex != null" >
+        building_index,
+      </if>
+      <if test="floorIndex != null" >
+        floor_index,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopname != null" >
+        #{shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="enshopname != null" >
+        #{enshopname,jdbcType=VARCHAR},
+      </if>
+      <if test="floorId != null" >
+        #{floorId,jdbcType=VARCHAR},
+      </if>
+       <if test="shopAddress != null" >
+        #{shopAddress,jdbcType=VARCHAR},
+      </if>
+       <if test="shopType != null" >
+        #{shopType,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="shopLogo != null" >
+        #{shopLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="nice != null" >
+        #{nice,jdbcType=BIT},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=BIT},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="perConsume != null" >
+        #{perConsume,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null" >
+        #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="chaIcon != null" >
+        #{chaIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="replyNo != null" >
+        #{replyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="districtIndex != null" >
+        #{districtIndex,jdbcType=BIT},
+      </if>
+      <if test="blockIndex != null" >
+        #{blockIndex,jdbcType=BIT},
+      </if>
+      <if test="buildingIndex != null" >
+        #{buildingIndex,jdbcType=BIT},
+      </if>
+      <if test="floorIndex != null" >
+        #{floorIndex,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.shop.model.ShopBas" >
+    update bas_shop
+    <set >
+      <if test="shopname != null" >
+        shopname = #{shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="enshopname != null" >
+        enshopname = #{enshopname,jdbcType=VARCHAR},
+      </if>
+      <if test="floorId != null" >
+        floor_id = #{floorId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopAddress != null" >
+        shop_address = #{shopAddress,jdbcType=VARCHAR},
+      </if>
+       <if test="shopType != null" >
+        shop_type = #{shopType,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        availabe = #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="shopLogo != null" >
+        shop_logo = #{shopLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+       <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="nice != null" >
+        nice = #{nice,jdbcType=BIT},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=BIT},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="perConsume != null" >
+        per_consume = #{perConsume,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null" >
+        images = #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="chaIcon != null" >
+        cha_icon = #{chaIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="replyNo != null" >
+        reply_no = #{replyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="districtIndex != null" >
+        district_index = #{districtIndex,jdbcType=BIT},
+      </if>
+      <if test="blockIndex != null" >
+        block_index = #{blockIndex,jdbcType=BIT},
+      </if>
+      <if test="buildingIndex != null" >
+        building_index = #{buildingIndex,jdbcType=BIT},
+      </if>
+      <if test="floorIndex != null" >
+        floor_index = #{floorIndex,jdbcType=BIT},
+      </if>
+    </set>
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.shop.model.ShopBas" >
+    update bas_shop
+    set shopname = #{shopname,jdbcType=VARCHAR},
+      enshopname = #{enshopname,jdbcType=VARCHAR},
+      floor_id = #{floorId,jdbcType=VARCHAR},
+      shop_address = #{shopAddress,jdbcType=VARCHAR},
+      shop_type = #{shopType,jdbcType=VARCHAR},
+      availabe = #{availabe,jdbcType=BIT},
+      operator = #{operator,jdbcType=VARCHAR},
+      shop_logo = #{shopLogo,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      nice = #{nice,jdbcType=BIT},
+      sort = #{sort,jdbcType=BIT},
+      phone = #{phone,jdbcType=VARCHAR},
+      per_consume = #{perConsume,jdbcType=VARCHAR},
+      images = #{images,jdbcType=VARCHAR},
+      cha_icon = #{chaIcon,jdbcType=VARCHAR},
+      reply_no = #{replyNo,jdbcType=VARCHAR},
+      district_index = #{districtIndex,jdbcType=BIT},
+      block_index = #{blockIndex,jdbcType=BIT},
+      building_index = #{buildingIndex,jdbcType=BIT},
+      floor_index = #{floorIndex,jdbcType=BIT}
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap">
+  	SELECT
+		bs.shop_id,bs.shopname,bs.enshopname,bs.images,bs.shop_type,
+		bs.sort,bd.idx bd_idx,bbk.idx bbk_idx
+    FROM
+		bas_shop bs
+    	INNER JOIN bas_floor bf  ON bs.floor_id = bf.floor_id 
+    		AND bs.availabe = 1 AND bf.availabe =1
+    		<if test="shopCondition.floorNo != null and shopCondition.floorNo != ''">
+				AND bf.floor_no='${shopCondition.floorNo}' 
+    		</if>
+    		<if test="shopCondition.shopname != null and shopCondition.shopname != ''">
+				AND bs.shopname LIKE '%${shopCondition.shopname}%'  
+    		</if>
+    	INNER JOIN bas_building bbg ON bf.building_id=bbg.building_id 
+			AND bbg.availabe = 1 
+			<if test="shopCondition.buildingNo != null and shopCondition.buildingNo != ''">
+				AND bbg.building_no = '${shopCondition.buildingNo}'   
+    		</if>
+    	INNER JOIN bas_block bbk ON bbg.block_id=bbk.block_id 
+			AND bbk.availabe = 1 
+			<if test="shopCondition.blockNo != null and shopCondition.blockNo != ''">
+				AND bbk.block_no='${shopCondition.blockNo}'   
+    		</if>
+    	INNER JOIN bas_district bd ON bbk.district=bd.district 
+			AND bd.availabe = 1 
+			<if test="shopCondition.district != null and shopCondition.district != ''">
+				AND bd.district='${shopCondition.district}' 
+    		</if>
+    		<if test="shopCondition.city != null and shopCondition.city != ''">
+				AND bd.city LIKE '%${shopCondition.city}%'
+    		</if>
+	ORDER BY 
+    	sort,bd_idx,bbk_idx 
+    	ASC
+  </select>
+  
+   <select id="selectAll" resultMap="BaseResultMap">
+  	SELECT
+	bs.shop_id,
+	bs.shopname,
+	bs.enshopname,
+	CONCAT( CONCAT(bd.disname, bb.block_name),  CONCAT(bu.building_name, bf.floor_name)) floor_id,
+	bs.shop_address,
+	bs.shop_type,
+	bs.availabe,
+	bs.shop_logo,
+	bs.longitude,
+	bs.latitude,
+	bs.nice,
+	bs.sort,
+	bs.phone,
+	bs.per_consume,
+	bs.images,
+	bs.cha_icon,
+	bs.reply_no,
+	bs.district_index,
+	bs.block_index,
+	bs.building_index,
+	bs.floor_index,
+	bs.operator,
+	bs.create_date,
+	bs.modify_date
+    FROM
+	bas_shop bs
+    LEFT JOIN bas_floor bf ON bs.floor_id = bf.floor_id
+    LEFT JOIN bas_building bu ON bf.building_id = bu.building_id
+    LEFT JOIN bas_block bb ON bb.block_id = bu.block_id
+    LEFT JOIN bas_district bd ON bd.district = bb.district
+    WHERE
+	1 = 1
+    ORDER BY
+    bs.sort,
+	bs.district_index,
+	bs.block_index,
+	bs.building_index,
+	bs.floor_index
+	ASC
+  </select>
+  
+   <select id="selectByCity" resultMap="BaseResultMap">
+   select
+	bs.shop_id,
+	bs.shopname,
+	bs.enshopname,
+	bs.shop_address,
+	bs.shop_type,
+	bs.shop_logo,
+	bs.longitude,
+    bs.latitude,
+    bs.nice,
+    bs.sort,
+    bs.phone,
+    bs.per_consume,
+    bs.images,
+    bs.cha_icon,
+    bs.reply_no,
+    bs.district_index,
+    bs.block_index,
+    bs.building_index,
+    bs.floor_index
+    FROM
+	bas_shop bs
+    inner join bas_floor bf  on bs.floor_id = bf.floor_id and bs.availabe=1 and bf.availabe=1 
+    <if test="shopType !=null and shopType != ''">
+	    and bs.shop_type=#{shopType,jdbcType=VARCHAR}
+	</if>
+    inner join bas_building bbg on bf.building_id=bbg.building_id and bbg.availabe=1 
+    inner join bas_block bbk on bbg.block_id=bbk.block_id and bbk.availabe=1 
+    inner join bas_district bd on bbk.district=bd.district and bd.availabe=1 
+	<if test="city !=null and city != ''">
+	   and  bd.city like CONCAT('%',#{city,jdbcType=VARCHAR},'%')
+	</if>
+	order by  bs.nice desc
+   </select>
+   
+   <select id="selectCity" resultMap="BaseResultMap">
+   select
+	bs.shop_id,
+	bs.shopname,
+	bs.enshopname,
+	bs.shop_address,
+	bs.shop_type,
+	bs.shop_logo,
+	bs.longitude,
+    bs.latitude,
+    bs.nice,
+    bs.sort,
+    bs.phone,
+    bs.per_consume,
+    bs.images,
+    bs.cha_icon,
+    bs.reply_no,
+    bs.district_index,
+    bs.block_index,
+    bs.building_index,
+    bs.floor_index
+    FROM
+	bas_shop bs
+    inner join bas_floor bf  on bs.floor_id = bf.floor_id and bs.availabe=1 and bf.availabe=1 
+    inner join bas_building bbg on bf.building_id=bbg.building_id and bbg.availabe=1 
+    inner join bas_block bbk on bbg.block_id=bbk.block_id and bbk.availabe=1 
+    inner join bas_district bd on bbk.district=bd.district and bd.availabe=1 
+	where 1=1
+	 <if test="city != null and city != '' ">
+	 and bd.city like #{city,jdbcType=VARCHAR}
+	 </if>
+	order by  bs.nice desc
+   </select>
+  
+   <select id="selectFuzzy"  resultMap="BaseResultMap">
+  	select * from (
+  	SELECT
+	bs.shop_id,
+	bs.shopname,
+	bs.enshopname,
+	CONCAT( CONCAT(bd.disname, bb.block_name),  CONCAT(bu.building_name, bf.floor_name)) floor_id,
+	bs.shop_address,
+	bs.shop_type,
+	bs.availabe,
+	bs.shop_logo,
+	bs.longitude,
+	bs.latitude,
+	bs.nice,
+	bs.sort,
+	bs.phone,
+	bs.per_consume,
+	bs.images,
+	bs.cha_icon,
+	bs.reply_no,
+	bs.district_index,
+	bs.block_index,
+	bs.building_index,
+	bs.floor_index,
+	bs.operator,
+	bs.create_date,
+	bs.modify_date
+    FROM
+	bas_shop bs
+    LEFT JOIN bas_floor bf ON bs.floor_id = bf.floor_id
+    LEFT JOIN bas_building bu ON bf.building_id = bu.building_id
+    LEFT JOIN bas_block bb ON bb.block_id = bu.block_id
+    LEFT JOIN bas_district bd ON bd.district = bb.district
+    WHERE
+	1 = 1
+    ORDER BY
+    bs.sort,
+	bs.district_index,
+	bs.block_index,
+	bs.building_index,
+	bs.floor_index
+  	) a
+    <if test="shopname != null and shopname != '' ">
+		where  a.shopname like CONCAT('%',#{shopname,jdbcType=VARCHAR},'%')
+   </if>
+  </select>
+  
+  <update id="update" parameterType="com.hibo.cms.shop.model.ShopBas" >
+    update bas_shop
+    <set >
+       <if test="record.shopId != null" >
+        shop_id = #{record.shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopname != null" >
+        shopname = #{record.shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enshopname != null" >
+        enshopname = #{record.enshopname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorId != null" >
+        floor_id = #{record.floorId,jdbcType=VARCHAR},
+      </if>
+       <if test="record.shopAddress != null" >
+        shop_address = #{record.shopAddress,jdbcType=VARCHAR},
+      </if>
+       <if test="record.shopType != null" >
+        shop_type = #{record.shopType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.availabe != null" >
+        availabe = #{record.availabe,jdbcType=BIT},
+      </if>
+      <if test="record.operator != null" >
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+       <if test="record.shopLogo != null" >
+        shop_logo = #{record.shopLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nice != null" >
+        nice = #{record.nice,jdbcType=BIT},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=BIT},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.perConsume != null" >
+        per_consume = #{record.perConsume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.images != null" >
+        images = #{record.images,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chaIcon != null" >
+        cha_icon = #{record.chaIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyNo != null" >
+        reply_no = #{record.replyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="districtIndex != null" >
+        district_index = #{districtIndex,jdbcType=BIT},
+      </if>
+      <if test="blockIndex != null" >
+        block_index = #{blockIndex,jdbcType=BIT},
+      </if>
+      <if test="buildingIndex != null" >
+        building_index = #{buildingIndex,jdbcType=BIT},
+      </if>
+      <if test="floorIndex != null" >
+        floor_index = #{floorIndex,jdbcType=BIT},
+      </if>
+    </set>
+    where shop_id = #{key.shopId,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectShopTypeCity" resultType="String">
+  	SELECT DISTINCT
+	bd.city
+	FROM
+	bas_shop bs
+    inner join bas_floor bf  on bs.floor_id = bf.floor_id and bs.availabe=1 and bf.availabe=1 
+    <if test="shoptype !=null and shoptype != ''">
+	    and bs.shop_type like CONCAT('%',#{shoptype,jdbcType=VARCHAR},'%')
+	</if>
+    inner join bas_building bbg on bf.building_id=bbg.building_id and bbg.availabe=1 
+    inner join bas_block bbk on bbg.block_id=bbk.block_id and bbk.availabe=1 
+    inner join bas_district bd on bbk.district=bd.district and bd.availabe=1 
+  </select>
+  
+   <select id="selectByUserId"  resultMap="BaseResultMap">
+  	SELECT
+	bs.*
+    FROM
+	bas_shop bs
+    INNER JOIN bas_user_shop us ON bs.shop_id = us.shop_id
+    where us.userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByDetail" resultMap="BaseResultMap">
+    SELECT  distinct
+	bs.shop_id,
+	bs.shopname,
+	bs.enshopname,
+	bs.floor_id,
+	bs.shop_address,
+	bs.shop_type,
+	bs.availabe,
+	bs.operator,
+	bs.shop_logo,
+	bs.create_date,
+	bs.modify_date,
+	bs.longitude,
+    bs.latitude,
+    bs.nice,
+    bs.sort,
+    bs.phone,
+    bs.per_consume,
+    bs.images,
+    bs.cha_icon,
+    bs.reply_no,
+    ba.province,
+    bd.city,
+    bs.district_index,
+    bs.block_index,
+    bs.floor_index,
+    building_index
+    FROM
+	bas_shop bs
+	inner join bas_floor bf  on bs.floor_id = bf.floor_id and bs.availabe=1 and bf.availabe=1 and bs.shop_id=#{shopId,jdbcType=VARCHAR}
+    inner join bas_building bbg on bf.building_id=bbg.building_id and bbg.availabe=1 
+    inner join bas_block bbk on bbg.block_id=bbk.block_id and bbk.availabe=1 
+    inner join bas_district bd on bbk.district=bd.district and bd.availabe=1 
+    inner join bas_area ba ON ba.city=bd.city
+   </select>
+   
+   <select id="selectByPage" resultMap="BaseResultMap">
+  	select * from (
+  	SELECT
+	bs.shop_id,
+	bs.shopname,
+	bs.enshopname,
+	concat(concat(bd.disname,
+                 bb.block_name),
+                 concat(bu.building_name,
+                 bf.floor_name)) floor_id,
+	bs.shop_address,
+	bs.shop_type,
+	bs.availabe,
+	bs.shop_logo,
+	bs.longitude,
+	bs.latitude,
+	bs.nice,
+	bs.sort,
+	bs.phone,
+	bs.per_consume,
+	bs.images,
+	bs.cha_icon,
+	bs.reply_no,
+	bs.district_index,
+	bs.block_index,
+	bs.building_index,
+	bs.floor_index,
+	bs.operator,
+	bs.create_date,
+	bs.modify_date
+    FROM
+	bas_shop bs
+    LEFT JOIN bas_floor bf ON bs.floor_id = bf.floor_id
+    LEFT JOIN bas_building bu ON bf.building_id = bu.building_id
+    LEFT JOIN bas_block bb ON bb.block_id = bu.block_id
+    LEFT JOIN bas_district bd ON bd.district = bb.district
+    WHERE
+	1 = 1
+    ORDER BY
+    bs.sort,
+	bs.district_index,
+	bs.block_index,
+	bs.building_index,
+	bs.floor_index
+  	) a
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectAllAvailableByFloor" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_shop
+    where floor_id = #{floorIdd,jdbcType=VARCHAR}
+    AND availabe = '1' 
+    ORDER BY 
+    sort,
+	district_index,
+	block_index,
+	building_index,
+	floor_index
+  </select>
+  
+  
+  <select id="selectByShop" resultMap="BaseResultMap">
+  	SELECT
+	bs.shop_id,
+	bs.shopname,
+	bs.enshopname,
+	concat(concat(bd.disname,
+                 bb.block_name),
+                 concat(bu.building_name,
+                 bf.floor_name)) floor_id,
+	bs.shop_address,
+	bs.shop_type,
+	bs.availabe,
+	bs.shop_logo,
+	bs.longitude,
+	bs.latitude,
+	bs.nice,
+	bs.sort,
+	bs.phone,
+	bs.per_consume,
+	bs.images,
+	bs.cha_icon,
+	bs.reply_no,
+	bs.district_index,
+	bs.block_index,
+	bs.building_index,
+	bs.floor_index,
+	bs.operator,
+	bs.create_date,
+	bs.modify_date
+    FROM
+	bas_shop bs
+    LEFT JOIN bas_floor bf ON bs.floor_id = bf.floor_id
+    LEFT JOIN bas_building bu ON bf.building_id = bu.building_id
+    LEFT JOIN bas_block bb ON bb.block_id = bu.block_id
+    LEFT JOIN bas_district bd ON bd.district = bb.district
+    WHERE bs.availabe = '1' 
+    <if test="district != null and district != '' " >
+      and  bd.district = #{district,jdbcType=VARCHAR},
+    </if>
+    <if test="disname != null and disname != '' " >
+      and  bd.disname = #{disname,jdbcType=VARCHAR},
+    </if>
+    <if test="city != null and city != '' " >
+      and  bd.city = #{city,jdbcType=VARCHAR},
+    </if>
+    <if test="blockNo != null and blockNo != '' " >
+      and  bb.block_no = #{blockNo,jdbcType=VARCHAR},
+    </if>
+    <if test="blockName != null and blockName != '' " >
+      and  bb.block_name = #{blockName,jdbcType=VARCHAR},
+    </if>
+    <if test="buildingNo != null and buildingNo != '' " >
+      and  bu.building_no = #{buildingNo,jdbcType=VARCHAR},
+    </if>
+    <if test="buildingName != null and buildingName != '' " >
+      and  bu.building_name = #{buildingName,jdbcType=VARCHAR},
+    </if>
+    <if test="floorNo != null and floorNo != '' " >
+      and  bf.floor_no = #{floorNo,jdbcType=VARCHAR},
+    </if>
+    <if test="floorName != null and floorName != '' " >
+      and  bf.floor_name = #{floorName,jdbcType=VARCHAR},
+    </if>
+    <if test="shopAddress != null and shopAddress != '' " >
+      and  bs.shop_address = #{shopAddress,jdbcType=VARCHAR},
+    </if>
+    <if test="shopType != null and shopType != '' " >
+      and  bs.shop_type = #{shopType,jdbcType=VARCHAR},
+    </if>
+    <if test="shopname != null and shopname != '' " >
+      and  bs.shopname = #{shopname,jdbcType=VARCHAR},
+    </if>
+    ORDER BY
+    bs.sort,
+	bs.district_index,
+	bs.block_index,
+	bs.building_index,
+	bs.floor_index
+  </select>
+  
+</mapper>

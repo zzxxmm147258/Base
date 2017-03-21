@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.user.dao.OperationcodeMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.user.model.Operationcode" >
+    <id column="operaid" property="operaid" jdbcType="VARCHAR" />
+    <result column="operaname" property="operaname" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    operaid, operaname, remark, operator, createDate, modifyDate
+  </sql>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_operationcode
+    where operaid = #{operaid,jdbcType=VARCHAR}
+  </select>
+   <select id="selectAll" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from bas_operationcode
+    order by createDate
+  </select>
+  <select id="selectFuzzy" parameterType="com.hibo.cms.user.model.User" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from bas_operationcode
+     <where>
+	   	<if test="operaid !=null and operaid != ''">
+	   		and operaid like '%${operaid}%'
+	   	</if>
+	   	<if test="operaname !=null and operaname != ''">
+	   		and operaname like '%${operaname}%'
+	   	</if>
+    </where>
+  </select>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from bas_operationcode
+    where operaid = #{operaid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.user.model.Operationcode" >
+    insert into bas_operationcode
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operaid != null" >
+        operaid,
+      </if>
+      <if test="operaname != null" >
+        operaname,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operaid != null" >
+        #{operaid,jdbcType=VARCHAR},
+      </if>
+      <if test="operaname != null" >
+        #{operaname,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.hibo.cms.user.model.Operationcode" >
+    update bas_operationcode
+    <set>
+    	<if test="operationcode.operaid != null" >
+    	operaid = #{operationcode.operaid,jdbcType=VARCHAR},
+    	</if>
+      <if test="operationcode.operaname != null" >
+        operaname = #{operationcode.operaname,jdbcType=VARCHAR},
+      </if>
+      <if test="operationcode.remark != null" >
+        remark = #{operationcode.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="operationcode.operator != null" >
+        operator = #{operationcode.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operationcode.modifyDate != null" >
+        modifyDate = #{operationcode.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where operaid = #{oldoperaid,jdbcType=VARCHAR}
+  </update>
+<!--   <update id="updateByPrimaryKey" parameterType="com.hibo.cms.user.model.Operationcode" >
+    update bas_operationcode
+    set operaname = #{operaname,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      modifyDate = #{modifyDate,jdbcType=TIMESTAMP}
+    where operaid = #{operaid,jdbcType=VARCHAR}
+  </update>
+    <insert id="insert" parameterType="com.hibo.cms.user.model.Operationcode" >
+    insert into bas_operationcode (operaid, operaname, remark, 
+      operator, createDate, modifyDate
+      )
+    values (#{operaid,jdbcType=VARCHAR}, #{operaname,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}
+      )
+  </insert> -->
+</mapper>

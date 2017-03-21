@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.user.dao.RoleMenuMapper" >
+	<resultMap id="RoleResultMap" type="com.hibo.cms.user.model.Role" >
+    <id column="roleid" property="roleid" jdbcType="VARCHAR" />
+    <result column="rotype" property="rotype" jdbcType="VARCHAR" />
+    <result column="rolename" property="rolename" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="MenuResultMap" type="com.hibo.cms.user.model.Menu">
+		<id column="menuid" property="menuid" jdbcType="VARCHAR" />
+		<result column="sysid" property="sysid" jdbcType="VARCHAR" />
+		<result column="menuname" property="menuname" jdbcType="VARCHAR" />
+		<result column="pmenuid" property="pmenuid" jdbcType="VARCHAR" />
+		<result column="level" property="level" jdbcType="INTEGER" />
+		<result column="uri" property="uri" jdbcType="VARCHAR" />
+		<result column="availabe" property="availabe" jdbcType="BIT" />
+	</resultMap>
+  <resultMap id="BaseResultMap" type="com.hibo.cms.user.model.RoleMenuKey" >
+    <id column="menuid" property="menuid" jdbcType="VARCHAR" />
+    <id column="roleid" property="roleid" jdbcType="VARCHAR" />
+    <result column="rolename" property="rolename" jdbcType="VARCHAR" />
+    <result column="menuname" property="menuname" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+    <!-- 将roleMenuKey的role属性映射到RoleResultMap -->
+    <association property="role" javaType="com.hibo.cms.user.model.Role" resultMap="RoleResultMap"/>
+    <!-- 将roleMenuKey的user属性映射到UserResultMap -->
+    <association property="menu" javaType="com.hibo.cms.user.model.Menu" resultMap="MenuResultMap"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+  	roleid,menuid,rolename,menuname,operator,availabe,createDate,modifyDate
+  </sql>
+  <select id="select" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	FROM role_menu
+  	where 
+  	roleid = #{roleid,jdbcType=VARCHAR}
+  	and menuid = #{menuid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	SELECT 
+  	<include refid="Base_Column_List"/>
+  	FROM role_menu
+  </select>
+  <select id="selectMenuIdsByRoleId" parameterType="String" resultType="String">
+  	select menuid 
+  	from role_menu
+  	where roleid = #{roleid}
+  </select>
+  <select id="selectByCondition" parameterType="com.hibo.cms.user.model.RoleMenuKey" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"></include>
+  	FROM role_menu
+  	<where>
+  		<if test="roleid != null and roleid != ''">
+  			and roleid = #{roleid,jdbcType=VARCHAR}
+  		</if>
+  		<if test="menuid != null and menuid != ''">
+  			and menuid = #{menuid,jdbcType=VARCHAR}
+  		</if>
+  	</where>
+  </select>
+   <delete id="deleteMenuIdByRoleId" parameterType="String" >
+  	delete from role_menu
+  	where roleid = #{roleid}
+  </delete>
+  <delete id="deleteByMenuId" parameterType="String">
+  	delete from role_menu
+  	where roleid = #{menuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="com.hibo.cms.user.model.RoleMenuKey" >
+    delete from role_menu
+    where menuid = #{menuid,jdbcType=VARCHAR}
+      and roleid = #{roleid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.user.model.RoleMenuKey" >
+    insert into role_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuid != null" >
+        menuid,
+      </if>
+      <if test="roleid != null" >
+        roleid,
+      </if>
+      <if test="rolename != null" >
+        rolename,
+      </if>
+       <if test="menuname != null" >
+        menuname,
+      </if>
+      <if test="availabe != null" >
+        availabe,
+      </if>
+       <if test="operator != null" >
+        operator,
+      </if>
+       <if test="createDate != null" >
+        createDate,
+      </if>
+       <if test="modifyDate != null" >
+        modifyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuid != null" >
+        #{menuid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="rolename != null" >
+        #{rolename,jdbcType=VARCHAR},
+      </if>
+       <if test="menuname != null" >
+        #{menuname,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        #{availabe,jdbcType=VARCHAR},
+      </if>
+       <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+       <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+       <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertList" >
+  	insert into role_menu (roleid, menuid)
+  	values
+  	<foreach collection="list" item="item" separator=",">
+  	(#{item.roleid},#{item.menuid})
+  	</foreach>
+  </insert>
+  <update id="update">
+    update role_menu
+    <set >
+      <if test="rm.roleid != null" >
+        roleid = #{rm.roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="rm.menuid != null" >
+        menuid = #{rm.menuid,jdbcType=VARCHAR},
+      </if>
+      <if test="rm.rolename != null" >
+        rolename = #{rm.rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="rm.menuname != null" >
+        menuname = #{rm.menuname,jdbcType=VARCHAR},
+      </if>
+      <if test="rm.availabe != null" >
+        availabe = #{rm.availabe,jdbcType=BIT},
+      </if>
+      <if test="rm.operator != null" >
+        operator = #{rm.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="rm.modifyDate != null" >
+        modifyDate = #{rm.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where roleid = #{oldroleid,jdbcType=VARCHAR}
+    and menuid = #{oldmenuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByRoleMenu" parameterType="com.hibo.cms.user.model.RoleMenuKey" >
+  	update role_menu
+  	<set>
+      <if test="rm.roleid != null" >
+        	roleid = #{rm.roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="rm.rolename != null" >
+        	rolename = #{rm.rolename,jdbcType=VARCHAR},
+      </if>
+  		<if test="rm.menuid != null" >
+        	menuid = #{rm.menuid,jdbcType=VARCHAR},
+      </if>
+  		<if test="rm.menuname != null" >
+        	menuname = #{rm.menuname,jdbcType=VARCHAR},
+      </if>
+  	</set>
+  	<where>
+  		<if test="oldroleid != null" >
+  			roleid = #{oldroleid,jdbcType=VARCHAR}
+  		</if>
+  		<if test="oldmenuid != null" >
+  			menuid = #{oldmenuid,jdbcType=VARCHAR}
+  		</if>
+  	</where>
+  </update>
+</mapper>

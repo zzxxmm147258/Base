@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.lims.dao.DatalimfldsMapper">
+	<resultMap type="com.hibo.cms.lims.model.Datalimflds" id="BaseResultMap">
+    <id column="fldname" property="fldname" jdbcType="VARCHAR" />
+    <id column="limid" property="limid" jdbcType="VARCHAR" />
+    <result column="cfldname" property="cfldname" jdbcType="VARCHAR" />
+    <result column="fldtype" property="fldtype" jdbcType="INTEGER" />
+    <result column="idx" property="idx" jdbcType="INTEGER" />
+    <result column="fldopts" property="fldopts" jdbcType="INTEGER" />
+    <result column="unlimckvals" property="unlimckvals" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List" >
+    fldname, limid, cfldname, fldtype, idx, fldopts, unlimckvals
+    </sql>
+	
+	<delete id="delete" parameterType="String">
+		delete from datalimflds
+		where  limid= #{limid}
+	</delete>
+	
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from datalimflds
+	</select>
+	
+	<select id="selectDatalimflds" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from datalimflds
+		where limid = #{datalimmid}
+	</select>
+	
+	<delete id="deleteByDatalimfldsId" parameterType="int">
+		delete from datalimflds
+		where idx = #{datalimfldsid}
+	</delete>
+	
+	<update id="updateByDatalimfldsId" parameterType="com.hibo.cms.lims.model.Datalimflds">
+		update datalimflds 
+		<set>
+			<if test="datalimflds.limid != null">
+				limid = #{datalimflds.limid,jdbcType=VARCHAR},
+			</if>
+			<if test="datalimflds.fldname != null">
+				fldname = #{datalimflds.fldname,jdbcType=VARCHAR},
+			</if>
+			<if test="datalimflds.cfldname != null">
+				cfldname = #{datalimflds.cfldname,jdbcType=VARCHAR},
+			</if>
+			<if test="datalimflds.fldtype != null">
+				fldtype = #{datalimflds.fldtype,jdbcType=INTEGER},
+			</if>
+			<if test="datalimflds.idx != null">
+				idx = #{datalimflds.idx,jdbcType=INTEGER},
+			</if>
+			<if test="datalimflds.fldopts != null">
+				fldopts = #{datalimflds.fldopts,jdbcType=INTEGER},
+			</if>
+			<if test="datalimflds.unlimckvals != null">
+				unlimckvals = #{datalimflds.unlimckvals,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where idx = #{olddatalimfldsid,jdbcType=INTEGER}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.hibo.cms.lims.model.DatalimfldsKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from datalimflds
+    where fldname = #{fldname,jdbcType=VARCHAR}
+      and limid = #{limid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.hibo.cms.lims.model.DatalimfldsKey" >
+    delete from datalimflds
+    where fldname = #{fldname,jdbcType=VARCHAR}
+      and limid = #{limid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.hibo.cms.lims.model.Datalimflds" >
+    insert into datalimflds (fldname, limid, cfldname, 
+      fldtype, idx, fldopts, 
+      unlimckvals)
+    values (#{fldname,jdbcType=VARCHAR}, #{limid,jdbcType=VARCHAR}, #{cfldname,jdbcType=VARCHAR}, 
+      #{fldtype,jdbcType=INTEGER}, #{idx,jdbcType=INTEGER}, #{fldopts,jdbcType=INTEGER}, 
+      #{unlimckvals,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  <insert id="insertSelective" parameterType="com.hibo.cms.lims.model.Datalimflds" >
+    insert into datalimflds
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fldname != null" >
+        fldname,
+      </if>
+      <if test="limid != null" >
+        limid,
+      </if>
+      <if test="cfldname != null" >
+        cfldname,
+      </if>
+      <if test="fldtype != null" >
+        fldtype,
+      </if>
+      <if test="idx != null" >
+        idx,
+      </if>
+      <if test="fldopts != null" >
+        fldopts,
+      </if>
+      <if test="unlimckvals != null" >
+        unlimckvals,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fldname != null" >
+        #{fldname,jdbcType=VARCHAR},
+      </if>
+      <if test="limid != null" >
+        #{limid,jdbcType=VARCHAR},
+      </if>
+      <if test="cfldname != null" >
+        #{cfldname,jdbcType=VARCHAR},
+      </if>
+      <if test="fldtype != null" >
+        #{fldtype,jdbcType=INTEGER},
+      </if>
+      <if test="idx != null" >
+        #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="fldopts != null" >
+        #{fldopts,jdbcType=INTEGER},
+      </if>
+      <if test="unlimckvals != null" >
+        #{unlimckvals,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.lims.model.Datalimflds" >
+    update datalimflds
+    <set >
+      <if test="record.cfldname != null" >
+        cfldname = #{record.cfldname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fldtype != null" >
+        fldtype = #{record.fldtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.idx != null" >
+        idx = #{record.idx,jdbcType=INTEGER},
+      </if>
+      <if test="record.fldopts != null" >
+        fldopts = #{record.fldopts,jdbcType=INTEGER},
+      </if>
+      <if test="record.unlimckvals != null" >
+        unlimckvals = #{record.unlimckvals,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fldname != null" >
+        fldname = #{record.fldname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fldname = #{key.fldname,jdbcType=VARCHAR}
+      and limid = #{key.limid,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.lims.model.Datalimflds" >
+    update datalimflds
+    set cfldname = #{cfldname,jdbcType=VARCHAR},
+      fldtype = #{fldtype,jdbcType=INTEGER},
+      idx = #{idx,jdbcType=INTEGER},
+      fldopts = #{fldopts,jdbcType=INTEGER},
+      unlimckvals = #{unlimckvals,jdbcType=VARCHAR}
+    where fldname = #{fldname,jdbcType=VARCHAR}
+      and limid = #{limid,jdbcType=VARCHAR}
+  </update>
+	
+</mapper>

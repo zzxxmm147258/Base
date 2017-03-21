@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.lims.dao.DatalimmMapper">
+	<resultMap type="com.hibo.cms.lims.model.Datalimm" id="BaseResultMap">
+		<id column="limid" property="limid" jdbcType="VARCHAR"/>
+		<result column="limnm" property="limnm" jdbcType="VARCHAR"/>
+		<result column="flags" property="flags" jdbcType="INTEGER"/>
+		<result column="modifier" property="modifier" jdbcType="VARCHAR"/>
+		<result column="modifydate" property="modifydate" jdbcType="TIMESTAMP"/>
+		<result column="startflags" property="startflags" jdbcType="INTEGER"/>
+		<result column="ord" property="ord" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		limid,limnm,flags,modifier,modifydate,startflags,ord
+	</sql>
+	
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from (
+		select limm.limid,
+        limm.limnm,
+        limm.flags,
+        u.username modifier,
+        limm.modifydate,
+        limm.startflags,
+        limm.ord
+        FROM datalimm limm INNER JOIN users u  on limm.modifier=u.userid
+		)  a
+	</select>
+	
+	<select id="selectByDatalimmId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from datalimm  where limid = #{limid}
+	</select>
+	
+	<insert id="insert" parameterType="com.hibo.cms.lims.model.Datalimm">
+		insert into datalimm(limid,limnm,flags,modifier,modifydate,startflags,ord)
+		values(
+		#{limid,jdbcType=INTEGER},
+		#{limnm,jdbcType=VARCHAR},
+		#{flags,jdbcType=INTEGER},
+		#{modifier,jdbcType=VARCHAR},
+		#{modifydate,jdbcType=TIMESTAMP},
+		#{startflags,jdbcType=INTEGER},
+		#{ord,jdbcType=VARCHAR}
+		)
+	</insert>
+	<delete id="deleteByDatalimmId" parameterType="String">
+		delete from datalimm
+		where limid = #{datalimmid}
+	</delete>
+	<update id="updateByDatalimmId" parameterType="com.hibo.cms.lims.model.Datalimm">
+		update datalimm 
+		<set>
+			<if test="datalimm.limid != null">
+				limid = #{datalimm.limid,jdbcType=VARCHAR},
+			</if>
+			<if test="datalimm.limnm != null">
+				limnm = #{datalimm.limnm,jdbcType=VARCHAR},
+			</if>
+			<if test="datalimm.flags != null">
+				flags = #{datalimm.flags,jdbcType=TIMESTAMP},
+			</if>
+			<if test="datalimm.modifier != null">
+				modifier = #{datalimm.modifier,jdbcType=VARCHAR},
+			</if>
+			<if test="datalimm.modifydate != null">
+				modifydate = #{datalimm.modifydate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="datalimm.startflags != null">
+				startflags = #{datalimm.startflags,jdbcType=INTEGER},
+			</if>
+			<if test="datalimm.ord != null">
+				ord = #{datalimm.ord,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where limid = #{olddatalimmid,jdbcType=VARCHAR}
+	</update>
+</mapper>

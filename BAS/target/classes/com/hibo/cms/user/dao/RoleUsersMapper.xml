@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.user.dao.RoleUsersMapper" >
+	<resultMap id="UserResultMap" type="com.hibo.cms.user.model.User" >
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="locked" property="locked" jdbcType="BIT" />
+  </resultMap>
+
+<resultMap id="RoleResultMap" type="com.hibo.cms.user.model.Role" >
+    <id column="roleid" property="roleid" jdbcType="VARCHAR" />
+    <result column="rotype" property="rotype" jdbcType="VARCHAR" />
+    <result column="rolename" property="rolename" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+  </resultMap>
+
+  <resultMap id="BaseResultMap" type="com.hibo.cms.user.model.RoleUsersKey" >
+    <id column="roleid" property="roleid" jdbcType="VARCHAR" />
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="rolename" property="rolename" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="bcode" property="bcode" jdbcType="VARCHAR" />
+    <result column="bname" property="bname" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+    <!-- 将roleUserKey的user属性映射到UserResultMap -->
+    <association property="user" javaType="com.hibo.cms.user.model.User" resultMap="UserResultMap"/>
+    <!-- 将roleUserKey的role属性映射到RoleResultMap -->
+    <association property="role" javaType="com.hibo.cms.user.model.Role" resultMap="RoleResultMap"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    roleid, userid,rolename,username,bcode,bname,availabe,operator,createDate,modifyDate
+  </sql>
+  <select id="select" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	FROM role_users
+  	where 
+  	roleid = #{roleid,jdbcType=VARCHAR}
+  	and userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	SELECT 
+  	<include refid="Base_Column_List"/>
+  	FROM role_users
+  </select>
+  <select id="selectRoleIdByUserId" parameterType="String" resultType="String">
+  	select roleid
+  	from role_users
+  	where userid = #{userid}
+  </select>
+  <select id="selectByCondition" parameterType="com.hibo.cms.user.model.RoleUsersKey" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"></include>
+  	FROM role_users
+  	<where>
+  		<if test="roleid != null and roleid != ''">
+  			and roleid = #{roleid,jdbcType=VARCHAR}
+  		</if>
+  		<if test="userid != null and userid != ''">
+  			and userid = #{userid,jdbcType=VARCHAR}
+  		</if>
+  	</where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.hibo.cms.user.model.RoleUsersKey" >
+    delete from role_users
+    where roleid = #{roleid,jdbcType=VARCHAR}
+      and userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteRoleIdByUserId" parameterType="String" >
+  	delete from role_users
+  	where userid = #{userid}
+  </delete>
+  <delete id="deleteByRoleId" parameterType="String">
+  	delete from role_users
+  	where roleid = #{roleid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.user.model.RoleUsersKey" >
+    insert into role_users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        roleid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+       <if test="rolename != null" >
+        rolename,
+      </if>
+       <if test="username != null" >
+        username,
+      </if>
+      <if test="bcode != null" >
+        bcode,
+      </if>
+      <if test="bname != null" >
+        bname,
+      </if>
+      <if test="availabe != null" >
+        availabe,
+      </if>
+       <if test="operator != null" >
+        operator,
+      </if>
+       <if test="createDate != null" >
+        createDate,
+      </if>
+       <if test="modifyDate != null" >
+        modifyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="rolename != null" >
+        #{rolename,jdbcType=VARCHAR},
+      </if>
+       <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="bcode != null" >
+        #{bcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bname != null" >
+        #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        #{availabe,jdbcType=VARCHAR},
+      </if>
+       <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+       <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+       <if test="modifyDate != null" >
+       #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertList" ><!-- power页面 -->
+  	insert into role_users (roleid, userid)
+  	values
+  	<foreach collection="list" item="item" separator=",">
+  	(#{item.roleid},#{item.userid})
+  	</foreach>
+  </insert>
+  <insert id="insertRuList">
+  	insert into role_users (userid,roleid,rolename,username,availabe,operator,createDate,modifyDate)
+  	values
+  	<foreach collection="list" item="item" separator=",">
+  	(#{user.userid},#{item.roleid},#{item.rolename},#{user.username},#{item.availabe},#{user.operator},#{user.createDate},#{user.modifyDate})
+  	</foreach>
+  </insert>
+   <update id="update" parameterType="com.hibo.cms.user.model.RoleUsersKey" >
+    update role_users
+    <set >
+      <if test="ru.roleid != null" >
+        roleid = #{ru.roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="ru.userid != null" >
+        userid = #{ru.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="ru.rolename != null" >
+        rolename = #{ru.rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="ru.username != null" >
+        username = #{ru.username,jdbcType=VARCHAR},
+      </if>
+      <if test="ru.bcode != null" >
+        bcode = #{ru.bcode,jdbcType=VARCHAR},
+      </if>
+      <if test="ru.bname != null" >
+        bname = #{ru.bname,jdbcType=VARCHAR},
+      </if>
+      <if test="ru.availabe != null" >
+        availabe = #{ru.availabe,jdbcType=BIT},
+      </if>
+      <if test="ru.operator != null" >
+        operator = #{ru.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="ru.modifyDate != null" >
+        modifyDate = #{ru.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where roleid = #{oldroleid,jdbcType=VARCHAR}
+    and userid = #{olduserid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByRoleUsers" parameterType="com.hibo.cms.user.model.RoleUsersKey" >
+  	update role_users
+  	<set>
+  		<if test="ru.userid != null" >
+        	userid = #{ru.userid,jdbcType=VARCHAR},
+      </if>
+  		<if test="ru.username != null" >
+        	username = #{ru.username,jdbcType=VARCHAR},
+      </if>
+      <if test="ru.roleid != null" >
+        	roleid = #{ru.roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="ru.rolename != null" >
+        	rolename = #{ru.rolename,jdbcType=VARCHAR},
+      </if>
+  	</set>
+  	<where>
+  		<if test="oldroleid != null" >
+  			roleid = #{oldroleid,jdbcType=VARCHAR}
+  		</if>
+  		<if test="olduserid != null" >
+  			userid = #{olduserid,jdbcType=VARCHAR}
+  		</if>
+  	</where>
+  </update>
+</mapper>

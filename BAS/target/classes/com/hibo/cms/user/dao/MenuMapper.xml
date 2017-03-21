@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.user.dao.MenuMapper">
+	<resultMap id="BaseResultMap" type="com.hibo.cms.user.model.Menu">
+		<id column="menuid" property="menuid" jdbcType="VARCHAR" />
+		<result column="sysid" property="sysid" jdbcType="VARCHAR" />
+		<result column="menuname" property="menuname" jdbcType="VARCHAR" />
+		<result column="mlevel" property="level" jdbcType="INTEGER" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="availabe" property="availabe" jdbcType="BIT" />
+		<result column="showType" property="showType" jdbcType="VARCHAR" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    	<result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		menuid, sysid, menuname, mlevel, url, availabe,showType,operator,createDate,modifyDate
+	</sql>
+	<select id="selectAllMenus" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List"/>
+		from menu
+	</select>
+	<select id="selectMenusBySysId" parameterType="String" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List"/>
+		from menu
+		where sysid = #{sysid}
+	</select>
+	<select id="selectByCondition" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from menu
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    </where>
+  </select>
+	<select id="selectMenuIdByUserId" resultType="String">
+		SELECT 
+		m.menuid 
+		FROM 
+		users u,
+		role_users ru ,
+		role r,
+		role_menu rm,
+		menu m 
+		WHERE 
+		u.userid = ru.userid AND 
+		ru.roleid = r.roleid AND 
+		r.roleid = rm.roleid AND 
+		rm.menuid = m.menuid AND 
+		u.userid = #{userid}
+		<if test="sysid != null">
+			and m.sysid = #{sysid}
+		</if>
+	</select>
+	<select id="selectMaxChildId" parameterType="String" resultType="String">
+		select
+		max(menuid)
+		from menu
+		where menuid like #{parentId} 
+	</select>
+	<select id="selectMenusByMenuids" resultMap="BaseResultMap"> <!-- 数据：likelist islist -->
+		select
+		menuid, sysid, menuname, mlevel, url, availabe,showType,operator
+		from menu
+		<where>
+			<if test="likelist != null">
+				<foreach collection="likelist" item="ll" open="" close=""
+					separator="OR">
+					menuid like #{ll}
+				</foreach>
+			</if>
+			<if test="islist != null and islist.size != 0">
+				OR
+				<foreach collection="islist" item="ii" open="" close=""
+					separator="OR">
+					menuid = #{ii}
+				</foreach>
+			</if>
+			<if test="sysid != null">
+			and sysid = #{sysid}
+			</if>
+		</where>
+	</select>
+	<select id="selectByMenuid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from menu
+		where menuid = #{menuid,jdbcType=VARCHAR}
+	</select>
+	<select id="selectFuzzy" parameterType="com.hibo.cms.user.model.Menu" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from menu
+     <where>
+	   	<if test="menuid !=null and menuid != ''">
+	   		and menuid like '%${menuid}%'
+	   	</if>
+	   	<if test="menuname !=null and menuname != ''">
+	   		and menuname like '%${menuname}%'
+	   	</if>
+    </where>
+  </select>
+	<delete id="deleteByMenuid" parameterType="java.lang.String">
+		delete from menu
+		where menuid = #{menuid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.hibo.cms.user.model.Menu">
+		insert into menu 
+		(menuid,sysid, menuname,mlevel, url,availabe,showType,operator,createDate,modifyDate)
+		values
+		(#{menuid,jdbcType=VARCHAR}, #{sysid,jdbcType=VARCHAR},
+		#{menuname,jdbcType=VARCHAR},
+		#{level,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR},
+		#{availabe,jdbcType=BIT},#{showType,jdbcType=VARCHAR},#{operator,jdbcType=VARCHAR}, 
+		#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.hibo.cms.user.model.Menu">
+		insert into menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="menuid != null">
+				menuid,
+			</if>
+			<if test="sysid != null">
+				sysid,
+			</if>
+			<if test="menuname != null">
+				menuname,
+			</if>
+			<if test="level != null">
+				mlevel,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="availabe != null">
+				availabe,
+			</if>
+			<if test="showType != null">
+				showType,
+			</if>
+			<if test="operator != null" >
+		        operator,
+		      </if>
+		      <if test="createDate != null" >
+		        createDate,
+		      </if>
+		      <if test="modifyDate != null" >
+		        modifyDate,
+		      </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="menuid != null">
+				#{menuid,jdbcType=VARCHAR},
+			</if>
+			<if test="sysid != null">
+				#{sysid,jdbcType=VARCHAR},
+			</if>
+			<if test="menuname != null">
+				#{menuname,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				#{level,jdbcType=INTEGER},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="availabe != null">
+				#{availabe,jdbcType=BIT},
+			</if>
+			<if test="showType != null">
+				#{showType,jdbcType=VARCHAR},
+			</if>
+			 <if test="operator != null" >
+		        #{operator,jdbcType=VARCHAR},
+		      </if>
+		      <if test="createDate != null" >
+		        #{createDate,jdbcType=TIMESTAMP},
+		      </if>
+		      <if test="modifyDate != null" >
+		        #{modifyDate,jdbcType=TIMESTAMP},
+		      </if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.user.model.Menu">
+		update menu
+		<set>
+			<if test="sysid != null">
+				sysid = #{sysid,jdbcType=VARCHAR},
+			</if>
+			<if test="menuname != null">
+				menuname = #{menuname,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				mlevel = #{level,jdbcType=INTEGER},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="availabe != null">
+				availabe = #{availabe,jdbcType=BIT},
+			</if>
+			<if test="showType != null">
+				showType = #{showType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where menuid = #{menuid,jdbcType=VARCHAR}
+	</update>
+	<update id="update" parameterType="com.hibo.cms.user.model.Menu">
+		update menu
+		<set>
+		<if test="menu.menuid != null">
+		menuid = #{menu.menuid,jdbcType=VARCHAR},
+		</if>
+		<if test="menu.sysid != null">
+		sysid = #{menu.sysid,jdbcType=VARCHAR},
+		</if>
+		<if test="menu.menuname != null">
+		menuname = #{menu.menuname,jdbcType=VARCHAR},
+		</if>
+		<if test="menu.level != null">
+		mlevel = #{menu.level,jdbcType=INTEGER},
+		</if>
+		<if test="menu.url != null">
+		url = #{menu.url,jdbcType=VARCHAR},
+		</if>
+		<if test="menu.availabe != null">
+		availabe = #{menu.availabe,jdbcType=BIT},
+		</if>
+		<if test="menu.showType != null">
+		showType = #{menu.showType,jdbcType=VARCHAR},
+		</if>
+		<if test="menu.operator != null" >
+	        operator = #{menu.operator,jdbcType=VARCHAR},
+	      </if>
+	      <if test="menu.modifyDate != null" >
+	        modifyDate = #{menu.modifyDate,jdbcType=TIMESTAMP},
+	      </if>
+		</set>
+		where menuid = #{oldmenuid,jdbcType=VARCHAR}
+	</update>
+<!-- 	<update id="updateByMenu" parameterType="com.hibo.cms.user.model.Menu">
+		update menu
+		set
+		sysid = #{sysid,jdbcType=VARCHAR},
+		menuname = #{menuname,jdbcType=VARCHAR},
+		level = #{level,jdbcType=INTEGER},
+		url = #{url,jdbcType=VARCHAR},
+		availabe = #{availabe,jdbcType=BIT},
+		showType = #{menu.showType,jdbcType=VARCHAR},
+		operator = #{menu.operator,jdbcType=VARCHAR},
+		modifyDate = #{menu.modifyDate,jdbcType=TIMESTAMP}
+		where menuid =
+		#{menuid,jdbcType=VARCHAR}
+	</update> -->
+</mapper>

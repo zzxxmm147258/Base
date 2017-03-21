@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.shop.dao.BlockBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.shop.model.BlockBas" >
+    <id column="block_id" property="blockId" jdbcType="VARCHAR" />
+    <result column="block_no" property="blockNo" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="block_name" property="blockName" jdbcType="VARCHAR" />
+    <result column="block_logo" property="blockLogo" jdbcType="VARCHAR" />
+    <result column="idx" property="idx" jdbcType="INTEGER" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="tour_img" property="tourImg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    block_id, block_no, district, block_name, block_logo, idx, availabe, operator, create_date, 
+    modify_date,tour_img
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_block
+    where block_id = #{blockId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_block
+    where block_id = #{blockId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.shop.model.BlockBas" >
+    insert into bas_block (block_id, block_no, district, 
+      block_name, block_logo, idx, 
+      availabe, operator, create_date, 
+      modify_date,tour_img)
+    values (#{blockId,jdbcType=VARCHAR}, #{blockNo,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
+      #{blockName,jdbcType=VARCHAR}, #{blockLogo,jdbcType=VARCHAR}, #{idx,jdbcType=INTEGER}, 
+      #{availabe,jdbcType=BIT}, #{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyDate,jdbcType=TIMESTAMP},#{tourImg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.shop.model.BlockBas" >
+    insert into bas_block
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="blockId != null" >
+        block_id,
+      </if>
+      <if test="blockNo != null" >
+        block_no,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="blockName != null" >
+        block_name,
+      </if>
+      <if test="blockLogo != null" >
+        block_logo,
+      </if>
+      <if test="idx != null" >
+        idx,
+      </if>
+      <if test="availabe != null" >
+        availabe,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="tourImg != null" >
+        tour_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="blockId != null" >
+        #{blockId,jdbcType=VARCHAR},
+      </if>
+      <if test="blockNo != null" >
+        #{blockNo,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="blockName != null" >
+        #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockLogo != null" >
+        #{blockLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="idx != null" >
+        #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="availabe != null" >
+        #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tourImg != null" >
+        #{tourImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.shop.model.BlockBas" >
+    update bas_block
+    <set >
+      <if test="blockNo != null" >
+        block_no = #{blockNo,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="blockName != null" >
+        block_name = #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockLogo != null" >
+        block_logo = #{blockLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="idx != null" >
+        idx = #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="availabe != null" >
+        availabe = #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tourImg != null" >
+        tour_img = #{tourImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where block_id = #{blockId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.shop.model.BlockBas" >
+    update bas_block
+    set block_no = #{blockNo,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      block_name = #{blockName,jdbcType=VARCHAR},
+      block_logo = #{blockLogo,jdbcType=VARCHAR},
+      idx = #{idx,jdbcType=INTEGER},
+      availabe = #{availabe,jdbcType=BIT},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      tour_img = #{tourImg,jdbcType=VARCHAR}
+    where block_id = #{blockId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAllAvailableByDistrict" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT
+	<include refid="Base_Column_List" /> 
+  	FROM bas_block 
+  	WHERE district = #{district,jdbcType=VARCHAR} 
+  	AND availabe = 1 ORDER BY idx ASC
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from bas_block
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap">
+  	select * from (
+  	SELECT
+	bb.block_id,
+	bb.block_no,
+	bd.disname district,
+	concat(bd.disname,bb.block_name) block_name,
+	bb.block_logo,
+	bb.idx,
+	bb.availabe,
+	bb.operator,
+	bb.create_date,
+	bb.modify_date,
+	bb.tour_img
+    FROM
+	bas_block bb
+    LEFT JOIN bas_district bd ON bb.district = bd.district
+    WHERE 1=1 ORDER BY bb.idx
+  	) a
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+	bb.block_id,
+	bb.block_no,
+	bd.disname district,
+	concat(bd.disname,bb.block_name) block_name,
+	bb.block_logo,
+	bb.idx,
+	bb.availabe,
+	bb.operator,
+	bb.create_date,
+	bb.modify_date,
+	bb.tour_img
+    FROM
+	bas_block bb
+    LEFT JOIN bas_district bd ON bb.district = bd.district
+    WHERE bb.block_id = #{blockId,jdbcType=VARCHAR} ORDER BY bb.idx
+  </select>
+  
+  <select id="selectAllName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+	bb.block_id,
+	bb.block_no,
+	bd.disname district,
+	concat(bd.disname,bb.block_name) block_name,
+	bb.block_logo,
+	bb.idx,
+	bb.availabe,
+	bb.operator,
+	bb.create_date,
+	bb.modify_date,
+	bb.tour_img
+    FROM
+	bas_block bb
+    LEFT JOIN bas_district bd ON bb.district = bd.district
+    WHERE 1=1 ORDER BY bb.idx
+  </select>
+  
+</mapper>

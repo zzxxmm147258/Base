@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.user.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.user.model.Role" >
+    <id column="roleid" property="roleid" jdbcType="VARCHAR" />
+    <result column="rotype" property="rotype" jdbcType="VARCHAR" />
+    <result column="rolename" property="rolename" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    roleid, rotype, rolename, description, availabe,operator,createDate,modifyDate
+  </sql>
+  <select id="selectAllRoles" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from role
+  </select>
+  <select id="selectByRoleId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where roleid = #{roleid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="String">
+  	select 
+  	r.roleid,r.rotype,r.rolename,r.description,r.availabe,r.operator,r.createDate,r.modifyDate
+  	from role_users ru,role r
+  	where ru.roleid = r.roleid
+  	and ru.userid = #{userid}
+  </select>
+  <select id="selectByCondition" parameterType="com.hibo.cms.user.model.Role" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from role
+  	<where>
+  		<if test="roleid != null and roleid != '' ">
+  			and roleid = #{roleid,jdbcType=VARCHAR}
+  		</if>
+  		<if test="rotype != null and rotype != ''">
+  			and rotype = #{rotype,jdbcType=VARCHAR}
+  		</if>
+  		<if test="rolename != null and rolename != ''">
+  			and rolename like '%${rolename}%'
+  		</if>
+  	</where>
+  </select>
+  <delete id="deleteByRoleId" parameterType="java.lang.String" >
+    delete from role
+    where roleid = #{roleid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.user.model.Role" >
+    insert into role (roleid, rotype, rolename, 
+      description, availabe,operator,createDate,modifyDate)
+    values (#{roleid,jdbcType=VARCHAR}, #{rotype,jdbcType=VARCHAR}, #{rolename,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{availabe,jdbcType=BIT},#{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.user.model.Role" >
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        roleid,
+      </if>
+      <if test="rotype != null" >
+        rotype,
+      </if>
+      <if test="rolename != null" >
+        rolename,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="availabe != null" >
+        availabe,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="rotype != null" >
+        #{rotype,jdbcType=VARCHAR},
+      </if>
+      <if test="rolename != null" >
+        #{rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        #{availabe,jdbcType=BIT},
+      </if>
+       <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.hibo.cms.user.model.Role" >
+    update role
+    <set >
+      <if test="role.roleid != null" >
+        roleid = #{role.roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="role.rotype != null" >
+        rotype = #{role.rotype,jdbcType=VARCHAR},
+      </if>
+      <if test="role.rolename != null" >
+        rolename = #{role.rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="role.description != null" >
+        description = #{role.description,jdbcType=VARCHAR},
+      </if>
+      <if test="role.availabe != null" >
+        availabe = #{role.availabe,jdbcType=BIT},
+      </if>
+      <if test="role.operator != null" >
+        operator = #{role.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="role.modifyDate != null" >
+        modifyDate = #{role.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where roleid = #{oldroleid,jdbcType=VARCHAR}
+  </update>
+<!--   <update id="update" parameterType="com.hibo.cms.user.model.Role" >
+    update role
+    set 
+      roleid = #{role.roleid,jdbcType=VARCHAR},
+      rotype = #{role.rotype,jdbcType=VARCHAR},
+      rolename = #{role.rolename,jdbcType=VARCHAR},
+      description = #{role.description,jdbcType=VARCHAR},
+      availabe = #{role.availabe,jdbcType=BIT},
+      operator = #{operator,jdbcType=VARCHAR},
+      modifyDate = #{modifyDate,jdbcType=TIMESTAMP}
+    where roleid = #{oldroleid,jdbcType=VARCHAR}
+  </update> -->
+</mapper>

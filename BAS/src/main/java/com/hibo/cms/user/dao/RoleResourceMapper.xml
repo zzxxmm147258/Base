@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.user.dao.RoleResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.user.model.RoleResourceKey" >
+    <id column="roreid" property="roreid" jdbcType="VARCHAR" />
+    <result column="sysid" property="sysid" jdbcType="VARCHAR" />
+    <result column="roleid" property="roleid" jdbcType="VARCHAR" />
+    <result column="resourceid" property="resourceid" jdbcType="VARCHAR" />
+    <result column="operaid" property="operaid" jdbcType="VARCHAR" />
+    <result column="idx" property="idx" jdbcType="INTEGER" />
+    <result column="rolename" property="rolename" jdbcType="VARCHAR" />
+    <result column="resname" property="resname" jdbcType="VARCHAR" />
+    <result column="operaname" property="operaname" jdbcType="VARCHAR" />
+    <result column="availabe" property="availabe" jdbcType="INTEGER" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    roreid, sysid, roleid, resourceid, operaid, idx, rolename, resname, operaname, availabe, 
+    operator, createDate, modifyDate
+  </sql>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_resource
+    where roreid = #{roreid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByCondition" parameterType="com.hibo.cms.user.model.RoleUsersKey" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"></include>
+  	FROM role_resource
+  	<where>
+  		<if test="roleid != null and roleid != ''">
+  			and roleid = #{roleid,jdbcType=VARCHAR}
+  		</if>
+  		<if test="resourceid != null and resourceid != ''">
+  			and resourceid = #{resourceid,jdbcType=VARCHAR}
+  		</if>
+  		<if test="operaid != null and operaid != ''">
+  			and operaid = #{operaid,jdbcType=VARCHAR}
+  		</if>
+  		<if test="sysid != null and sysid != ''">
+  			and sysid = #{sysid,jdbcType=VARCHAR}
+  		</if>
+  	</where>
+  </select>
+  <select id="selectAll">
+  	select 
+    <include refid="Base_Column_List" />
+    from role_resource
+    order by modifyDate desc
+  </select>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from role_resource
+    where roreid = #{roreid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByRoleid" parameterType="java.lang.String">
+  	delete from role_resource
+    where roleid = #{roleid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByResourceid" parameterType="java.lang.String">
+  	delete from role_resource
+    where resourceid = #{resourceid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.user.model.RoleResourceKey" >
+    insert into role_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roreid != null" >
+        roreid,
+      </if>
+      <if test="sysid != null" >
+        sysid,
+      </if>
+      <if test="roleid != null" >
+        roleid,
+      </if>
+      <if test="resourceid != null" >
+        resourceid,
+      </if>
+      <if test="operaid != null" >
+        operaid,
+      </if>
+      <if test="idx != null" >
+        idx,
+      </if>
+      <if test="rolename != null" >
+        rolename,
+      </if>
+      <if test="resname != null" >
+        resname,
+      </if>
+      <if test="operaname != null" >
+        operaname,
+      </if>
+      <if test="availabe != null" >
+        availabe,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roreid != null" >
+        #{roreid,jdbcType=VARCHAR},
+      </if>
+      <if test="sysid != null" >
+        #{sysid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceid != null" >
+        #{resourceid,jdbcType=VARCHAR},
+      </if>
+      <if test="operaid != null" >
+        #{operaid,jdbcType=VARCHAR},
+      </if>
+      <if test="idx != null" >
+        #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="rolename != null" >
+        #{rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="resname != null" >
+        #{resname,jdbcType=VARCHAR},
+      </if>
+      <if test="operaname != null" >
+        #{operaname,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        #{availabe,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.hibo.cms.user.model.RoleResourceKey" >
+    update role_resource
+    <set >
+      <if test="sysid != null" >
+        sysid = #{sysid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        roleid = #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceid != null" >
+        resourceid = #{resourceid,jdbcType=VARCHAR},
+      </if>
+      <if test="operaid != null" >
+        operaid = #{operaid,jdbcType=VARCHAR},
+      </if>
+      <if test="idx != null" >
+        idx = #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="rolename != null" >
+        rolename = #{rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="resname != null" >
+        resname = #{resname,jdbcType=VARCHAR},
+      </if>
+      <if test="operaname != null" >
+        operaname = #{operaname,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        availabe = #{availabe,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where roreid = #{roreid,jdbcType=VARCHAR}
+  </update>
+   <update id="updateByRoleResource" parameterType="com.hibo.cms.user.model.RoleResourceKey" >
+  	update role_resource
+  	<set>
+      <if test="rr.roleid != null" >
+        	roleid = #{rr.roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="rr.rolename != null" >
+        	rolename = #{rr.rolename,jdbcType=VARCHAR},
+      </if>
+  		<if test="rr.resourceid != null" >
+        	resourceid = #{rr.resourceid,jdbcType=VARCHAR},
+      </if>
+  		<if test="rr.resname != null" >
+        	resname = #{rr.resname,jdbcType=VARCHAR},
+      </if>
+      <if test="rr.operaid != null" >
+        operaid = #{rr.operaid,jdbcType=VARCHAR},
+      </if>
+       <if test="rr.operaname != null" >
+        operaname = #{rr.operaname,jdbcType=VARCHAR},
+      </if>
+  	</set>
+  	<where>
+  		<if test="oldroleid != null" >
+  			roleid = #{oldroleid,jdbcType=VARCHAR}
+  		</if>
+  		<if test="oldresourceid != null" >
+  			resourceid = #{oldresourceid,jdbcType=VARCHAR}
+  		</if>
+  		<if test="oldoperaid != null" >
+        	operaid = #{oldoperaid,jdbcType=VARCHAR},
+      </if>
+  	</where>
+  </update>
+<!--   <update id="updateByPrimaryKey" parameterType="com.hibo.cms.user.model.RoleResourceKey" >
+    update role_resource
+    set sysid = #{sysid,jdbcType=VARCHAR},
+      roleid = #{roleid,jdbcType=VARCHAR},
+      resourceid = #{resourceid,jdbcType=VARCHAR},
+      operaid = #{operaid,jdbcType=VARCHAR},
+      idx = #{idx,jdbcType=INTEGER},
+      rolename = #{rolename,jdbcType=VARCHAR},
+      resname = #{resname,jdbcType=VARCHAR},
+      operaname = #{operaname,jdbcType=VARCHAR},
+      availabe = #{availabe,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR},
+      modifyDate = #{modifyDate,jdbcType=TIMESTAMP}
+    where roreid = #{roreid,jdbcType=VARCHAR}
+  </update>
+    <insert id="insert" parameterType="com.hibo.cms.user.model.RoleResourceKey" >
+    insert into role_resource (roreid, sysid, roleid, 
+      resourceid, operaid, idx, 
+      rolename, resname, operaname, 
+      availabe, operator, createDate, 
+      modifyDate)
+    values (#{roreid,jdbcType=VARCHAR}, #{sysid,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR}, 
+      #{resourceid,jdbcType=VARCHAR}, #{operaid,jdbcType=VARCHAR}, #{idx,jdbcType=INTEGER}, 
+      #{rolename,jdbcType=VARCHAR}, #{resname,jdbcType=VARCHAR}, #{operaname,jdbcType=VARCHAR}, 
+      #{availabe,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyDate,jdbcType=TIMESTAMP})
+  </insert> -->
+</mapper>

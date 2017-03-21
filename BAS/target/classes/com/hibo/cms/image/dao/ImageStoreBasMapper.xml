@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.image.dao.ImageStoreBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.image.model.ImageStoreBas" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="m_id" property="mId" jdbcType="VARCHAR" />
+    <result column="sys" property="sys" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="img_bigurl" property="imgBigurl" jdbcType="VARCHAR" />
+    <result column="img_inurl" property="imgInurl" jdbcType="VARCHAR" />
+    <result column="img_smallurl" property="imgSmallurl" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="dis" property="dis" jdbcType="VARCHAR" />
+    <result column="attr1" property="attr1" jdbcType="VARCHAR" />
+    <result column="attr2" property="attr2" jdbcType="VARCHAR" />
+    <result column="attr3" property="attr3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, m_id, sys, type, icon, img_url, img_bigurl, img_inurl, img_smallurl, url, operator, 
+    create_date, modify_date, dis, attr1, attr2, attr3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_image_store
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_image_store
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.image.model.ImageStoreBas" >
+    insert into bas_image_store (id, m_id, sys, 
+      type, icon, img_url, 
+      img_bigurl, img_inurl, img_smallurl, 
+      url, operator, create_date, 
+      modify_date, dis, attr1, 
+      attr2, attr3)
+    values (#{id,jdbcType=VARCHAR}, #{mId,jdbcType=VARCHAR}, #{sys,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{imgBigurl,jdbcType=VARCHAR}, #{imgInurl,jdbcType=VARCHAR}, #{imgSmallurl,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{dis,jdbcType=VARCHAR}, #{attr1,jdbcType=VARCHAR}, 
+      #{attr2,jdbcType=VARCHAR}, #{attr3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.image.model.ImageStoreBas" >
+    insert into bas_image_store
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="sys != null" >
+        sys,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="imgBigurl != null" >
+        img_bigurl,
+      </if>
+      <if test="imgInurl != null" >
+        img_inurl,
+      </if>
+      <if test="imgSmallurl != null" >
+        img_smallurl,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="dis != null" >
+        dis,
+      </if>
+      <if test="attr1 != null" >
+        attr1,
+      </if>
+      <if test="attr2 != null" >
+        attr2,
+      </if>
+      <if test="attr3 != null" >
+        attr3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="mId != null" >
+        #{mId,jdbcType=VARCHAR},
+      </if>
+      <if test="sys != null" >
+        #{sys,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgBigurl != null" >
+        #{imgBigurl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgInurl != null" >
+        #{imgInurl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSmallurl != null" >
+        #{imgSmallurl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dis != null" >
+        #{dis,jdbcType=VARCHAR},
+      </if>
+      <if test="attr1 != null" >
+        #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        #{attr3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.image.model.ImageStoreBas" >
+    update bas_image_store
+    <set >
+      <if test="mId != null" >
+        m_id = #{mId,jdbcType=VARCHAR},
+      </if>
+      <if test="sys != null" >
+        sys = #{sys,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgBigurl != null" >
+        img_bigurl = #{imgBigurl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgInurl != null" >
+        img_inurl = #{imgInurl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSmallurl != null" >
+        img_smallurl = #{imgSmallurl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dis != null" >
+        dis = #{dis,jdbcType=VARCHAR},
+      </if>
+      <if test="attr1 != null" >
+        attr1 = #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        attr2 = #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        attr3 = #{attr3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.image.model.ImageStoreBas" >
+    update bas_image_store
+    set m_id = #{mId,jdbcType=VARCHAR},
+      sys = #{sys,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      img_bigurl = #{imgBigurl,jdbcType=VARCHAR},
+      img_inurl = #{imgInurl,jdbcType=VARCHAR},
+      img_smallurl = #{imgSmallurl,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      dis = #{dis,jdbcType=VARCHAR},
+      attr1 = #{attr1,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR},
+      attr3 = #{attr3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBymIdOrSysOrType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_image_store
+    where m_id = #{mId,jdbcType=VARCHAR}
+    <if test="sys != null and sys !='' " >
+        and sys = #{sys,jdbcType=VARCHAR}
+    </if>
+    <if test="type != null and type !='' " >
+        and type = #{sys,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <delete id="deleteBymId" parameterType="java.lang.String" >
+    delete from bas_image_store
+    where m_id = #{mId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.shop.dao.ShopBasInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.shop.model.ShopBasInfo" >
+    <id column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="shopname" property="shopname" jdbcType="VARCHAR" />
+    <result column="show_type" property="showType" jdbcType="VARCHAR" />
+    <result column="show_point" property="showPoint" jdbcType="INTEGER" />
+    <result column="show_title" property="showTitle" jdbcType="VARCHAR" />
+    <result column="show_image" property="showImage" jdbcType="VARCHAR" />
+    <result column="show_explain" property="showExplain" jdbcType="VARCHAR" />
+    <result column="aviliable" property="aviliable" jdbcType="BIT" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    shop_id, id, shopname, show_type, show_point, show_title, show_image, show_explain, 
+    aviliable, operator, create_date, modify_date
+  </sql>
+  <select id="selectListByShopId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_shop_info
+    where shop_id = #{shopId,jdbcType=VARCHAR} and aviliable=1 order by show_type,show_point
+  </select>
+  <select id="selectListByIdAndType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_shop_info
+    where shop_id = #{shopId,jdbcType=VARCHAR} and showtype = #{showtype,jdbcType=VARCHAR} and aviliable=1 order by show_point
+  </select>
+  <delete id="deleteByShopId" parameterType="java.lang.String" >
+    delete from bas_shop_info
+    where shop_id = #{shopId,jdbcType=VARCHAR} 
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.shop.model.ShopBasInfo" >
+    insert into bas_shop_info (shop_id, id, shopname, 
+      show_type, show_point, show_title, 
+      show_image, show_explain, aviliable, 
+      operator, create_date, modify_date
+      )
+    values (#{shopId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{shopname,jdbcType=VARCHAR}, 
+      #{showType,jdbcType=VARCHAR}, #{showPoint,jdbcType=INTEGER}, #{showTitle,jdbcType=VARCHAR}, 
+      #{showImage,jdbcType=VARCHAR}, #{showExplain,jdbcType=VARCHAR}, #{aviliable,jdbcType=BIT}, 
+      #{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.shop.model.ShopBasInfo" >
+    insert into bas_shop_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="shopname != null" >
+        shopname,
+      </if>
+      <if test="showType != null" >
+        show_type,
+      </if>
+      <if test="showPoint != null" >
+        show_point,
+      </if>
+      <if test="showTitle != null" >
+        show_title,
+      </if>
+      <if test="showImage != null" >
+        show_image,
+      </if>
+      <if test="showExplain != null" >
+        show_explain,
+      </if>
+      <if test="aviliable != null" >
+        aviliable,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="shopname != null" >
+        #{shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="showType != null" >
+        #{showType,jdbcType=VARCHAR},
+      </if>
+      <if test="showPoint != null" >
+        #{showPoint,jdbcType=INTEGER},
+      </if>
+      <if test="showTitle != null" >
+        #{showTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="showImage != null" >
+        #{showImage,jdbcType=VARCHAR},
+      </if>
+      <if test="showExplain != null" >
+        #{showExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="aviliable != null" >
+        #{aviliable,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByShopIdSelective" parameterType="com.hibo.cms.shop.model.ShopBasInfo" >
+    update bas_shop_info
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="shopname != null" >
+        shopname = #{shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="showType != null" >
+        show_type = #{showType,jdbcType=VARCHAR},
+      </if>
+      <if test="showPoint != null" >
+        show_point = #{showPoint,jdbcType=INTEGER},
+      </if>
+      <if test="showTitle != null" >
+        show_title = #{showTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="showImage != null" >
+        show_image = #{showImage,jdbcType=VARCHAR},
+      </if>
+      <if test="showExplain != null" >
+        show_explain = #{showExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="aviliable != null" >
+        aviliable = #{aviliable,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByShopId" parameterType="com.hibo.cms.shop.model.ShopBasInfo" >
+    update bas_shop_info
+    set id = #{id,jdbcType=VARCHAR},
+      shopname = #{shopname,jdbcType=VARCHAR},
+      show_type = #{showType,jdbcType=VARCHAR},
+      show_point = #{showPoint,jdbcType=INTEGER},
+      show_title = #{showTitle,jdbcType=VARCHAR},
+      show_image = #{showImage,jdbcType=VARCHAR},
+      show_explain = #{showExplain,jdbcType=VARCHAR},
+      aviliable = #{aviliable,jdbcType=BIT},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_shop_info
+    where id = #{id,jdbcType=VARCHAR} order by show_type,show_point
+  </select>
+  
+  <select id="selectByShopId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_shop_info
+    where shop_id = #{shopId,jdbcType=VARCHAR}  order by show_point,show_type
+  </select>
+  
+  <delete id="deleteId" parameterType="java.lang.String" >
+    delete from bas_shop_info
+    where id = #{id,jdbcType=VARCHAR} 
+  </delete>
+  
+  
+  <update id="update" parameterType="com.hibo.cms.shop.model.ShopBasInfo" >
+    update bas_shop_info
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopname != null" >
+        shopname = #{shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="showType != null" >
+        show_type = #{showType,jdbcType=VARCHAR},
+      </if>
+      <if test="showPoint != null" >
+        show_point = #{showPoint,jdbcType=INTEGER},
+      </if>
+      <if test="showTitle != null" >
+        show_title = #{showTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="showImage != null" >
+        show_image = #{showImage,jdbcType=VARCHAR},
+      </if>
+      <if test="showExplain != null" >
+        show_explain = #{showExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="aviliable != null" >
+        aviliable = #{aviliable,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

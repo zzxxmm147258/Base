@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.weixin.dao.WeiXinSerMemMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.weixin.model.WeiXinSerMem" >
+    <id column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="subscribe" property="subscribe" jdbcType="SMALLINT" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="substime" property="substime" jdbcType="DATE" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="locked" property="locked" jdbcType="SMALLINT" />
+    <result column="appkey" property="appkey" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    openid, subscribe, nickname, substime, userid, locked, appkey
+  </sql>
+  <select id="selectByPrimaryKey" resultType="com.hibo.cms.weixin.model.WeiXinSerMem" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mem_weixin_ser
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mem_weixin_ser
+    where openid = #{openid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.weixin.model.WeiXinSerMem" >
+    insert into mem_weixin_ser (openid, subscribe, nickname, 
+      substime, userid, locked, 
+      appkey)
+    values (#{openid,jdbcType=VARCHAR}, #{subscribe,jdbcType=SMALLINT}, #{nickname,jdbcType=VARCHAR}, 
+      #{substime,jdbcType=DATE}, #{userid,jdbcType=VARCHAR}, #{locked,jdbcType=SMALLINT}, 
+      #{appkey,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.weixin.model.WeiXinSerMem" >
+    insert into mem_weixin_ser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="subscribe != null" >
+        subscribe,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="substime != null" >
+        substime,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="appkey != null" >
+        appkey,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        #{subscribe,jdbcType=SMALLINT},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="substime != null" >
+        #{substime,jdbcType=DATE},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=SMALLINT},
+      </if>
+      <if test="appkey != null" >
+        #{appkey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.weixin.model.WeiXinSerMem" >
+    update mem_weixin_ser
+    <set >
+      <if test="subscribe != null" >
+        subscribe = #{subscribe,jdbcType=SMALLINT},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="substime != null" >
+        substime = #{substime,jdbcType=DATE},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=SMALLINT},
+      </if>
+      <if test="appkey != null" >
+        appkey = #{appkey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where openid = #{openid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.weixin.model.WeiXinSerMem" >
+    update mem_weixin_ser
+    set subscribe = #{subscribe,jdbcType=SMALLINT},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      substime = #{substime,jdbcType=DATE},
+      userid = #{userid,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=SMALLINT},
+      appkey = #{appkey,jdbcType=VARCHAR}
+    where openid = #{openid,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectByCondition" resultMap="BaseResultMap">
+   SELECT
+	*
+    FROM
+	(
+		SELECT
+			mws.openid,
+			mws.subscribe,
+			mws.nickname,
+			mws.substime,
+			mm.username userid,
+			mws.locked,
+			mws.appkey
+		FROM
+			mem_weixin_ser mws
+		INNER JOIN mem_member mm ON mws.userid = mm.userid
+	) a
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    </where>
+   </select>
+   
+    <select id="select2All" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+	s.openid,
+	s.subscribe,
+	s.nickname,
+	s.substime,
+	m.username userid,
+	s.locked,
+	s.appkey
+    FROM
+	mem_weixin_ser s
+    left JOIN mem_member m ON s.userid = m.userid
+    WHERE
+	s.openid NOT IN (
+		SELECT
+			ser.openid
+		FROM
+			mem_weixin_ser ser
+		INNER JOIN wx_tagnameg t ON ser.openid = t.openid
+		where t.m_id=#{mId,jdbcType=VARCHAR}
+	)
+  </select>
+   
+   <select id="selectByNameKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+   SELECT
+	s.openid,
+	s.subscribe,
+	s.nickname,
+	s.substime,
+	m.username userid,
+	s.locked,
+	s.appkey
+    FROM
+	mem_weixin_ser s
+    left JOIN mem_member m ON s.userid = m.userid
+    where s.openid = #{openid,jdbcType=VARCHAR}
+  </select>
+   
+   <select id="selectByAppKey" resultType="com.hibo.cms.weixin.model.WeiXinSerMem" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mem_weixin_ser
+    where openid = #{openid,jdbcType=VARCHAR}
+    and  appkey = #{appkey,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

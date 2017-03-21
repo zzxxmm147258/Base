@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.mem.member.dao.MemberMemBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.user.model.User" >
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="paypass" property="paypass" jdbcType="VARCHAR" />
+    <result column="paysalt" property="paysalt" jdbcType="VARCHAR" />
+    <result column="utype" property="utype" jdbcType="VARCHAR" />
+    <result column="locked" property="locked" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, username, password, salt, paypass, paysalt,utype, locked
+  </sql>
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from mem_member
+    where username = #{username,jdbcType=VARCHAR}
+    <if test="null!=utype and ''!=utype">
+    	and utype = #{utype,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectBaseMem" resultType="com.hibo.mem.member.model.BaseMem" parameterType="java.lang.String" >
+    select 
+    	mm.userid,mm.username,mm.utype,mbi.truename,mbi.sex,mdi.nickname,mdi.headpicture 
+    from mem_member mm left join mem_basic_info mbi on mm.userid=mbi.userid left join mem_detailed_info mdi on mm.userid=mdi.userid
+    where mm.userid = #{userid,jdbcType=VARCHAR}
+  </select>
+</mapper>

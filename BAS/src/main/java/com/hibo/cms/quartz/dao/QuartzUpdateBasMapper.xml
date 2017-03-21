@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.quartz.dao.QuartzUpdateBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.quartz.model.QuartzUpdateBas" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="update_name" property="updateName" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="locked" property="locked" jdbcType="INTEGER" />
+	<result column="attr_name_1" property="attrName1" jdbcType="VARCHAR" />
+	<result column="attr_name_2" property="attrName2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, update_name, update_date, locked, attr_name_1, attr_name_2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_quartz_update
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_quartz_update
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.quartz.model.QuartzUpdateBas" >
+    insert into bas_quartz_update (id, update_name, 
+      update_date, locked, attr_name_1, attr_name_2)
+    values (#{id,jdbcType=VARCHAR}, #{updateName,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP},#{locked,jdbcType=BIT}, #{attrName1,jdbcType=VARCHAR}, #{attrName2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.quartz.model.QuartzUpdateBas" >
+    insert into bas_quartz_update
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="updateName != null" >
+        update_name,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="attrName1 != null" >
+        attr_name_1,
+      </if>
+      <if test="attrName2 != null" >
+        attr_name_2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null" >
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=BIT},
+      </if>
+      <if test="attrName1 != null" >
+        #{attrName1,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName2 != null" >
+        #{attrName2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.quartz.model.QuartzUpdateBas" >
+    update bas_quartz_update
+    <set >
+      <if test="updateName != null" >
+        update_name = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=BIT},
+      </if>
+      <if test="attrName1 != null" >
+        attr_name_1 = #{attrName1,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName2 != null" >
+        attr_name_2 = #{attrName2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.quartz.model.QuartzUpdateBas" >
+    update bas_quartz_update
+    set update_name = #{updateName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      locked = #{locked,jdbcType=BIT},
+      attr_name_1 = #{attrName1,jdbcType=VARCHAR},
+      attr_name_2 = #{attrName2,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectByCondition" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from bas_quartz_update
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    </where>
+   </select>
+   
+  <select id="getDatebyId" resultType="java.util.Date" >
+    select update_date
+    from bas_quartz_update
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+   <update id="updateDatebyId" >
+    update bas_quartz_update
+    set update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="getLocked" >
+    update bas_quartz_update
+    set locked = 1
+    where id = #{id,jdbcType=VARCHAR} and locked = 0
+  </update>
+  
+  <update id="releaseLocked" >
+    update bas_quartz_update
+    set locked = 0
+    where id = #{id,jdbcType=VARCHAR} and locked = 1
+  </update>
+</mapper>

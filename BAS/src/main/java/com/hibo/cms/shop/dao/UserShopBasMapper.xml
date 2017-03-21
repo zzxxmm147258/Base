@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.shop.dao.UserShopBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.shop.model.UserShopBas" >
+    <id column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="shopname" property="shopname" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    shop_id, userid, shopname, username, availabe, operator, create_date, modify_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.hibo.cms.shop.model.UserShopBasKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_user_shop
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+      and userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.hibo.cms.shop.model.UserShopBasKey" >
+    delete from bas_user_shop
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+      and userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.shop.model.UserShopBas" >
+    insert into bas_user_shop (shop_id, userid, shopname, 
+      username, availabe, operator, 
+      create_date, modify_date)
+    values (#{shopId,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{shopname,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{availabe,jdbcType=BIT}, #{operator,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.shop.model.UserShopBas" >
+    insert into bas_user_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="shopname != null" >
+        shopname,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="availabe != null" >
+        availabe,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="shopname != null" >
+        #{shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.shop.model.UserShopBas" >
+    update bas_user_shop
+    <set >
+      <if test="shopname != null" >
+        shopname = #{shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        availabe = #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+      and userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.shop.model.UserShopBas" >
+    update bas_user_shop
+    set shopname = #{shopname,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      availabe = #{availabe,jdbcType=BIT},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+      and userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="update" parameterType="com.hibo.cms.shop.model.UserShopBas" >
+    update bas_user_shop
+    <set >
+      <if test="record.shopId != null" >
+       shop_id = #{record.shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopname != null" >
+       shopname = #{record.shopname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.availabe != null" >
+        availabe = #{record.availabe,jdbcType=BIT},
+      </if>
+      <if test="record.operator != null" >
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where shop_id = #{key.shopId,jdbcType=VARCHAR}
+      and userid = #{key.userid,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectByCondition" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from bas_user_shop
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    </where>
+  </select>
+  
+   <delete id="deleteByShopId" parameterType="java.lang.String" >
+    delete from bas_user_shop
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByUserId" parameterType="java.lang.String" >
+    delete from bas_user_shop
+    where userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  
+</mapper>

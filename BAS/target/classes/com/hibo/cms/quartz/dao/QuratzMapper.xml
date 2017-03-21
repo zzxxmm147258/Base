@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.quartz.dao.QuratzMapper" >
+  <select id="findAllQzByName" parameterType="java.lang.String" resultType="com.hibo.cms.quartz.model.Quartz">
+  	select * from quartz where schename = #{qzname} order by tiggername,jobname
+  </select>
+  
+  <select id="selectByJobName" parameterType="java.lang.String" resultType="java.util.Map">
+  	select * from quartz where jobname=#{jobname} and schename=#{schename}
+  </select>
+  
+  <select id="findAllQzByQserver" parameterType="java.lang.String" resultType="java.util.Map">
+  	select id, tiggername, tiggergroup, qtype, schename  from quartz where qserver = #{qserver,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectCountByQserver" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	select count(*) from quartz where qserver = #{qserver,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="findAllQzNames" resultType="java.util.Map">
+  	select schename,max(isqserver) as isqserver,count(*) iscount from (select schename,case when qserver = #{qserver,jdbcType=VARCHAR} then 'true' else 'false' end as isqserver from quartz) m group by schename order by schename asc;
+  </select>
+  
+  <select id="selectByQserver" parameterType="java.lang.String" resultType="com.hibo.cms.quartz.model.Quartz">
+  	select schename,max(isqserver) as isqserver,count(*) iscount from (select schename,case when qserver = #{qserver,jdbcType=VARCHAR} then 'true' else 'false' end as isqserver from quartz) m group by schename order by schename asc;
+  </select>
+  
+  <insert id="addQz" parameterType="com.hibo.cms.quartz.model.Quartz">
+    insert into quartz (id, createdate, modifydate, 
+      jobname, description, jobgroup, jobparams, tiggername, tiggergroup, 
+      executeclass, executetime, startDate, 
+      endDate, schename, qtype, utype, qserver)
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{jobname,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{jobgroup,jdbcType=VARCHAR}, 
+      #{jobparams,jdbcType=VARCHAR}, #{tiggername,jdbcType=VARCHAR}, #{tiggergroup,jdbcType=VARCHAR},
+      #{executeclass,jdbcType=VARCHAR}, #{executetime,jdbcType=VARCHAR},#{startDate,jdbcType=TIMESTAMP},
+      #{endDate,jdbcType=TIMESTAMP}, #{schename,jdbcType=VARCHAR}, #{qtype,jdbcType=INTEGER},
+      #{utype,jdbcType=INTEGER},#{qserver,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateQzById" parameterType="com.hibo.cms.quartz.model.Quartz" >
+    update quartz
+    <set >
+      <if test="createDate != null" >
+        createdate = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modifydate = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobname != null" >
+        jobname = #{jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="jobgroup != null" >
+        jobgroup = #{jobgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jobparams != null" >
+        jobparams = #{jobparams,jdbcType=VARCHAR},
+      </if>
+      <if test="tiggername != null" >
+        tiggername = #{tiggername,jdbcType=VARCHAR},
+      </if>
+      <if test="tiggergroup != null" >
+        tiggergroup = #{tiggergroup,jdbcType=VARCHAR},
+      </if>
+      <if test="executeclass != null" >
+        executeclass = #{executeclass,jdbcType=VARCHAR},
+      </if>
+      <if test="executetime != null" >
+        executetime = #{executetime,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        startDate = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        endDate = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="schename != null" >
+        schename = #{schename,jdbcType=VARCHAR},
+      </if>
+      <if test="qtype != null" >
+        qtype = #{qtype,jdbcType=INTEGER},
+      </if>
+      <if test="utype != null" >
+        utype = #{utype,jdbcType=INTEGER},
+      </if>
+      <if test="qserver != null" >
+        qserver = #{qserver,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateQzByIdMap">
+   	<foreach collection="idSet" index="index" item="idx">
+    	update quartz set qtype=${qtypeMap[idx]} where id = '${idx}'
+   	</foreach>
+  </update>
+  
+  <update id="updateStatusById">
+    update quartz set qtype=#{qtype,jdbcType=INTEGER} where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <delete id="deleteQzById" parameterType="java.lang.String" >
+    delete from quartz
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+</mapper>

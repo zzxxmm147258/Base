@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+		<script src="../resources/hibo/js/hibo.js"></script>
+		<script type="text/javascript">
+			if(window.frameElement){
+				window.parent.location.replace(location.href);
+			}
+			Import.Jc([
+				'/resources/bas/css/login/login.css',
+				'/resources/bas/css/login/style.css',
+				'/resources/bas/js/login/jquery.particleground.min.js',
+				'/resources/bas/js/login/demo.js',
+			]);
+		</script>
+	</head>
+<style>
+	.index_content .div div ul li.addclass{
+	color: #0082cd;
+	}
+	.remove_class{
+		color: #666;
+	}
+</style>
+	<body style="font-family: '微软雅黑';">
+		<div id="particles" class="bg_Anime">
+			<div class="intro">
+			</div>
+		</div>
+
+		<div class="index_box"></div>
+		<div class="index_content">
+			<img src="../resources/bas/img/logo.png" alt="" />
+			<h2>瀚铂科技管理系统</h2>
+			<div class="div list select1">
+				<span class='dataSubmit' htype='attr' name='db'></span>
+				<div>
+					<h3>请选择登录账套</h3>
+					<ul class="list1">
+					</ul>
+				</div>
+			</div>
+			<div class="div list select2">
+				<span class='dataSubmit' htype='attr' name='sys'></span>
+				<div>
+					<h3>登录帐套</h3>
+					<ul class="list2">
+					</ul>
+				</div>
+			</div>
+			<div class="div input1">
+				<title>用户名</title><input class='dataSubmit' name='username' htype='val' title='用户名' type="text" autocomplete="off"/>
+			</div>
+			<div class="div input2">
+				<title>口令</title><input class='dataSubmit' name='password' htype='val' title='口令' type="password"/>
+			</div>
+			<div class="div input3">
+				<title>验证码</title><input class='dataSubmit' name='captcha' htype='val' title='验证码' type="text" />
+				<img style="width: 80px;height: 30px;float: right;margin-top: 10px;margin-right: 10px;cursor: pointer;" title="点击更换" alt="点击更换" id="img_captcha" onclick="refreshCaptcha();" url="">
+			</div>
+			<div class="index_btn">
+				<button class="submit">登录</button>
+			</div>
+		</div>
+		<div class="errer">
+			<span></span>
+			<p class="sure">确定</p>
+		</div>
+		<p class="banquan">Copyright © 2015-2016 EP Inc, All Rights Reserved. 瀚铂科技 版权所有</p>
+	</body>
+
+	<script>
+		var hibo_index_select_1 = sessionStorage.getItem("hibo_index_select_1");
+		var hibo_index_select_2 = sessionStorage.getItem("hibo_index_select_2");
+		$.ajax({
+			type: "post",
+			url: $.Url("/newLogin.ajax"),
+			dataType: 'json',
+			success: function(data) {
+				if (data.datas) {
+					var i = 0;					
+					for (var name in data.datas.dbSelectMap) {
+						var val = data.datas.dbSelectMap[name];
+						if (val) {
+							val = name+':'+val;
+							if (hibo_index_select_1) {
+								if (hibo_index_select_1 == name) {
+									$('.select1>span').attr('value', name).text(val);
+								}
+							} else if (i == 0) {
+								$('.select1>span').attr('value', name).text(val);
+							}
+							$('<li value="' + name + '" class="remove_class">' + val + '</li>').appendTo('.list1').click(function() {
+								var value = $(this).attr('value');
+								$(this).attr('name','name').siblings().removeAttr('name');
+								sessionStorage.setItem("hibo_index_select_1", value);
+								$(this).parents('.list').find('span').attr('value', value).text($(this).text());
+								$('.index_box').fadeOut();
+								$('.list>div').slideUp();
+							}).hover(function() {
+								$(this).addClass('addclass').siblings().removeClass('addclass');
+								$('.list1>li[name="name"]').addClass('addclass');
+							});
+							$('.list1>li').first().attr('name','name');
+						}
+						i++;
+					}
+					var j = 0;
+					for (var names in data.datas.sysSelectMap) {
+						var vals = data.datas.sysSelectMap[names];
+						if (vals) {
+							vals = names+':'+vals;
+							if (hibo_index_select_2) {
+								if (hibo_index_select_2 == names) {
+									$('.select2>span').attr('value', names).text(vals);
+								}
+							} else if (j == 0) {
+								$('.select2>span').attr('value', names).text(vals);
+							}
+							$('<li value="' + names + '" class="remove_class">' + vals + '</li>').appendTo('.list2').click(function() {
+								var value = $(this).attr('value');
+								$(this).attr('name','name').siblings().removeAttr('name');
+								sessionStorage.setItem("hibo_index_select_2", value);
+								$(this).parents('.list').find('span').attr('value', value).text($(this).text());
+								$('.index_box').fadeOut();
+								$('.list>div').slideUp();
+							}).hover(function() {
+								$(this).addClass('addclass').siblings().removeClass('addclass');
+								$('.list2>li[name="name"]').addClass('addclass');
+							});
+							$('.list2>li').first().attr('name','name');
+						}
+						j++;
+					}
+				}
+			},
+			error: function(e) {
+				console.log(e);
+			}
+		})
+		$('.div>span').click(function() {
+			$(this).removeAttr('isShow');
+			$('.index_box').fadeOut();
+			var IS = $(this).attr('isShow');
+			$(this).next('div').slideUp();
+			if (!IS) {
+				$(this).attr('isShow', true);
+				$('.index_box').fadeIn();
+				$(this).next('div').slideDown().parents().siblings('.list').children('div').hide();
+			}
+		});
+		$('.index_box').click(function() {
+			$(this).fadeOut();
+			$('.errer').fadeOut();
+			$('.list>div').slideUp();
+		});
+		$('.index_box').hover(function() {
+			$('.list1>li[name=name]').addClass('addclass').siblings().removeClass('addclass');
+			$('.list2>li[name=name]').addClass('addclass').siblings().removeClass('addclass');
+		});
+		$('.sure').click(function() {
+			$('.index_box').fadeOut();
+			$(this).parent('.errer').fadeOut();
+		})
+		refreshCaptcha();
+		function refreshCaptcha() {
+			$('#img_captcha').attr("src", $.Url("/resources/captchaCode?t=" + Math.random()));
+		}
+		
+		$('body,input').keydown(function(event){
+			  switch(event.keyCode) {
+			  	case 13:
+			  		if($('.errer').css('display')=='block'){
+			  			$('.index_box').fadeOut();
+						$('.errer').fadeOut();
+			  		}else{
+				  		$('.submit').click();
+			  		}
+			  }
+		});
+		
+		$('.submit').click(function(){
+			var isSubmit = true;
+			var params = {dataType:'json',sys_utype:'20'};
+			$('.dataSubmit').each(function(){
+				var htype = $(this).attr('htype');
+				var name = $(this).attr('name');
+				var value = null;
+				if('attr'==htype){
+					value = $(this).attr('value');
+				}else{
+					value = $(this).val();
+				}
+				if(value){
+					params[name] = value;
+				}else{
+					isSubmit = false;
+					var title = $(this).attr('title');
+					$(this).attr('placeholder','请输入'+title).focus();
+					return false;
+				}
+			});
+			if(isSubmit){
+				$.ajax({
+					type: "post",
+					url: $.Url("/login"),
+					dataType: 'json',
+					data:params,
+					success: function(data) {
+						if(data.success){
+							location.replace($.Url('/main/cms/home.html'));
+						}else{
+							$('.errer>span').text(data.error);
+							$('.dataSubmit[name="password"]').val('');
+							$('.dataSubmit[name="captcha"]').val('');
+							$('.index_box').fadeIn();
+							$('.errer').fadeIn();
+							refreshCaptcha();
+						}
+					},
+					error:function(e){
+						console.log(e);
+					}
+				});
+			}
+		});
+		
+	</script>
+
+</html>

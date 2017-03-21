@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.comment.dao.ReplyUserBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.comment.model.ReplyUserBas" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="m_id" property="mId" jdbcType="VARCHAR" />
+    <result column="comment_id" property="commentId" jdbcType="VARCHAR" />
+    <result column="comment_userid" property="commentUserid" jdbcType="VARCHAR" />
+    <result column="reply_id" property="replyId" jdbcType="VARCHAR" />
+    <result column="reply_userid" property="replyUserid" jdbcType="VARCHAR" />
+    <result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+    <result column="reimg_url" property="reimgUrl" jdbcType="VARCHAR" />
+    <result column="reimg_smallurl" property="reimgSmallurl" jdbcType="VARCHAR" />
+    <result column="reimg_smaother" property="reimgSmaother" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="attr1" property="attr1" jdbcType="VARCHAR" />
+    <result column="attr2" property="attr2" jdbcType="VARCHAR" />
+    <result column="attr3" property="attr3" jdbcType="VARCHAR" />
+    <result column="attr4" property="attr4" jdbcType="VARCHAR" />
+    <result column="attr5" property="attr5" jdbcType="VARCHAR" />
+    
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="headpicture" property="headpicture" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, m_id, comment_id, comment_userid, reply_id, reply_userid, reply_content, reimg_url, 
+    reimg_smallurl, reimg_smaother, type, operator, create_date, modify_date, attr1, 
+    attr2, attr3, attr4, attr5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_reply_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_reply_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.comment.model.ReplyUserBas" >
+    insert into bas_reply_user (id, m_id, comment_id, 
+      comment_userid, reply_id, reply_userid, 
+      reply_content, reimg_url, reimg_smallurl, 
+      reimg_smaother, type, operator, 
+      create_date, modify_date, attr1, 
+      attr2, attr3, attr4, 
+      attr5)
+    values (#{id,jdbcType=VARCHAR}, #{mId,jdbcType=VARCHAR}, #{commentId,jdbcType=VARCHAR}, 
+      #{commentUserid,jdbcType=VARCHAR}, #{replyId,jdbcType=VARCHAR}, #{replyUserid,jdbcType=VARCHAR}, 
+      #{replyContent,jdbcType=VARCHAR}, #{reimgUrl,jdbcType=VARCHAR}, #{reimgSmallurl,jdbcType=VARCHAR}, 
+      #{reimgSmaother,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{attr1,jdbcType=VARCHAR}, 
+      #{attr2,jdbcType=VARCHAR}, #{attr3,jdbcType=VARCHAR}, #{attr4,jdbcType=VARCHAR}, 
+      #{attr5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.comment.model.ReplyUserBas" >
+    insert into bas_reply_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="commentId != null" >
+        comment_id,
+      </if>
+      <if test="commentUserid != null" >
+        comment_userid,
+      </if>
+      <if test="replyId != null" >
+        reply_id,
+      </if>
+      <if test="replyUserid != null" >
+        reply_userid,
+      </if>
+      <if test="replyContent != null" >
+        reply_content,
+      </if>
+      <if test="reimgUrl != null" >
+        reimg_url,
+      </if>
+      <if test="reimgSmallurl != null" >
+        reimg_smallurl,
+      </if>
+      <if test="reimgSmaother != null" >
+        reimg_smaother,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="attr1 != null" >
+        attr1,
+      </if>
+      <if test="attr2 != null" >
+        attr2,
+      </if>
+      <if test="attr3 != null" >
+        attr3,
+      </if>
+      <if test="attr4 != null" >
+        attr4,
+      </if>
+      <if test="attr5 != null" >
+        attr5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="mId != null" >
+        #{mId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentId != null" >
+        #{commentId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentUserid != null" >
+        #{commentUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="replyId != null" >
+        #{replyId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUserid != null" >
+        #{replyUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="reimgUrl != null" >
+        #{reimgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="reimgSmallurl != null" >
+        #{reimgSmallurl,jdbcType=VARCHAR},
+      </if>
+      <if test="reimgSmaother != null" >
+        #{reimgSmaother,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attr1 != null" >
+        #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="attr4 != null" >
+        #{attr4,jdbcType=VARCHAR},
+      </if>
+      <if test="attr5 != null" >
+        #{attr5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.comment.model.ReplyUserBas" >
+    update bas_reply_user
+    <set >
+      <if test="mId != null" >
+        m_id = #{mId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentId != null" >
+        comment_id = #{commentId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentUserid != null" >
+        comment_userid = #{commentUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="replyId != null" >
+        reply_id = #{replyId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUserid != null" >
+        reply_userid = #{replyUserid,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        reply_content = #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="reimgUrl != null" >
+        reimg_url = #{reimgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="reimgSmallurl != null" >
+        reimg_smallurl = #{reimgSmallurl,jdbcType=VARCHAR},
+      </if>
+      <if test="reimgSmaother != null" >
+        reimg_smaother = #{reimgSmaother,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attr1 != null" >
+        attr1 = #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        attr2 = #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        attr3 = #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="attr4 != null" >
+        attr4 = #{attr4,jdbcType=VARCHAR},
+      </if>
+      <if test="attr5 != null" >
+        attr5 = #{attr5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.comment.model.ReplyUserBas" >
+    update bas_reply_user
+    set m_id = #{mId,jdbcType=VARCHAR},
+      comment_id = #{commentId,jdbcType=VARCHAR},
+      comment_userid = #{commentUserid,jdbcType=VARCHAR},
+      reply_id = #{replyId,jdbcType=VARCHAR},
+      reply_userid = #{replyUserid,jdbcType=VARCHAR},
+      reply_content = #{replyContent,jdbcType=VARCHAR},
+      reimg_url = #{reimgUrl,jdbcType=VARCHAR},
+      reimg_smallurl = #{reimgSmallurl,jdbcType=VARCHAR},
+      reimg_smaother = #{reimgSmaother,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      attr1 = #{attr1,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR},
+      attr3 = #{attr3,jdbcType=VARCHAR},
+      attr4 = #{attr4,jdbcType=VARCHAR},
+      attr5 = #{attr5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByCommentId" resultMap="BaseResultMap" >
+    SELECT
+	bru.id,
+	bru.m_id,
+	bru.comment_id,
+	bru.comment_userid,
+	bru.reply_id,
+	bru.reply_userid,
+	bru.reply_content,
+	bru.reimg_url,
+	bru.reimg_smallurl,
+	bru.reimg_smaother,
+	bru.type,
+	bru.operator,
+	bru.create_date,
+	bru.modify_date,
+	bru.attr1,
+	bru.attr2,
+	bru.attr3,
+	bru.attr4,
+	bru.attr5,
+	mm.username username,
+	mmb.truename truename,
+	mmd.headpicture headpicture,
+	mmd.nickname nickname
+    FROM
+	bas_reply_user bru
+    LEFT JOIN mem_member mm ON bru.reply_userid = mm.userid
+    LEFT JOIN mem_basic_info mmb ON mm.userid = mmb.userid
+    LEFT JOIN mem_detailed_info mmd ON mm.userid = mmd.userid
+    WHERE comment_id = #{commentId,jdbcType=VARCHAR}
+    ORDER BY create_date
+	limit #{page},#{limit}
+  </select>
+  
+</mapper>

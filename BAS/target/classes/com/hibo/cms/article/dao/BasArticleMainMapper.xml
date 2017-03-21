@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.article.dao.BasArticleMainMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.article.model.BasArticleMain" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+     <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="article_category" property="articleCategory" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="effective_date" property="effectiveDate" jdbcType="TIMESTAMP" />
+    <result column="date_from" property="dateFrom" jdbcType="TIMESTAMP" />
+    <result column="date_to" property="dateTo" jdbcType="TIMESTAMP" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, article_category, status, effective_date, date_from, date_to, title, create_date, 
+    modify_date, operator,category
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_article_main
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_article_main
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.article.model.BasArticleMain" >
+    insert into bas_article_main (id, article_category, status, 
+      effective_date, date_from, date_to, 
+      title, create_date, modify_date, 
+      operator,category)
+    values (#{id,jdbcType=VARCHAR}, #{articleCategory,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{effectiveDate,jdbcType=TIMESTAMP}, #{dateFrom,jdbcType=TIMESTAMP}, #{dateTo,jdbcType=TIMESTAMP}, 
+      #{title,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{operator,jdbcType=VARCHAR},#{category,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.article.model.BasArticleMain" >
+    insert into bas_article_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="articleCategory != null" >
+        article_category,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="effectiveDate != null" >
+        effective_date,
+      </if>
+      <if test="dateFrom != null" >
+        date_from,
+      </if>
+      <if test="dateTo != null" >
+        date_to,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCategory != null" >
+        #{articleCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveDate != null" >
+        #{effectiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateFrom != null" >
+        #{dateFrom,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateTo != null" >
+        #{dateTo,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.article.model.BasArticleMain" >
+    update bas_article_main
+    <set >
+      <if test="articleCategory != null" >
+        article_category = #{articleCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveDate != null" >
+        effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateFrom != null" >
+        date_from = #{dateFrom,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateTo != null" >
+        date_to = #{dateTo,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.article.model.BasArticleMain" >
+    update bas_article_main
+    set article_category = #{articleCategory,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      date_from = #{dateFrom,jdbcType=TIMESTAMP},
+      date_to = #{dateTo,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectPage" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_article_main
+    <where>
+  		<if test="wStr!=null">
+  			${wStr}
+  		</if>
+  	</where>
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+	bam.id,
+	dic.cname article_category,
+	bam.STATUS,
+	bam.effective_date,
+	bam.date_from,
+	bam.date_to,
+	bam.title,
+	bam.create_date,
+	bam.modify_date,
+	bam.operator,
+	bam.category
+    FROM
+	bas_article_main bam
+    LEFT JOIN dictinfo dic ON bam.article_category = dic. CODE
+  </select>
+  
+  <select id="selectByAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+	bam.id,
+	dic.cname article_category,
+	bam. STATUS,
+	bam.effective_date,
+	bam.date_from,
+	bam.date_to,
+	bam.title,
+	bam.create_date,
+	bam.modify_date,
+	bam.operator,
+	dio.cname category
+    FROM
+	(
+		SELECT
+			*
+		FROM
+			bas_article_main
+		<where> 
+  		<if test="wStr!=null">
+  			${wStr}
+  	 	</if>
+  	   </where>
+	) bam
+    LEFT JOIN dictinfo dic ON bam.article_category = dic. CODE
+    LEFT JOIN dictinfo dio ON bam.category = dio. CODE
+    WHERE 1=1 ORDER BY dic.code
+  </select>
+  
+  <select id="selectDic" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_article_main
+    where article_category = #{dic,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.user.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.user.model.User" >
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="BIT" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="card" property="card" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="headpicture" property="headpicture" jdbcType="VARCHAR" />
+    <result column="mail" property="mail" jdbcType="VARCHAR" />
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="VARCHAR" />
+    <result column="endtime" property="endtime" jdbcType="VARCHAR" />
+    <result column="locked" property="locked" jdbcType="BIT" />
+    <result column="paypass" property="paypass" jdbcType="VARCHAR" />
+    <result column="paysalt" property="paysalt" jdbcType="VARCHAR" />
+    <result column="worklist" property="worklist" jdbcType="VARCHAR" />
+    <result column="sysidlist" property="sysidlist" jdbcType="VARCHAR" />
+    <result column="utype" property="utype" jdbcType="VARCHAR" />
+    <result column="cardType" property="cardtype" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="postcode" property="postcode" jdbcType="VARCHAR" />
+    <result column="emailIsActive" property="emailisactive" jdbcType="VARCHAR" />
+    <result column="shopid" property="shopid" jdbcType="VARCHAR" />
+    <result column="accountType" property="accounttype" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="rank" property="rank" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="regeistDate" property="regeistdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, username, password, salt, nickname, sex, birthday, card, address, headpicture, 
+    mail, truename, phone, starttime, endtime, locked, paypass, paysalt, worklist, sysidlist, 
+    utype, cardType, province, city, postcode, emailIsActive, shopid, accountType, operator, 
+    createDate, modifyDate, rank, score, regeistDate
+  </sql>
+  <select id="selectUserList" resultMap="BaseResultMap">
+	  select 
+	  <include refid="Base_Column_List" />
+	  from users
+  </select>
+  <select id="queryUserByUserName" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+   <select id="queryUserByPhone" resultMap="BaseResultMap" parameterType="string">
+  	select * from users where phone = #{mobile}
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	,dictinfo.cname uname
+    from users left join dictinfo on users.utype=dictinfo.code and dictinfo.dictid=2014
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    	
+    </where>
+  </select>
+  <select id="selectFuzzy" parameterType="com.hibo.cms.user.model.User" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from users
+     <where>
+	   	<if test="userid !=null and userid != ''">
+	   		and userid like '%${userid}%'
+	   	</if>
+	   	<if test="username !=null and username != ''">
+	   		and username like '%${username}%'
+	   	</if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from users
+    where userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.user.model.User" >
+    insert into users (userid, username, password, 
+      salt, nickname, sex, birthday, 
+      card, address, headpicture, 
+      mail, truename, phone, 
+      starttime, endtime, locked, 
+      paypass, paysalt, worklist, 
+      sysidlist, utype, cardType, 
+      province, city, postcode, 
+      emailIsActive, shopid, accountType, 
+      operator, createDate, modifyDate, 
+      rank, score, regeistDate
+      )
+    values (#{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, #{birthday,jdbcType=TIMESTAMP}, 
+      #{card,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{headpicture,jdbcType=VARCHAR}, 
+      #{mail,jdbcType=VARCHAR}, #{truename,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{locked,jdbcType=BIT}, 
+      #{paypass,jdbcType=VARCHAR}, #{paysalt,jdbcType=VARCHAR}, #{worklist,jdbcType=VARCHAR}, 
+      #{sysidlist,jdbcType=VARCHAR}, #{utype,jdbcType=VARCHAR}, #{cardtype,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
+      #{emailisactive,jdbcType=VARCHAR}, #{shopid,jdbcType=VARCHAR}, #{accounttype,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{rank,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{regeistdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.user.model.User" >
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="card != null" >
+        card,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="headpicture != null" >
+        headpicture,
+      </if>
+      <if test="mail != null" >
+        mail,
+      </if>
+      <if test="truename != null" >
+        truename,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="paypass != null" >
+        paypass,
+      </if>
+      <if test="paysalt != null" >
+        paysalt,
+      </if>
+      <if test="worklist != null" >
+        worklist,
+      </if>
+      <if test="sysidlist != null" >
+        sysidlist,
+      </if>
+      <if test="utype != null" >
+        utype,
+      </if>
+      <if test="cardtype != null" >
+        cardType,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="postcode != null" >
+        postcode,
+      </if>
+      <if test="emailisactive != null" >
+        emailIsActive,
+      </if>
+      <if test="shopid != null" >
+        shopid,
+      </if>
+      <if test="accounttype != null" >
+        accountType,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="regeistdate != null" >
+        regeistDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=BIT},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="card != null" >
+        #{card,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="headpicture != null" >
+        #{headpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null" >
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="truename != null" >
+        #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=BIT},
+      </if>
+      <if test="paypass != null" >
+        #{paypass,jdbcType=VARCHAR},
+      </if>
+      <if test="paysalt != null" >
+        #{paysalt,jdbcType=VARCHAR},
+      </if>
+      <if test="worklist != null" >
+        #{worklist,jdbcType=VARCHAR},
+      </if>
+      <if test="sysidlist != null" >
+        #{sysidlist,jdbcType=VARCHAR},
+      </if>
+      <if test="utype != null" >
+        #{utype,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null" >
+        #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="emailisactive != null" >
+        #{emailisactive,jdbcType=VARCHAR},
+      </if>
+      <if test="shopid != null" >
+        #{shopid,jdbcType=VARCHAR},
+      </if>
+      <if test="accounttype != null" >
+        #{accounttype,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="regeistdate != null" >
+        #{regeistdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.user.model.User" >
+    update users
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=BIT},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="card != null" >
+        card = #{card,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="headpicture != null" >
+        headpicture = #{headpicture,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null" >
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="truename != null" >
+        truename = #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=BIT},
+      </if>
+      <if test="paypass != null" >
+        paypass = #{paypass,jdbcType=VARCHAR},
+      </if>
+      <if test="paysalt != null" >
+        paysalt = #{paysalt,jdbcType=VARCHAR},
+      </if>
+      <if test="worklist != null" >
+        worklist = #{worklist,jdbcType=VARCHAR},
+      </if>
+      <if test="sysidlist != null" >
+        sysidlist = #{sysidlist,jdbcType=VARCHAR},
+      </if>
+      <if test="utype != null" >
+        utype = #{utype,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null" >
+        cardType = #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="emailisactive != null" >
+        emailIsActive = #{emailisactive,jdbcType=VARCHAR},
+      </if>
+      <if test="shopid != null" >
+        shopid = #{shopid,jdbcType=VARCHAR},
+      </if>
+      <if test="accounttype != null" >
+        accountType = #{accounttype,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="regeistdate != null" >
+        regeistDate = #{regeistdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="changePassword" parameterType="String">
+  	update users set password = #{password,jdbcType=VARCHAR}, salt = #{salt,jdbcType=VARCHAR} where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="changePayPass" parameterType="String">
+  	update users set paypass = #{password,jdbcType=VARCHAR}, paysalt = #{salt,jdbcType=VARCHAR} where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateUserid">
+  	UPDATE 
+  	users 
+  	SET userid = #{userid,jdbcType=VARCHAR} 
+  	WHERE 
+  	userid = #{olduserid,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByUserId" parameterType="String">
+  	delete from users where userid = #{userid}
+  </delete>
+  <!-- <update id="update" parameterType="com.hibo.cms.user.model.User" >
+    update users
+    set 
+    	username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=BIT},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      card = #{card,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      headpicture = #{headpicture,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      truename = #{truename,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=VARCHAR},
+      endtime = #{endtime,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=BIT},
+      paypass = #{paypass,jdbcType=VARCHAR},
+      paysalt = #{paysalt,jdbcType=VARCHAR},
+      worklist = #{worklist,jdbcType=VARCHAR},
+      sysidlist = #{sysidlist,jdbcType=VARCHAR},
+      utype = #{utype,jdbcType=VARCHAR},
+      cardType = #{cardtype,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      emailIsActive = #{emailisactive,jdbcType=VARCHAR},
+      shopid = #{shopid,jdbcType=VARCHAR},
+      accountType = #{accounttype,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      modifyDate = #{modifyDate,jdbcType=TIMESTAMP},
+      rank = #{rank,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      regeistDate = #{regeistdate,jdbcType=TIMESTAMP}
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update> -->
+</mapper>

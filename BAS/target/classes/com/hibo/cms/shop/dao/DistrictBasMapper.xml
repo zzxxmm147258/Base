@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.shop.dao.DistrictBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.shop.model.DistrictBas" >
+    <id column="district" property="district" jdbcType="VARCHAR" />
+    <result column="disname" property="disname" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="district_logo" property="districtLogo" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="tour_img" property="tourImg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    district, disname,city, availabe, operator, district_logo,create_date, modify_date,tour_img
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_district
+    where district = #{district,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_district
+    where district = #{district,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.shop.model.DistrictBas" >
+    insert into bas_district (district, disname,city, availabe, 
+      operator,district_logo, create_date, modify_date,tour_img
+      )
+    values (#{district,jdbcType=VARCHAR}, #{disname,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR}, #{availabe,jdbcType=BIT}, 
+      #{operator,jdbcType=VARCHAR},  #{districtLogo,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+      #{tourImg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.shop.model.DistrictBas" >
+    insert into bas_district
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="disname != null" >
+        disname,
+      </if>
+       <if test="city != null" >
+        city,
+      </if>
+      <if test="availabe != null" >
+        availabe,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="districtLogo != null" >
+        district_logo,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="tourImg != null" >
+        tour_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="disname != null" >
+        #{disname,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+       <if test="districtLogo != null" >
+        #{districtLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tourImg != null" >
+        #{tourImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.shop.model.DistrictBas" >
+    update bas_district
+    <set >
+      <if test="disname != null" >
+        disname = #{disname,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        availabe = #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+       <if test="districtLogo != null" >
+        district_logo = #{districtLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tourImg != null" >
+        tour_img = #{tourImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where district = #{district,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.shop.model.DistrictBas" >
+    update bas_district
+    set disname = #{disname,jdbcType=VARCHAR},
+        city = #{city,jdbcType=VARCHAR},
+      availabe = #{availabe,jdbcType=BIT},
+      operator = #{operator,jdbcType=VARCHAR},
+      district_logo = #{districtLogo,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      tour_img = #{tourImg,jdbcType=VARCHAR}
+    where district = #{district,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectByCondition" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from bas_district
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    </where>
+  </select>
+  
+   <select id="selectAll" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from bas_district
+  </select>
+  <select id="selectAllAvailable" resultMap="BaseResultMap">
+  	SELECT * FROM bas_district WHERE availabe = 1 ORDER BY idx ASC
+  </select>
+  
+  <select id="selectBy" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from bas_district where availabe='1'
+    <if test="district !=null and  district !='' ">
+      and district = #{district,jdbcType=VARCHAR}
+    </if>
+    <if test="disname !=null and  disname !='' ">
+      and disname = #{disname,jdbcType=VARCHAR}
+    </if>
+    <if test="city !=null and  city !='' ">
+      and city = #{city,jdbcType=VARCHAR}
+    </if>
+    ORDER BY idx ASC
+  </select>
+  
+</mapper>

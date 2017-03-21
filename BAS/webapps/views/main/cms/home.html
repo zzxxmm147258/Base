@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title></title>
+<script src="../../resources/hibo/js/hibo.js"></script>
+<script type="text/javascript">
+	Import.Jc([ '/resources/hibo/jquery_ui/jquery-ui.css',
+			'/resources/hibo/scroll/iscroll.js',
+			'/resources/bas/css/home/home.css' ]);
+</script>
+</head>
+<body id='body'>
+	<div id='hBody' class=' hBody' style='display: none;'>
+		<!-- 这是一个头 -->
+		<div id='head' class='head'></div>
+		<div id='main' class='main'>
+			<!-- 这是一个导航菜单 -->
+			<div id='mNav' class='mNav'>
+				<div id='mNavLogo' class='mNavLogo'>
+					<div id='mNavLogoImg' class='mNavLogoImg' title='瀚铂科技'></div>
+				</div>
+				<div id='mNavScroll' class='mNavScroll'>
+					<div id='mNavScroller' class='mNavScroller'></div>
+				</div>
+				<div id='mNavTool' class='mNavTool'>
+					<div id='mNavHide' class='mNavHide'>
+						<div id='mNavHideImg' class='mNavHideImg'></div>
+					</div>
+					<div id='mNavtLogOut' class='mNavtLogOut' title='退出'>
+						<div id='mNavtLogOutImg' class='mNavtLogOutImg'></div>
+						<div id='mNavtLogOutText' class='mNavtLogOutText'>退出</div>
+					</div>
+					<div id='mNavtHelp' class='mNavtHelp' title='帮助'>
+						<div id='mNavtHelpImg' class='mNavtHelpImg'></div>
+						<div id='mNavtHelpText' class='mNavtHelpText' >帮助</div>
+					</div>
+					<div id='mNavtTheme' class='mNavtTheme'>
+						<div id='mNavttBtn' class='mNavttBtn' title='主题'></div>
+						<input id='mNavttInput' class='mNavttInput'>
+						<div id='mNavttBox' class='mNavttBox'>
+							<div id='mNavttBoxDefault' class='mNavttBoxDefault mNavttBoxBtn' theme=""></div>
+							<div id='mNavttBoxEasy' class='mNavttBoxEasy mNavttBoxBtn' theme="easy"></div>
+<!-- 						<div id='mNavttBox-black' class='mNavttBox-black mNavttBoxBtn' theme="black"></div>
+							<div id='mNavttBox-day' class='mNavttBox-day mNavttBoxBtn' theme="day"></div>
+							<div id='mNavttBox-blue' class='mNavttBox-blue mNavttBoxBtn' theme="blue"></div> -->
+						</div>
+					</div>
+					<div id='mNavtUser' class='mNavtUser'>
+						<div id='mNavtUserImg' class='mNavtUserImg'></div>
+						<div id='mNavtUserInfo' class='mNavtUserInfo'></div>
+						<div id='userInfo' class="userInfo">
+							<div id='userInfoHead' class='userInfoHead'><img alt="" src=""></div>
+							<div id='userInfoNike' class='userInfoNike'></div>
+						</div>
+					</div>
+					<div id='mNavSearch' class='mNavSearch'>
+						<div id='mNavSearchDiv' class='mNavSearchDiv'>
+							<input id='mNavSearchInput' class='mNavSearchInput' placeholder="搜索菜单">
+							<div id='mNavSearchBtn' class='mNavSearchBtn' title='搜索'></div>
+							<div id='mNavSearchBox' class='mNavSearchBox'>
+								<div id='mNavSearchList' class='mNavSearchList'></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id='mBody' class='mBody'>
+				<!-- 这是一个竖菜单 -->
+				<div id='mbMenu' class='mbMenu'>
+					<div id='mbmHide' class='mbmHide'>
+						<div id='mbmHideImg' class='mbmHideImg' title='隐藏菜单'></div>
+					</div>
+					<div id="mbmList" class='mbmList'>
+						<div id="mbmlScroll" class='mbmlScroll'>
+						</div>
+					</div>
+					<div id="mbMenuOpen" class='mbMenuOpen'><div id='mbMenuOpenImg' class='mbMenuOpenImg' title='显示菜单'></div></div>
+				</div>
+				<div id='mbDiv' class='mbDiv'>
+					<!-- 只是子导航 -->
+					<div id='mbdNav' class='mbdNav'>
+						<div id='mbdHome' class='mbdHome'></div>
+						<div id='mbdScroll' class='mbdScroll'>
+							<div id='mbdScroller' class='mbdScroller'></div>
+						</div>
+					</div>
+					<!-- 内容 -->
+					<div id='mbdContent' class='mbdContent'>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id='footer' class='footer'></div>
+		<!-- 这是一个脚 -->
+	</div>
+	<div id='oncontextmenu' class='oncontextmenu' style="display: none;">
+		<input  id='oncontextmenuFocus' class='oncontextmenuFocus'>
+		<ul id="oncontextmenu-menu" class="oncontextmenu-menu">
+			<li id='oncontextmenu-menu-0' val=0>刷新</li>
+			<li id='oncontextmenu-menu-1' val=1>关闭当前</li>
+			<li id='oncontextmenu-menu-5' val=5>关闭左侧</li>
+			<li id='oncontextmenu-menu-4' val=4>关闭右侧</li>
+			<li id='oncontextmenu-menu-2' val=2>关闭其它</li>
+			<li id='oncontextmenu-menu-3' val=3>关闭所有</li>
+		</ul>
+	</div>
+	<div class='iframe-loading'>
+		<div class='iframe-loading-div' data-content="loading...">loading...</div>
+	</div>
+	<script type="text/javascript">
+		Import.Jc('/resources/bas/js/home/home.js');
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

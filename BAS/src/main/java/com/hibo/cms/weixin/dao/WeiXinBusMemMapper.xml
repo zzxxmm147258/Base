@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.weixin.dao.WeiXinBusMemMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.weixin.model.WeiXinBusMem" >
+    <id column="openid" property="openid" jdbcType="VARCHAR" />
+    <id column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="subscribe" property="subscribe" jdbcType="INTEGER" />
+    <result column="substime" property="substime" jdbcType="TIMESTAMP" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="weixinid" property="weixinid" jdbcType="VARCHAR" />
+    <result column="locked" property="locked" jdbcType="INTEGER" />
+    <result column="flags" property="flags" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="appkey" property="appkey" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    openid, truename,subscribe, substime, userid, department, mobile, email, weixinid, locked, 
+    flags, remark, appkey
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mem_weixin_bus
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mem_weixin_bus
+    where openid = #{openid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.weixin.model.WeiXinBusMem" >
+    insert into mem_weixin_bus (openid,truename, subscribe, substime, 
+      userid, department, mobile, 
+      email, weixinid, locked, 
+      flags, remark, appkey
+      )
+    values (#{openid,jdbcType=VARCHAR},#{truename,jdbcType=VARCHAR}, #{subscribe,jdbcType=INTEGER}, #{substime,jdbcType=TIMESTAMP}, 
+      #{userid,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{weixinid,jdbcType=VARCHAR}, #{locked,jdbcType=INTEGER}, 
+      #{flags,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{appkey,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.weixin.model.WeiXinBusMem" >
+    insert into mem_weixin_bus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="truename != null" >
+        truename,
+      </if>
+      <if test="subscribe != null" >
+        subscribe,
+      </if>
+      <if test="substime != null" >
+        substime,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="weixinid != null" >
+        weixinid,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="flags != null" >
+        flags,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="appkey != null" >
+        appkey,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="truename != null" >
+        #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        #{subscribe,jdbcType=INTEGER},
+      </if>
+      <if test="substime != null" >
+        #{substime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinid != null" >
+        #{weixinid,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=INTEGER},
+      </if>
+      <if test="flags != null" >
+        #{flags,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="appkey != null" >
+        #{appkey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.weixin.model.WeiXinBusMem" >
+    update mem_weixin_bus
+    <set >
+      <if test="truename != null" >
+        truename = #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        subscribe = #{subscribe,jdbcType=INTEGER},
+      </if>
+      <if test="substime != null" >
+        substime = #{substime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinid != null" >
+        weixinid = #{weixinid,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=INTEGER},
+      </if>
+      <if test="flags != null" >
+        flags = #{flags,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="appkey != null" >
+        appkey = #{appkey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where openid = #{openid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.weixin.model.WeiXinBusMem" >
+    update mem_weixin_bus
+    set   truename = #{truename,jdbcType=VARCHAR},
+     subscribe = #{subscribe,jdbcType=INTEGER},
+      substime = #{substime,jdbcType=TIMESTAMP},
+      userid = #{userid,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      weixinid = #{weixinid,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=INTEGER},
+      flags = #{flags,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      appkey = #{appkey,jdbcType=VARCHAR}
+    where openid = #{openid,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectByCondition" resultMap="BaseResultMap">
+   SELECT
+	* from  (
+		SELECT
+			mw.openid,
+			mw.truename,
+			mw.subscribe,
+			mw.substime,
+			mm.username userid,
+			wb.name department,
+			mw.mobile,
+			mw.email,
+			mw.weixinid,
+			mw.locked,
+			mw.flags,
+			mw.remark,
+			mw.appkey
+		FROM
+			mem_weixin_bus mw
+		INNER JOIN users mm ON mw.userid = mm.userid
+        LEFT JOIN  wx_bcode wb ON wb.id=mw.department
+	) a
+    <where>
+        <if test="wStr !=null">
+    		${wStr}
+    	</if>
+    </where>
+   </select>
+   
+   <update id="update"  >
+    update mem_weixin_bus
+    set locked=#{locked,jdbcType=INTEGER},
+        flags=#{flags,jdbcType=INTEGER}
+    where openid = #{openid,jdbcType=VARCHAR}
+  </update>
+   
+    <select id="select3All" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    FROM
+	mem_weixin_bus
+    WHERE
+	openid NOT IN (
+		SELECT
+			bus.openid
+		FROM
+			mem_weixin_bus bus
+		INNER JOIN wx_tagnameg t ON bus.openid = t.openid
+    where t.m_id=#{mId,jdbcType=VARCHAR}
+	)
+  </select>
+  
+   
+</mapper>

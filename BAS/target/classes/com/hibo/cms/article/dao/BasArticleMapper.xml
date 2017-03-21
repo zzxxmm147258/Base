@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.article.dao.BasArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.article.model.BasArticle" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="hits" property="hits" jdbcType="BIGINT" />
+    <result column="is_publication" property="isPublication" jdbcType="BIT" />
+    <result column="is_top" property="isTop" jdbcType="BIT" />
+    <result column="seo_description" property="seoDescription" jdbcType="VARCHAR" />
+    <result column="seo_keywords" property="seoKeywords" jdbcType="VARCHAR" />
+    <result column="seo_title" property="seoTitle" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="article_category" property="articleCategory" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="effective_date" property="effectiveDate" jdbcType="TIMESTAMP" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="is_url" property="isUrl" jdbcType="BIT" />
+    <result column="content_url" property="contentUrl" jdbcType="VARCHAR" />
+    <result column="idx" property="idx" jdbcType="INTEGER" />
+    <result column="matitle" property="matitle" jdbcType="VARCHAR" />
+    <result column="articleId" property="articleId" jdbcType="VARCHAR" />
+    <result column="activedate" property="activedate" jdbcType="TIMESTAMP" />
+    
+    <result column="active_date" property="activeDate" jdbcType="TIMESTAMP" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="attr1" property="attr1" jdbcType="VARCHAR" />
+    <result column="attr2" property="attr2" jdbcType="VARCHAR" />
+    <result column="attr3" property="attr3" jdbcType="VARCHAR" />
+    
+    <result column="attr4" property="attr4" jdbcType="VARCHAR" />
+    <result column="attr5" property="attr5" jdbcType="VARCHAR" />
+    <result column="attr6" property="attr6" jdbcType="VARCHAR" />
+    <result column="attr7" property="attr7" jdbcType="VARCHAR" />
+    <result column="attr8" property="attr8" jdbcType="VARCHAR" />
+    <result column="attr9" property="attr9" jdbcType="VARCHAR" />
+    <result column="attr10" property="attr10" jdbcType="VARCHAR" />
+    <result column="attr11" property="attr11" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hibo.cms.article.model.BasArticle" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date, modify_date, author, hits, is_publication, is_top, seo_description, 
+    seo_keywords, seo_title, title, article_category,effective_date,url,operator,category,is_url,content_url,
+    active_date,sort,attr1,attr2,attr3,
+    attr4,attr5,attr6,attr7,attr8,attr9,attr10,attr11
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bas_article
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_article
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.article.model.BasArticle" >
+    insert into bas_article (id, create_date, modify_date, 
+      author, hits, is_publication, 
+      is_top, seo_description, seo_keywords, 
+      seo_title, title, article_category, 
+      content,effective_date,url,operator,category,is_url,content_url,
+      active_date,sort,attr1,attr2,attr3,attr4,attr5,attr6,attr7,attr8,attr9,attr10,attr11)
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{author,jdbcType=VARCHAR}, #{hits,jdbcType=BIGINT}, #{isPublication,jdbcType=BIT}, 
+      #{isTop,jdbcType=BIT}, #{seoDescription,jdbcType=VARCHAR}, #{seoKeywords,jdbcType=VARCHAR}, 
+      #{seoTitle,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{articleCategory,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR},#{effectiveDate,jdbcType=TIMESTAMP},#{url,jdbcType=VARCHAR},
+      #{operator,jdbcType=VARCHAR},#{category,jdbcType=VARCHAR},#{isUrl,jdbcType=BIT},#{contentUrl,jdbcType=VARCHAR},
+      #{activeDate,jdbcType=TIMESTAMP},#{sort,jdbcType=INTEGER},#{attr1,jdbcType=VARCHAR}, #{attr2,jdbcType=VARCHAR}, 
+      #{attr3,jdbcType=VARCHAR},#{attr4,jdbcType=VARCHAR},#{attr5,jdbcType=VARCHAR},
+      #{attr6,jdbcType=VARCHAR},#{attr7,jdbcType=VARCHAR},#{attr8,jdbcType=VARCHAR},
+      #{attr9,jdbcType=VARCHAR},#{attr10,jdbcType=VARCHAR},#{attr11,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.article.model.BasArticle" >
+    insert into bas_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="hits != null" >
+        hits,
+      </if>
+      <if test="isPublication != null" >
+        is_publication,
+      </if>
+      <if test="isTop != null" >
+        is_top,
+      </if>
+      <if test="seoDescription != null" >
+        seo_description,
+      </if>
+      <if test="seoKeywords != null" >
+        seo_keywords,
+      </if>
+      <if test="seoTitle != null" >
+        seo_title,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="articleCategory != null" >
+        article_category,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="effectiveDate != null" >
+        effective_date,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="isUrl != null" >
+        is_url,
+      </if>
+      <if test="contentUrl != null" >
+        content_url,
+      </if>
+      <if test="activeDate != null" >
+        active_date,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="attr1 != null" >
+        attr1,
+      </if>
+      <if test="attr2 != null" >
+        attr2,
+      </if>
+      <if test="attr3 != null" >
+        attr3,
+      </if>
+      <if test="attr4 != null" >
+        attr4,
+      </if>
+      <if test="attr5 != null" >
+        attr5,
+      </if>
+      <if test="attr6 != null" >
+        attr6,
+      </if>
+      <if test="attr7 != null" >
+        attr7,
+      </if>
+      <if test="attr8 != null" >
+        attr8,
+      </if>
+      <if test="attr9 != null" >
+        attr9,
+      </if>
+      <if test="attr10 != null" >
+        attr10,
+      </if>
+      <if test="attr11 != null" >
+        attr11,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null" >
+        #{hits,jdbcType=BIGINT},
+      </if>
+      <if test="isPublication != null" >
+        #{isPublication,jdbcType=BIT},
+      </if>
+      <if test="isTop != null" >
+        #{isTop,jdbcType=BIT},
+      </if>
+      <if test="seoDescription != null" >
+        #{seoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="seoKeywords != null" >
+        #{seoKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="seoTitle != null" >
+        #{seoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCategory != null" >
+        #{articleCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="effectiveDate != null" >
+        #{effectiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="isUrl != null" >
+        #{isUrl,jdbcType=BIT},
+      </if>
+      <if test="contentUrl != null" >
+        #{contentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activeDate != null" >
+        #{activeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="attr1 != null" >
+        #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="attr4 != null" >
+        #{attr4,jdbcType=VARCHAR},
+      </if>
+      <if test="attr5 != null" >
+        #{attr5,jdbcType=VARCHAR},
+      </if>
+      <if test="attr6 != null" >
+        #{attr6,jdbcType=VARCHAR},
+      </if>
+      <if test="attr7 != null" >
+        #{attr7,jdbcType=VARCHAR},
+      </if>
+      <if test="attr8 != null" >
+        #{attr8,jdbcType=VARCHAR},
+      </if>
+      <if test="attr9 != null" >
+        #{attr9,jdbcType=VARCHAR},
+      </if>
+      <if test="attr10 != null" >
+        #{attr10,jdbcType=VARCHAR},
+      </if>
+      <if test="attr11 != null" >
+        #{attr11,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.article.model.BasArticle" >
+    update bas_article
+    <set >
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null" >
+        hits = #{hits,jdbcType=BIGINT},
+      </if>
+      <if test="isPublication != null" >
+        is_publication = #{isPublication,jdbcType=BIT},
+      </if>
+      <if test="isTop != null" >
+        is_top = #{isTop,jdbcType=BIT},
+      </if>
+      <if test="seoDescription != null" >
+        seo_description = #{seoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="seoKeywords != null" >
+        seo_keywords = #{seoKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="seoTitle != null" >
+        seo_title = #{seoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCategory != null" >
+        article_category = #{articleCategory,jdbcType=VARCHAR},
+      </if>
+        content = #{content,jdbcType=LONGVARCHAR},
+      <if test="effectiveDate != null" >
+        effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="isUrl != null" >
+        is_url = #{isUrl,jdbcType=BIT},
+      </if>
+        content_url = #{contentUrl,jdbcType=VARCHAR},
+        active_date = #{activeDate,jdbcType=TIMESTAMP},
+        sort = #{sort,jdbcType=INTEGER},
+      <if test="attr1 != null" >
+        attr1 = #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        attr2 = #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        attr3 = #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="attr4 != null" >
+        attr4 = #{attr4,jdbcType=VARCHAR},
+      </if>
+      <if test="attr5 != null" >
+        attr5 = #{attr5,jdbcType=VARCHAR},
+      </if>
+      <if test="attr6 != null" >
+        attr6 = #{attr6,jdbcType=VARCHAR},
+      </if>
+      <if test="attr7 != null" >
+        attr7 = #{attr7,jdbcType=VARCHAR},
+      </if>
+      <if test="attr8 != null" >
+        attr8 = #{attr8,jdbcType=VARCHAR},
+      </if>
+      <if test="attr9 != null" >
+        attr9 = #{attr9,jdbcType=VARCHAR},
+      </if>
+      <if test="attr10 != null" >
+        attr10 = #{attr10,jdbcType=VARCHAR},
+      </if>
+      <if test="attr11 != null" >
+        attr11 = #{attr11,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hibo.cms.article.model.BasArticle" >
+    update bas_article
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR},
+      hits = #{hits,jdbcType=BIGINT},
+      is_publication = #{isPublication,jdbcType=BIT},
+      is_top = #{isTop,jdbcType=BIT},
+      seo_description = #{seoDescription,jdbcType=VARCHAR},
+      seo_keywords = #{seoKeywords,jdbcType=VARCHAR},
+      seo_title = #{seoTitle,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      article_category = #{articleCategory,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      is_url = #{isUrl,jdbcType=BIT},
+      content_url = #{contentUrl,jdbcType=VARCHAR},
+      active_date = #{activeDate,jdbcType=TIMESTAMP},
+      sort = #{sort,jdbcType=INTEGER},
+      attr1 = #{attr1,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR},
+      attr3 = #{attr3,jdbcType=VARCHAR},
+      attr4 = #{attr4,jdbcType=VARCHAR},
+      attr5 = #{attr5,jdbcType=VARCHAR},
+      attr6 = #{attr6,jdbcType=VARCHAR},
+      attr7 = #{attr7,jdbcType=VARCHAR},
+      attr8 = #{attr8,jdbcType=VARCHAR},
+      attr9 = #{attr9,jdbcType=VARCHAR},
+      attr10 = #{attr10,jdbcType=VARCHAR},
+      attr11 = #{attr11,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.article.model.BasArticle" >
+    update bas_article
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR},
+      hits = #{hits,jdbcType=BIGINT},
+      is_publication = #{isPublication,jdbcType=BIT},
+      is_top = #{isTop,jdbcType=BIT},
+      seo_description = #{seoDescription,jdbcType=VARCHAR},
+      seo_keywords = #{seoKeywords,jdbcType=VARCHAR},
+      seo_title = #{seoTitle,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      article_category = #{articleCategory,jdbcType=VARCHAR},
+      effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      is_url = #{isUrl,jdbcType=BIT},
+      content_url = #{contentUrl,jdbcType=VARCHAR},
+      active_date = #{activeDate,jdbcType=TIMESTAMP},
+      sort = #{sort,jdbcType=INTEGER},
+      attr1 = #{attr1,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR},
+      attr3 = #{attr3,jdbcType=VARCHAR},
+      attr4 = #{attr4,jdbcType=VARCHAR},
+      attr5 = #{attr5,jdbcType=VARCHAR},
+      attr6 = #{attr6,jdbcType=VARCHAR},
+      attr7 = #{attr7,jdbcType=VARCHAR},
+      attr8 = #{attr8,jdbcType=VARCHAR},
+      attr9 = #{attr9,jdbcType=VARCHAR},
+      attr10 = #{attr10,jdbcType=VARCHAR},
+      attr11 = #{attr11,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectPage"  resultMap="BaseResultMap"  parameterType="java.lang.String" >
+   SELECT
+	oa.id,
+	oa.create_date,
+	oa.modify_date,
+	oa.author,
+	oa.hits,
+	oa.is_publication,
+	oa.is_top,
+	oa.seo_description,
+	oa.seo_keywords,
+	oa.seo_title,
+	oa.title,
+	dic.cname article_category,
+	oa.content,
+	oa.effective_date,
+	oa.url,
+	oa.operator,
+	dio.cname category,
+	oa.is_url,
+	oa.content_url,
+	oa.active_date,
+	oa.sort,
+	oa.attr1,
+	oa.attr2,
+	oa.attr3,
+	oa.attr4,
+	oa.attr5,
+	oa.attr6,
+	oa.attr7,
+	oa.attr8,
+	oa.attr9,
+	oa.attr10,
+	oa.attr11
+    FROM
+	(
+		SELECT
+			*
+		FROM
+			bas_article
+		<where>
+  		<if test="wStr!=null">
+  			${wStr}
+  		</if>
+  	 </where>
+	) oa
+    LEFT JOIN dictinfo dic ON oa.article_category = dic.code
+    LEFT JOIN dictinfo dio ON oa.category = dio.code
+    WHERE 1=1
+    ORDER BY oa.sort desc, oa.effective_date desc
+  </select>
+  
+  <select id="selectAll"  resultMap="BaseResultMap"  parameterType="java.lang.String" >
+    select * from (
+    SELECT
+	oa.id,
+	oa.create_date,
+	oa.modify_date,
+	oa.author,
+	oa.hits,
+	oa.is_publication,
+	oa.is_top,
+	oa.seo_description,
+	oa.seo_keywords,
+	oa.seo_title,
+	oa.title,
+	dic.cname article_category,
+	oa.content,
+	oa.effective_date,
+	oa.url,
+	oa.operator,
+	oa.category,
+	oa.is_url,
+	oa.content_url,
+	oa.active_date,
+	oa.sort,
+	oa.attr1,
+	oa.attr2,
+	oa.attr3,
+	oa.attr4,
+	oa.attr5,
+	oa.attr6,
+	oa.attr7,
+	oa.attr8,
+	oa.attr9,
+	oa.attr10,
+	oa.attr11
+    FROM
+	bas_article oa
+    LEFT JOIN dictinfo dic ON oa.article_category = dic. CODE
+    WHERE 1=1 ORDER BY  oa.sort desc, oa.effective_date desc 
+    ) a
+    <where>
+  		<if test="wStr!=null">
+  			${wStr}
+  		</if>
+  	</where>
+  </select>
+  
+   <select id="selectArticleMainId" resultMap="BaseResultMap" >
+    SELECT
+	concat(oa.id,'-',bar.article_main_id) id,
+	oa.create_date,
+	oa.modify_date,
+	oa.author,
+	oa.hits,
+	oa.is_publication,
+	bar.is_top,
+	IF(oa.is_publication=0,'否','是') seo_keywords,
+	IF(bar.is_top=0,'否','是') seo_title,
+	oa.seo_title,
+	oa.title,
+	dic.cname article_category,
+	oa.content,
+	oa.effective_date,
+	oa.url,
+	oa.operator,
+	bar.idx,
+	oa.category,
+	oa.is_url,
+	oa.content_url,
+	oa.active_date,
+	oa.sort,
+	oa.attr1,
+	oa.attr2,
+	oa.attr3,
+	oa.attr4,
+	oa.attr5,
+	oa.attr6,
+	oa.attr7,
+	oa.attr8,
+	oa.attr9,
+	oa.attr10,
+	oa.attr11
+    FROM
+	bas_article oa
+    LEFT JOIN dictinfo dic ON oa.article_category = dic. CODE
+    LEFT JOIN bas_article_relation bar ON bar.article_id=oa.id
+    WHERE bar.article_main_id = #{articleMainId,jdbcType=VARCHAR} 
+    ORDER BY oa.sort desc, oa.effective_date desc
+  </select>
+  
+  <select id="selectBasArticle"  resultMap="BaseResultMap"  parameterType="java.lang.String" >
+    select * from (
+    SELECT
+	oa.id,
+	oa.create_date,
+	oa.modify_date,
+	oa.author,
+	oa.hits,
+	oa.is_publication,
+	oa.is_top,
+	oa.seo_description,
+	oa.seo_keywords,
+	oa.seo_title,
+	oa.title,
+	dic.cname article_category,
+	oa.content,
+	oa.effective_date,
+	oa.url,
+	oa.operator,
+	oa.category,
+	oa.is_url,
+	oa.content_url,
+	oa.active_date,
+	oa.sort,
+	oa.attr1,
+	oa.attr2,
+	oa.attr3,
+	oa.attr4,
+	oa.attr5,
+	oa.attr6,
+	oa.attr7,
+	oa.attr8,
+	oa.attr9,
+	oa.attr10,
+	oa.attr11
+    FROM
+	bas_article oa
+    LEFT JOIN dictinfo dic ON oa.article_category = dic. CODE
+    WHERE oa.is_publication='1' 
+    <if test="articleCategory !=null and articleCategory !=''">
+      and oa.article_category=#{articleCategory,jdbcType=VARCHAR}
+    </if>
+    ) a  where 1=1
+    <if test="title !=null and title !=''">
+      and a.title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="category !=null and category !=''">
+      and a.category=#{category,jdbcType=VARCHAR}
+    </if>
+    <if test="author !=null and author !=''">
+     and a.author like CONCAT('%',#{author,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="datefrom !=null and datefrom !=''">
+      and <![CDATA[#{datefrom,jdbcType=VARCHAR}<a.effective_date]]>
+    </if>
+    <if test="dateto !=null and dateto !='' ">
+      and <![CDATA[#{dateto,jdbcType=VARCHAR}>a.effective_date]]>
+    </if>
+    ORDER BY sort desc, effective_date desc
+  </select>
+  
+  <select id="selectByCategroy" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select bm.effective_date,ba.* from 
+	bas_article_main bm,bas_article ba,bas_article_relation bam 
+	where 
+	ba.id=bam.article_id 
+    and bm.id=bam.article_main_id 
+    and ba.effective_date&lt;=now()
+    and ba.is_publication=1
+    and ba.category=#{category,jdbcType=VARCHAR} 
+    and ba.article_category=#{articleCategory,jdbcType=VARCHAR} 
+    order by  ba.sort desc, ba.effective_date desc  limit 0,1
+  </select>
+  
+  <select id="selectmId" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    SELECT
+	oa.id,
+	oa.create_date,
+	oa.modify_date,
+	oa.author,
+	oa.hits,
+	oa.is_publication,
+	bar.is_top,
+	oa.seo_keywords,
+	oa.seo_title,
+	oa.seo_title,
+	oa.title,
+	dic.cname article_category,
+	oa.content,
+	oa.effective_date,
+	oa.url,
+	oa.operator,
+	bar.idx,
+	oa.category,
+	oa.is_url,
+	oa.content_url,
+	oa.active_date,
+	oa.sort,
+	oa.attr1,
+	oa.attr2,
+	oa.attr3,
+	oa.attr4,
+	oa.attr5,
+	oa.attr6,
+	oa.attr7,
+	oa.attr8,
+	oa.attr9,
+	oa.attr10,
+	oa.attr11
+    FROM
+	bas_article oa
+    LEFT JOIN dictinfo dic ON oa.article_category = dic. CODE
+    LEFT JOIN bas_article_relation bar ON bar.article_id=oa.id
+    WHERE bar.article_main_id = #{articleMainId,jdbcType=VARCHAR} 
+    ORDER BY  oa.sort desc, oa.effective_date desc
+  </select>
+  
+  
+  <select id="selectByIsTop" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    SELECT
+	ba.id,
+	ba.title,
+	ba.url,
+	ba.seo_description,
+	bam.category,
+	ba.article_category,
+	ba.is_url,
+	ba.content_url
+    FROM
+	bas_article ba
+    INNER  JOIN bas_article_relation bar ON ba.id = bar.article_id
+    INNER  JOIN bas_article_main bam ON bam.id=bar.article_main_id
+    WHERE
+	bar.is_top = '1'
+    and ba.is_publication='1'
+    and bam.`status`='70'
+    and <![CDATA[CURRENT_TIMESTAMP()>bam.date_from]]>
+    and <![CDATA[CURRENT_TIMESTAMP()<bam.date_to]]>
+     and bam.article_category=#{articleCategory,jdbcType=VARCHAR}
+    and bam.category=#{category,jdbcType=VARCHAR}
+    ORDER BY
+	bar.idx 
+  </select>
+  
+  <select id="selectByArticle" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    SELECT
+	ba.*
+    FROM
+	bas_article ba
+    WHERE 1=1
+    <if test="articleCategory !=null and articleCategory !=''">
+	and ba.article_category=#{articleCategory,jdbcType=VARCHAR}
+	</if>
+	and ba.category=#{category,jdbcType=VARCHAR}
+	and ba.is_publication = '1'
+	and <![CDATA[CURRENT_TIMESTAMP()>ba.effective_date]]>
+    AND ba.id NOT IN (
+	SELECT
+		ba.id
+	FROM
+		bas_article ba
+	INNER JOIN bas_article_relation bar ON ba.id = bar.article_id
+	INNER JOIN bas_article_main bam ON bam.id = bar.article_main_id
+	WHERE
+		bar.is_top = '1'
+	AND ba.is_publication = '1'
+	AND bam.`status` = '70'
+	and <![CDATA[CURRENT_TIMESTAMP()>bam.date_from]]>
+    and <![CDATA[CURRENT_TIMESTAMP()<bam.date_to]]>
+	AND bam.article_category=#{excCategory,jdbcType=VARCHAR}
+	and bam.category=#{category,jdbcType=VARCHAR}
+    )
+    ORDER BY  ba.sort desc, ba.effective_date desc
+	limit #{page},#{limit}
+  </select>
+  
+  
+  <select id="selectArticle"  resultMap="BaseResultMap"  parameterType="java.lang.String" >
+    select * from (
+    SELECT
+	oa.id articleId,
+	oa.title title,
+	dic.cname article_category,
+    bam.title  matitle
+    FROM
+	bas_article_relation bar
+    LEFT JOIN  bas_article oa ON oa.id=bar.article_id
+    LEFT JOIN dictinfo dic ON oa.article_category = dic. CODE
+    LEFT JOIN bas_article_main bam ON bam.id=bar.article_main_id
+    WHERE
+	oa.is_publication = '1'
+	<if test="articleCategory !=null and articleCategory !=''">
+      and oa.article_category=#{articleCategory,jdbcType=VARCHAR}
+    </if>
+    ORDER BY  oa.sort desc, oa.effective_date desc
+    ) a  where 1=1
+    <if test="title !=null and title !=''">
+      and a.title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="matitle !=null and matitle !=''">
+      and a.matitle=#{matitle,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <select id="selectByBuildingId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+	ba.id,
+	ba.create_date,
+	ba.modify_date,
+	ba.author,
+	ba.hits,
+	ba.is_publication,
+	ba.is_top,
+	ba.seo_description,
+	ba.seo_keywords,
+	ba.seo_title,
+	ba.title,
+	ba.article_category,
+	ba.effective_date,
+	ba.url,
+	ba.operator,
+	category,
+	ba.is_url,
+	ba.content_url,
+	ba.active_date,
+	ba.sort,
+	ba.attr1,
+	ba.attr2,
+	ba.attr3,
+	ba.attr4,
+	ba.attr5,
+	ba.attr6,
+	ba.attr7,
+	ba.attr8,
+	ba.attr9,
+	ba.attr10,
+	ba.attr11,
+	qba.activedate
+    FROM
+	qpd_building_active qba
+    LEFT JOIN bas_article ba ON qba.article_id = ba.id
+    WHERE
+	qba.building_id = #{buildingId,jdbcType=VARCHAR}
+    AND qba.isdefault = '1'
+    ORDER BY ba.sort  desc, ba.effective_date desc
+  </select>
+  
+  
+  <select id="selectByAd" resultMap="BaseResultMap"  >
+   SELECT
+	ba.*
+    FROM
+	bas_article_main bam
+    LEFT JOIN bas_article_relation bar ON bam.id = bar.article_main_id
+    LEFT JOIN bas_article ba ON ba.id = bar.article_id
+    WHERE
+	bam.article_category = #{articleCategory,jdbcType=VARCHAR}
+    ORDER BY  ba.sort  desc, ba.effective_date desc
+	limit #{page},#{limit}
+  </select>
+  
+   <select id="selectByGroupId" resultMap="BaseResultMap"  >
+   select * from bas_article 
+   where article_category=#{articleCategory,jdbcType=VARCHAR}
+   and is_publication='1'
+   and <![CDATA[CURRENT_TIMESTAMP()>effective_date]]>
+   ORDER BY sort desc ,effective_date desc
+   limit #{page},#{limit}
+  </select>
+  
+</mapper>

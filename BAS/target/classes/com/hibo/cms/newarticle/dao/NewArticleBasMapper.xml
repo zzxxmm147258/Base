@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.newarticle.dao.NewArticleBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.newarticle.model.NewArticleBas" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="entitle" property="entitle" jdbcType="VARCHAR" />
+    <result column="is_url" property="isUrl" jdbcType="BIT" />
+    <result column="outer_url" property="outerUrl" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="icon_small" property="iconSmall" jdbcType="VARCHAR" />
+    <result column="icon_other" property="iconOther" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="img_small" property="imgSmall" jdbcType="VARCHAR" />
+    <result column="img_other" property="imgOther" jdbcType="VARCHAR" />
+    <result column="button_id" property="buttonId" jdbcType="VARCHAR" />
+    <result column="hits" property="hits" jdbcType="BIGINT" />
+    <result column="is_publication" property="isPublication" jdbcType="BIT" />
+    <result column="is_top" property="isTop" jdbcType="BIT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="effective_date" property="effectiveDate" jdbcType="TIMESTAMP" />
+    <result column="active_date" property="activeDate" jdbcType="TIMESTAMP" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
+    <result column="categoryg_id" property="categorygId" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="view_type" property="viewType" jdbcType="VARCHAR" />
+    <result column="is_tools" property="isTools" jdbcType="BIT" />
+    <result column="return_type" property="returnType" jdbcType="VARCHAR" />
+    <result column="attr1" property="attr1" jdbcType="VARCHAR" />
+    <result column="attr2" property="attr2" jdbcType="VARCHAR" />
+    <result column="attr3" property="attr3" jdbcType="VARCHAR" />
+    <result column="attr4" property="attr4" jdbcType="VARCHAR" />
+    <result column="attr5" property="attr5" jdbcType="VARCHAR" />
+    <result column="attr6" property="attr6" jdbcType="VARCHAR" />
+    <result column="attr7" property="attr7" jdbcType="VARCHAR" />
+    <result column="attr8" property="attr8" jdbcType="VARCHAR" />
+    <result column="attr9" property="attr9" jdbcType="VARCHAR" />
+    <result column="attr10" property="attr10" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hibo.cms.newarticle.model.NewArticleBas" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, author, title, entitle,is_url, outer_url, icon, icon_small, icon_other, img, img_small, 
+    img_other, button_id, hits, is_publication, is_top, create_date, modify_date, effective_date, 
+    active_date, operator, category_id, categoryg_id, sort, view_type, is_tools, return_type, 
+    attr1, attr2, attr3, attr4, attr5, attr6, attr7, attr8, attr9, attr10,shop_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bas_new_article
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_new_article
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.newarticle.model.NewArticleBas" >
+    insert into bas_new_article (id, author, title, entitle, 
+      is_url, outer_url, icon, 
+      icon_small, icon_other, img, 
+      img_small, img_other, button_id, 
+      hits, is_publication, is_top, 
+      create_date, modify_date, effective_date, 
+      active_date, operator, category_id, 
+      categoryg_id, sort, view_type, 
+      is_tools, return_type, attr1, 
+      attr2, attr3, attr4, 
+      attr5, attr6, attr7, 
+      attr8, attr9, attr10, 
+      content,shop_id)
+    values (#{id,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{entitle,jdbcType=VARCHAR},
+      #{isUrl,jdbcType=BIT}, #{outerUrl,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{iconSmall,jdbcType=VARCHAR}, #{iconOther,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
+      #{imgSmall,jdbcType=VARCHAR}, #{imgOther,jdbcType=VARCHAR}, #{buttonId,jdbcType=VARCHAR}, 
+      #{hits,jdbcType=BIGINT}, #{isPublication,jdbcType=BIT}, #{isTop,jdbcType=BIT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{effectiveDate,jdbcType=TIMESTAMP}, 
+      #{activeDate,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, 
+      #{categorygId,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{viewType,jdbcType=VARCHAR}, 
+      #{isTools,jdbcType=BIT}, #{returnType,jdbcType=VARCHAR}, #{attr1,jdbcType=VARCHAR}, 
+      #{attr2,jdbcType=VARCHAR}, #{attr3,jdbcType=VARCHAR}, #{attr4,jdbcType=VARCHAR}, 
+      #{attr5,jdbcType=VARCHAR}, #{attr6,jdbcType=VARCHAR}, #{attr7,jdbcType=VARCHAR}, 
+      #{attr8,jdbcType=VARCHAR}, #{attr9,jdbcType=VARCHAR}, #{attr10,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR},#{shopId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.newarticle.model.NewArticleBas" >
+    insert into bas_new_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="entitle != null" >
+        entitle,
+      </if>
+      <if test="isUrl != null" >
+        is_url,
+      </if>
+      <if test="outerUrl != null" >
+        outer_url,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="iconSmall != null" >
+        icon_small,
+      </if>
+      <if test="iconOther != null" >
+        icon_other,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="imgSmall != null" >
+        img_small,
+      </if>
+      <if test="imgOther != null" >
+        img_other,
+      </if>
+      <if test="buttonId != null" >
+        button_id,
+      </if>
+      <if test="hits != null" >
+        hits,
+      </if>
+      <if test="isPublication != null" >
+        is_publication,
+      </if>
+      <if test="isTop != null" >
+        is_top,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="effectiveDate != null" >
+        effective_date,
+      </if>
+      <if test="activeDate != null" >
+        active_date,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="categorygId != null" >
+        categoryg_id,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="viewType != null" >
+        view_type,
+      </if>
+      <if test="isTools != null" >
+        is_tools,
+      </if>
+      <if test="returnType != null" >
+        return_type,
+      </if>
+      <if test="attr1 != null" >
+        attr1,
+      </if>
+      <if test="attr2 != null" >
+        attr2,
+      </if>
+      <if test="attr3 != null" >
+        attr3,
+      </if>
+      <if test="attr4 != null" >
+        attr4,
+      </if>
+      <if test="attr5 != null" >
+        attr5,
+      </if>
+      <if test="attr6 != null" >
+        attr6,
+      </if>
+      <if test="attr7 != null" >
+        attr7,
+      </if>
+      <if test="attr8 != null" >
+        attr8,
+      </if>
+      <if test="attr9 != null" >
+        attr9,
+      </if>
+      <if test="attr10 != null" >
+        attr10,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="entitle != null" >
+        #{entitle,jdbcType=VARCHAR},
+      </if>
+      <if test="isUrl != null" >
+        #{isUrl,jdbcType=BIT},
+      </if>
+      <if test="outerUrl != null" >
+        #{outerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="iconSmall != null" >
+        #{iconSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="iconOther != null" >
+        #{iconOther,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSmall != null" >
+        #{imgSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="imgOther != null" >
+        #{imgOther,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonId != null" >
+        #{buttonId,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null" >
+        #{hits,jdbcType=BIGINT},
+      </if>
+      <if test="isPublication != null" >
+        #{isPublication,jdbcType=BIT},
+      </if>
+      <if test="isTop != null" >
+        #{isTop,jdbcType=BIT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveDate != null" >
+        #{effectiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeDate != null" >
+        #{activeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="categorygId != null" >
+        #{categorygId,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="viewType != null" >
+        #{viewType,jdbcType=VARCHAR},
+      </if>
+      <if test="isTools != null" >
+        #{isTools,jdbcType=BIT},
+      </if>
+      <if test="returnType != null" >
+        #{returnType,jdbcType=VARCHAR},
+      </if>
+      <if test="attr1 != null" >
+        #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="attr4 != null" >
+        #{attr4,jdbcType=VARCHAR},
+      </if>
+      <if test="attr5 != null" >
+        #{attr5,jdbcType=VARCHAR},
+      </if>
+      <if test="attr6 != null" >
+        #{attr6,jdbcType=VARCHAR},
+      </if>
+      <if test="attr7 != null" >
+        #{attr7,jdbcType=VARCHAR},
+      </if>
+      <if test="attr8 != null" >
+        #{attr8,jdbcType=VARCHAR},
+      </if>
+      <if test="attr9 != null" >
+        #{attr9,jdbcType=VARCHAR},
+      </if>
+      <if test="attr10 != null" >
+        #{attr10,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.newarticle.model.NewArticleBas" >
+    update bas_new_article
+    <set >
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="entitle != null" >
+        entitle = #{entitle,jdbcType=VARCHAR},
+      </if>
+      <if test="isUrl != null" >
+        is_url = #{isUrl,jdbcType=BIT},
+      </if>
+      <if test="outerUrl != null" >
+        outer_url = #{outerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="iconSmall != null" >
+        icon_small = #{iconSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="iconOther != null" >
+        icon_other = #{iconOther,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSmall != null" >
+        img_small = #{imgSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="imgOther != null" >
+        img_other = #{imgOther,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonId != null" >
+        button_id = #{buttonId,jdbcType=VARCHAR},
+      </if>
+      <if test="hits != null" >
+        hits = #{hits,jdbcType=BIGINT},
+      </if>
+      <if test="isPublication != null" >
+        is_publication = #{isPublication,jdbcType=BIT},
+      </if>
+      <if test="isTop != null" >
+        is_top = #{isTop,jdbcType=BIT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveDate != null" >
+        effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activeDate != null" >
+        active_date = #{activeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="categorygId != null" >
+        categoryg_id = #{categorygId,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="viewType != null" >
+        view_type = #{viewType,jdbcType=VARCHAR},
+      </if>
+      <if test="isTools != null" >
+        is_tools = #{isTools,jdbcType=BIT},
+      </if>
+      <if test="returnType != null" >
+        return_type = #{returnType,jdbcType=VARCHAR},
+      </if>
+      <if test="attr1 != null" >
+        attr1 = #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        attr2 = #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        attr3 = #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="attr4 != null" >
+        attr4 = #{attr4,jdbcType=VARCHAR},
+      </if>
+      <if test="attr5 != null" >
+        attr5 = #{attr5,jdbcType=VARCHAR},
+      </if>
+      <if test="attr6 != null" >
+        attr6 = #{attr6,jdbcType=VARCHAR},
+      </if>
+      <if test="attr7 != null" >
+        attr7 = #{attr7,jdbcType=VARCHAR},
+      </if>
+      <if test="attr8 != null" >
+        attr8 = #{attr8,jdbcType=VARCHAR},
+      </if>
+      <if test="attr9 != null" >
+        attr9 = #{attr9,jdbcType=VARCHAR},
+      </if>
+      <if test="attr10 != null" >
+        attr10 = #{attr10,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hibo.cms.newarticle.model.NewArticleBas" >
+    update bas_new_article
+    set author = #{author,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      entitle = #{entitle,jdbcType=VARCHAR},
+      is_url = #{isUrl,jdbcType=BIT},
+      outer_url = #{outerUrl,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      icon_small = #{iconSmall,jdbcType=VARCHAR},
+      icon_other = #{iconOther,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      img_small = #{imgSmall,jdbcType=VARCHAR},
+      img_other = #{imgOther,jdbcType=VARCHAR},
+      button_id = #{buttonId,jdbcType=VARCHAR},
+      hits = #{hits,jdbcType=BIGINT},
+      is_publication = #{isPublication,jdbcType=BIT},
+      is_top = #{isTop,jdbcType=BIT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      active_date = #{activeDate,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=VARCHAR},
+      categoryg_id = #{categorygId,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      view_type = #{viewType,jdbcType=VARCHAR},
+      is_tools = #{isTools,jdbcType=BIT},
+      return_type = #{returnType,jdbcType=VARCHAR},
+      attr1 = #{attr1,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR},
+      attr3 = #{attr3,jdbcType=VARCHAR},
+      attr4 = #{attr4,jdbcType=VARCHAR},
+      attr5 = #{attr5,jdbcType=VARCHAR},
+      attr6 = #{attr6,jdbcType=VARCHAR},
+      attr7 = #{attr7,jdbcType=VARCHAR},
+      attr8 = #{attr8,jdbcType=VARCHAR},
+      attr9 = #{attr9,jdbcType=VARCHAR},
+      attr10 = #{attr10,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      shop_id = #{shopId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.newarticle.model.NewArticleBas" >
+    update bas_new_article
+    set author = #{author,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      entitle = #{entitle,jdbcType=VARCHAR},
+      is_url = #{isUrl,jdbcType=BIT},
+      outer_url = #{outerUrl,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      icon_small = #{iconSmall,jdbcType=VARCHAR},
+      icon_other = #{iconOther,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      img_small = #{imgSmall,jdbcType=VARCHAR},
+      img_other = #{imgOther,jdbcType=VARCHAR},
+      button_id = #{buttonId,jdbcType=VARCHAR},
+      hits = #{hits,jdbcType=BIGINT},
+      is_publication = #{isPublication,jdbcType=BIT},
+      is_top = #{isTop,jdbcType=BIT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      effective_date = #{effectiveDate,jdbcType=TIMESTAMP},
+      active_date = #{activeDate,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=VARCHAR},
+      categoryg_id = #{categorygId,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      view_type = #{viewType,jdbcType=VARCHAR},
+      is_tools = #{isTools,jdbcType=BIT},
+      return_type = #{returnType,jdbcType=VARCHAR},
+      attr1 = #{attr1,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR},
+      attr3 = #{attr3,jdbcType=VARCHAR},
+      attr4 = #{attr4,jdbcType=VARCHAR},
+      attr5 = #{attr5,jdbcType=VARCHAR},
+      attr6 = #{attr6,jdbcType=VARCHAR},
+      attr7 = #{attr7,jdbcType=VARCHAR},
+      attr8 = #{attr8,jdbcType=VARCHAR},
+      attr9 = #{attr9,jdbcType=VARCHAR},
+      attr10 = #{attr10,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByCategroy" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    *
+    from bas_new_article
+    where  is_publication='1'
+    and <![CDATA[CURRENT_TIMESTAMP>effective_date]]>
+    <if test="categoryId !=null and categoryId !=''">
+    and category_id = #{categoryId,jdbcType=VARCHAR}
+    </if>
+    <if test="categorygId !=null and categorygId !=''">
+    and  categoryg_id = #{categorygId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    *
+    from bas_new_article
+    where  is_publication='1'
+    and <![CDATA[CURRENT_TIMESTAMP>effective_date]]>
+    <if test="categoryId !=null and categoryId !=''">
+    and category_id = #{categoryId,jdbcType=VARCHAR}
+    </if>
+    <if test="categorygId !=null and categorygId !=''">
+    and  categoryg_id = #{categorygId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+   <select id="selectPage"  resultMap="BaseResultMap"  parameterType="java.lang.String" >
+   SELECT
+	 a.id, 
+	 a.author, 
+	 a.title, 
+	 a.entitle, 
+	 a.is_url, 
+	 a.outer_url, 
+	 a.icon, 
+	 a.icon_small, 
+	 a.icon_other, 
+	 a.img, 
+	 a.img_small, 
+     a.img_other, 
+     a.button_id, 
+     a.hits, 
+     a.is_publication, 
+     a.is_top, 
+     a.create_date, 
+     a.modify_date, 
+     a.effective_date, 
+     a.active_date, 
+     a.operator, 
+     bc.name category_id, 
+     bcg.name categoryg_id, 
+     a.sort, 
+     a.view_type, 
+     a.is_tools, 
+     a.return_type, 
+     a.attr1, 
+     a.attr2, 
+     a.attr3, 
+     a.attr4, 
+     a.attr5, 
+     a.attr6, 
+     a.attr7, 
+     a.attr8, 
+     a.attr9, 
+     a.attr10,
+     a.shop_id
+    FROM
+	(
+		SELECT
+			*
+		FROM
+			bas_new_article
+		<where>
+  		<if test="wStr!=null">
+  			${wStr}
+  		</if>
+  	 </where>
+	) a left join bas_category bc on a.category_id=bc.code
+	left join bas_category bcg on a.categoryg_id=bcg.code
+    WHERE 1=1
+    ORDER BY a.sort desc, a.effective_date desc
+  </select>
+  
+  <select id="selectYicPage"  resultMap="BaseResultMap"  parameterType="java.lang.String" >
+   SELECT
+	 a.id, 
+	 a.author, 
+	 a.title, 
+	 a.entitle, 
+	 a.is_url, 
+	 a.outer_url, 
+	 a.icon, 
+	 a.icon_small, 
+	 a.icon_other, 
+	 a.img, 
+	 a.img_small, 
+     a.img_other, 
+     a.button_id, 
+     a.hits, 
+     a.is_publication, 
+     a.is_top, 
+     a.create_date, 
+     a.modify_date, 
+     a.effective_date, 
+     a.active_date, 
+     a.operator, 
+     bc.name category_id, 
+     bcg.name categoryg_id, 
+     a.sort, 
+     a.view_type, 
+     a.is_tools, 
+     a.return_type, 
+     a.attr1, 
+     a.attr2, 
+     a.attr3, 
+     a.attr4, 
+     a.attr5, 
+     a.attr6, 
+     a.attr7, 
+     a.attr8, 
+     a.attr9, 
+     a.attr10,
+     a.shop_id
+    FROM
+	(
+		SELECT
+			*
+		FROM
+			 bas_new_article
+		<where>
+  		<if test="wStr!=null">
+  			${wStr}
+  		</if>
+  		and category_id='001048'
+  	 </where>
+	) a left join bas_category bc on a.category_id=bc.code
+	left join bas_category bcg on a.categoryg_id=bcg.code
+    WHERE 1=1
+    ORDER BY a.sort desc, a.effective_date desc
+  </select>
+  
+  <select id="selectByCategorygId" resultMap="BaseResultMap"  >
+   select * from bas_new_article 
+   where categoryg_id=#{categorygId,jdbcType=VARCHAR}
+   and is_publication='1'
+   and <![CDATA[CURRENT_TIMESTAMP>effective_date]]>
+   ORDER BY sort desc ,effective_date desc
+  </select>
+  
+  <select id="selectByShopId" resultMap="BaseResultMap"  >
+   select * from bas_new_article 
+   where shop_id=#{shopId,jdbcType=VARCHAR}
+   and is_publication='1'
+   and <![CDATA[CURRENT_TIMESTAMP>effective_date]]>
+   ORDER BY sort desc ,effective_date desc
+  </select>
+  
+</mapper>

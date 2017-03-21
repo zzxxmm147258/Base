@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.config.dao.SysoptionsMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.config.model.Sysoptions" >
+    <id column="code" property="code" jdbcType="VARCHAR" />
+    <result column="create_date" property="creatDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="option1" property="option1" jdbcType="VARCHAR" />
+    <result column="option2" property="option2" jdbcType="VARCHAR" />
+    <result column="option3" property="option3" jdbcType="VARCHAR" />
+    <result column="option4" property="option4" jdbcType="VARCHAR" />
+    <result column="option5" property="option5" jdbcType="VARCHAR" />
+    <result column="option6" property="option6" jdbcType="VARCHAR" />
+    <result column="option7" property="option7" jdbcType="VARCHAR" />
+    <result column="option8" property="option8" jdbcType="VARCHAR" />
+    <result column="option9" property="option9" jdbcType="VARCHAR" />
+    <result column="option10" property="option10" jdbcType="VARCHAR" />
+    <result column="option11" property="option11" jdbcType="VARCHAR" />
+    <result column="option12" property="option12" jdbcType="VARCHAR" />
+    <result column="option13" property="option13" jdbcType="VARCHAR" />
+    <result column="option14" property="option14" jdbcType="VARCHAR" />
+    <result column="option15" property="option15" jdbcType="VARCHAR" />
+    <result column="option16" property="option16" jdbcType="VARCHAR" />
+    <result column="option17" property="option17" jdbcType="VARCHAR" />
+    <result column="option18" property="option18" jdbcType="VARCHAR" />
+    <result column="option19" property="option19" jdbcType="VARCHAR" />
+    <result column="i_option1" property="i_option1" jdbcType="INTEGER"/>
+    <result column="i_option2" property="i_option2" jdbcType="INTEGER"/>
+    <result column="n_option1" property="n_option1" jdbcType="DECIMAL"/>
+    <result column="n_option2" property="n_option2" jdbcType="DECIMAL"/>
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    code, create_date, modify_date,name, option1, option2, option3, option4, option5, option6, 
+    option7, option8, option9, option10, option11, option12, option13, option14, option15, 
+    option16, option17, option18, option19,i_option1,i_option2,n_option1,n_option2,remark
+  </sql>
+  <select id="selectByconno" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sysoptions
+    where code = #{code,jdbcType=VARCHAR}
+  </select>
+  <select id="selectSysoptionsList" resultMap="BaseResultMap">
+  	select * from sysoptions
+  </select>
+  <select id="findByEname" parameterType="string" resultMap="BaseResultMap"> 
+  	select * from sysoptions where option2 = #{ename}
+  </select>
+  <select id="findByType" parameterType="string" resultMap="BaseResultMap">
+  	select * from sysoptions where option14 = #{type}
+  </select>
+  <select id="findByTwoType" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select * from sysoptions 
+     <where>
+       <if test="wStr != null">
+          ${wStr}
+       </if>
+     </where> 
+     
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sysoptions
+    where code = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sysoptions
+    where code = #{code,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.config.model.Sysoptions" >
+    insert into sysoptions (code, create_date, modify_date, 
+      option1, option2, option3, 
+      option4, option5, option6, 
+      option7, option8, option9, 
+      option10, option11, option12, 
+      option13,option14, option15, 
+      option16, option17, option18, 
+      option19, i_option1,i_option2,
+      n_option1,n_option2,remark,
+      name)
+    values (#{code,jdbcType=VARCHAR}, #{creatDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{option1,jdbcType=VARCHAR}, #{option2,jdbcType=VARCHAR}, #{option3,jdbcType=VARCHAR}, 
+      #{option4,jdbcType=VARCHAR}, #{option5,jdbcType=VARCHAR}, #{option6,jdbcType=VARCHAR}, 
+      #{option7,jdbcType=VARCHAR}, #{option8,jdbcType=VARCHAR}, #{option9,jdbcType=VARCHAR}, 
+      #{option10,jdbcType=VARCHAR}, #{option11,jdbcType=VARCHAR}, #{option12,jdbcType=VARCHAR}, 
+      #{option13,jdbcType=VARCHAR}, #{option14,jdbcType=VARCHAR}, #{option15,jdbcType=VARCHAR}, 
+      #{option16,jdbcType=VARCHAR}, #{option17,jdbcType=VARCHAR}, #{option18,jdbcType=VARCHAR}, 
+      #{option19,jdbcType=VARCHAR}, #{i_option1,jdbcType=INTEGER},#{i_option2,jdbcType=INTEGER},
+      #{n_option1,jdbcType=DECIMAL},#{n_option1,jdbcType=DECIMAL},#{remark,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.config.model.Sysoptions" >
+    insert into sysoptions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="creatDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="option1 != null" >
+        option1,
+      </if>
+      <if test="option2 != null" >
+        option2,
+      </if>
+      <if test="option3 != null" >
+        option3,
+      </if>
+      <if test="option4 != null" >
+        option4,
+      </if>
+      <if test="option5 != null" >
+        option5,
+      </if>
+      <if test="option6 != null" >
+        option6,
+      </if>
+      <if test="option7 != null" >
+        option7,
+      </if>
+      <if test="option8 != null" >
+        option8,
+      </if>
+      <if test="option9 != null" >
+        option9,
+      </if>
+      <if test="option10 != null" >
+        option10,
+      </if>
+      <if test="option11 != null" >
+        option11,
+      </if>
+      <if test="option12 != null" >
+        option12,
+      </if>
+      <if test="option13 != null" >
+        option13,
+      </if>
+      <if test="option14 != null" >
+        option14,
+      </if>
+      <if test="option15 != null" >
+        option15,
+      </if>
+      <if test="option16 != null" >
+        option16,
+      </if>
+      <if test="option17 != null" >
+        option17,
+      </if>
+      <if test="option18 != null" >
+        option18,
+      </if>
+      <if test="option19 != null" >
+        option19,
+      </if>
+      <if test="i_option1 != null" >
+        i_option1,
+      </if>
+      <if test="i_option2 != null" >
+        i_option2,
+      </if>
+      <if test="n_option1 != null" >
+        n_option1,
+      </if>
+      <if test="n_option2 != null" >
+        n_option2,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="creatDate != null" >
+        #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="option1 != null" >
+        #{option1,jdbcType=VARCHAR},
+      </if>
+      <if test="option2 != null" >
+        #{option2,jdbcType=VARCHAR},
+      </if>
+      <if test="option3 != null" >
+        #{option3,jdbcType=VARCHAR},
+      </if>
+      <if test="option4 != null" >
+        #{option4,jdbcType=VARCHAR},
+      </if>
+      <if test="option5 != null" >
+        #{option5,jdbcType=VARCHAR},
+      </if>
+      <if test="option6 != null" >
+        #{option6,jdbcType=VARCHAR},
+      </if>
+      <if test="option7 != null" >
+        #{option7,jdbcType=VARCHAR},
+      </if>
+      <if test="option8 != null" >
+        #{option8,jdbcType=VARCHAR},
+      </if>
+      <if test="option9 != null" >
+        #{option9,jdbcType=VARCHAR},
+      </if>
+      <if test="option10 != null" >
+        #{option10,jdbcType=VARCHAR},
+      </if>
+      <if test="option11 != null" >
+        #{option11,jdbcType=VARCHAR},
+      </if>
+      <if test="option12 != null" >
+        #{option12,jdbcType=VARCHAR},
+      </if>
+      <if test="option13 != null" >
+        #{option13,jdbcType=VARCHAR},
+      </if>
+       <if test="option14 != null" >
+        #{option14,jdbcType=VARCHAR},
+      </if>
+      <if test="option15 != null" >
+        #{option15,jdbcType=VARCHAR},
+      </if>
+      <if test="option16 != null" >
+        #{option16,jdbcType=VARCHAR},
+      </if>
+      <if test="option17 != null" >
+        #{option17,jdbcType=VARCHAR},
+      </if>
+      <if test="option18 != null" >
+        #{option18,jdbcType=VARCHAR},
+      </if>
+      <if test="option19 != null" >
+        #{option19,jdbcType=VARCHAR},
+      </if>
+      <if test="i_option1 != null" >
+        #{i_option1,jdbcType=INTEGER},
+      </if>
+      <if test="i_option2 != null" >
+        #{i_option2,jdbcType=INTEGER},
+      </if>
+      <if test="n_option1 != null" >
+        #{n_option1,jdbcType=DECIMAL},
+      </if>
+      <if test="n_option2 != null" >
+        #{n_option2,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mome != null" >
+        #{mome,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.config.model.Sysoptions" >
+    update sysoptions
+    <set >
+      <if test="creatDate != null" >
+        create_date = #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="option1 != null" >
+        option1 = #{option1,jdbcType=VARCHAR},
+      </if>
+      <if test="option2 != null" >
+        option2 = #{option2,jdbcType=VARCHAR},
+      </if>
+      <if test="option3 != null" >
+        option3 = #{option3,jdbcType=VARCHAR},
+      </if>
+      <if test="option4 != null" >
+        option4 = #{option4,jdbcType=VARCHAR},
+      </if>
+      <if test="option5 != null" >
+        option5 = #{option5,jdbcType=VARCHAR},
+      </if>
+      <if test="option6 != null" >
+        option6 = #{option6,jdbcType=VARCHAR},
+      </if>
+      <if test="option7 != null" >
+        option7 = #{option7,jdbcType=VARCHAR},
+      </if>
+      <if test="option8 != null" >
+        option8 = #{option8,jdbcType=VARCHAR},
+      </if>
+      <if test="option9 != null" >
+        option9 = #{option9,jdbcType=VARCHAR},
+      </if>
+      <if test="option10 != null" >
+        option10 = #{option10,jdbcType=VARCHAR},
+      </if>
+      <if test="option11 != null" >
+        option11 = #{option11,jdbcType=VARCHAR},
+      </if>
+      <if test="option12 != null" >
+        option12 = #{option12,jdbcType=VARCHAR},
+      </if>
+      <if test="option13 != null" >
+        option13 = #{option13,jdbcType=VARCHAR},
+      </if>
+      <if test="option14 != null" >
+        option14 = #{option14,jdbcType=VARCHAR},
+      </if>
+      <if test="option15 != null" >
+        option15 = #{option15,jdbcType=VARCHAR},
+      </if>
+      <if test="option16 != null" >
+        option16 = #{option16,jdbcType=VARCHAR},
+      </if>
+      <if test="option17 != null" >
+        option17 = #{option17,jdbcType=VARCHAR},
+      </if>
+      <if test="option18 != null" >
+        option18 = #{option18,jdbcType=VARCHAR},
+      </if>
+      <if test="option19 != null" >
+        option19 = #{option19,jdbcType=VARCHAR},
+      </if>
+      <if test="i_option1 != null" >
+        i_option1=#{i_option1,jdbcType=INTEGER},
+      </if>
+      <if test="i_option2 != null" >
+        i_option2=#{i_option2,jdbcType=INTEGER},
+      </if>
+      <if test="n_option1 != null" >
+        n_option1=#{n_option1,jdbcType=DECIMAL},
+      </if>
+      <if test="n_option2 != null" >
+        n_option2=#{n_option2,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        name=#{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where code = #{code,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.config.model.Sysoptions" >
+    update sysoptions
+    set create_date = #{creatDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      option1 = #{option1,jdbcType=VARCHAR},
+      option2 = #{option2,jdbcType=VARCHAR},
+      option3 = #{option3,jdbcType=VARCHAR},
+      option4 = #{option4,jdbcType=VARCHAR},
+      option5 = #{option5,jdbcType=VARCHAR},
+      option6 = #{option6,jdbcType=VARCHAR},
+      option7 = #{option7,jdbcType=VARCHAR},
+      option8 = #{option8,jdbcType=VARCHAR},
+      option9 = #{option9,jdbcType=VARCHAR},
+      option10 = #{option10,jdbcType=VARCHAR},
+      option11 = #{option11,jdbcType=VARCHAR},
+      option12 = #{option12,jdbcType=VARCHAR},
+      option13 = #{option13,jdbcType=VARCHAR},
+      option14 = #{option14,jdbcType=VARCHAR},
+      option15 = #{option15,jdbcType=VARCHAR},
+      option16 = #{option16,jdbcType=VARCHAR},
+      option17 = #{option17,jdbcType=VARCHAR},
+      option18 = #{option18,jdbcType=VARCHAR},
+      option19 = #{option19,jdbcType=VARCHAR},
+      i_option1= #{i_option1,jdbcType=INTEGER},
+      i_option2= #{i_option2,jdbcType=INTEGER},
+      n_option1= #{n_option1,jdbcType=DECIMAL},
+      n_option2= #{n_option2,jdbcType=DECIMAL},
+      name= #{name,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where code = #{code,jdbcType=VARCHAR}
+  </update>
+</mapper>

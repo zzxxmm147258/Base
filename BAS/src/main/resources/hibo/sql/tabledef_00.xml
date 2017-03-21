@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tabledef>
+	<tables>
+		<!--
+		<table name="表名" comment="表名描述" tblspace="oracle表空间名" indspace="oracle索引表空间" >
+			<field name="字段名" type="类型" size="长度" decimal="小数位" unsigned="Y/N,默认N，数值数据是否有符号" primarykey="主键/非主键(Y/N)，默认非主键" isnull="非空/空(Y/N)，默认空" drop="Y/N,默认N，Y表示删除" default="数据库缺省值" refdes="表名:字段，只作为关联名注释用" comment="字段说明"/>
+			<index name="索引名" fields="索引字段，可以多个，用，分隔" only="是否唯一索引(Y/N)" storegrp="oracle表名间名" mysql="MySql是否建此索引(Y/N)，默认不建" comment="索引说明"/>
+		</table>
+
+		<table name="hb_test" comment="测试">
+			<field name="id" type="varchar" size="32" primarykey="Y" comment="主键"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时候"/>
+		</table>
+		
+		-->
+		<table name="bas_user_language" comment="用户语言表">
+			<field name="userid" type="varchar" size="32" primarykey="Y" isnull="Y" comment="用户ID"/>
+			<field name="language" type="varchar" size="32" comment="语言"/>
+			<field name="create_date" type="datetime" size="8" comment="创建日期"/>
+		    <field name="modify_date" type="datetime" size="8" comment="最新修改日期"/>
+		    <field name="operator" type="varchar" size="32" comment="操作人"/>
+		    <field name="attr1" type="varchar" size="64" comment="备用字段2"/>
+		    <field name="attr2" type="varchar" size="64" comment="备用字段2"/>
+		    <field name="attr3" type="varchar" size="64" comment="备用字段3"/>
+		</table>
+		
+		<table name="bas_feedback_user" comment="用户反馈表">
+		   <field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+		   <field name="mem_id" type="varchar" size="32" comment="用户ID"/>
+		   <field name="feedback_date" type="datetime" size="8" comment="反馈日期"/>
+		   <field name="title" type="varchar" size="64" comment="反馈标题"/>
+		   <field name="type" type="varchar" size="64" comment="反馈类型"/>
+		   <field name="content" type="varchar" size="1024" comment="反馈内容"/>
+		   <field name="img_url" type="varchar" size="1024" comment="反馈图片"/>
+		   <field name="mail" type="varchar" size="32" comment="联系邮箱"/>
+		   <field name="phone" type="varchar" size="16" comment="联系电话"/>
+		   <field name="member_id" type="varchar" size="32" comment="回复人id"/>
+		   <field name="m_id" type="varchar" size="32" comment="回记录复id"/>
+		   <field name="attr1" type="varchar" size="64" comment="备用字段2"/>
+		   <field name="attr2" type="varchar" size="64" comment="备用字段2"/>
+		   <field name="attr3" type="varchar" size="64" comment="备用字段3"/>
+		   <field name="attr4" type="varchar" size="64" comment="备用字段4"/>
+		   <field name="attr5" type="varchar" size="64" comment="备用字段5"/>
+		   <field name="create_date" type="datetime" size="8" comment="创建日期"/>
+		   <field name="modify_date" type="datetime" size="8" comment="最新修改日期"/>
+		   <field name="operator" type="varchar" size="32" comment="操作人"/>
+		</table>
+		
+		<table name="bas_image_store" comment="图片仓库">
+		     <field name="id" type="varchar" size="32" decimal="0" primarykey="Y" isnull="Y" comment="ID"/>
+		     <field name="m_id" type="varchar" size="32" comment="关联ID"/>
+		     <field name="sys" type="varchar" size="32" comment="系统号"/>
+		     <field name="type" type="varchar" size="32" comment="类别"/>
+		     <field name="icon" type="varchar" size="512" comment="图标"/>
+		     <field name="img_url" type="varchar" size="512" comment="原图"/>
+		     <field name="img_bigurl" type="varchar" size="512" comment="大图"/>
+		     <field name="img_inurl" type="varchar" size="512" comment="中图"/>
+		     <field name="img_smallurl" type="varchar" size="512" comment="小图"/> 
+		     <field name="url" type="varchar" size="512" comment="链接"/> 
+		     <field name="operator" type="varchar" size="32" comment="操作人"/>
+		     <field name="create_date" type="datetime" comment="创建日期"/>
+		     <field name="modify_date" type="datetime" comment="修改日期"/>
+		     <field name="dis" type="varchar" size="64" comment="描述"/>
+		     <field name="attr1" type="varchar" size="64" comment="备用字段1"/>
+			 <field name="attr2" type="varchar" size="64" comment="备用字段2"/>
+		     <field name="attr3" type="varchar" size="64" comment="备用字段3"/>
+	    </table>
+		
+		<table name="bas_push_device" comment="用户推送相关设备表">
+		      <field name="user_id" type="varchar" size="32" decimal="0"  primarykey="Y" isnull="Y" comment="ID主键"/>
+		     <field name="device_id" type="varchar" size="32" comment="设备ID"></field>
+		     <field name="attr_name1" type="varchar" size="32" comment="备用字段1"></field>
+		     <field name="attr_name2" type="varchar" size="32" comment="备用字段2"></field>
+		     <field name="create_date" type="datetime" comment="创建日期"/>
+		     <field name="modify_date" type="datetime" comment="修改日期"/>
+	    </table>
+		
+		<table name="bas_language" comment="语言对照表">
+		    <field name="id" type="varchar" size="32" decimal="0" primarykey="Y" isnull="Y" comment="ID"/>
+		    <field name="code" type="varchar" size="32" comment="编码"/>
+		    <field name="en" type="varchar" size="32" comment="英语"/>
+		    <field name="zh" type="varchar" size="32" comment="中文"/>
+		    <field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" size="8" comment="创建日期"/>
+			<field name="modify_date" type="datetime" size="8" comment="最新修改日期"/>
+		</table>
+		
+		<table name="bas_reply_user" comment="用户评论回复表">
+			<field name="id" type="varchar" size="32" decimal="0" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="m_id" type="varchar" size="32" comment="被评论的者ID"/>
+			<field name="comment_id" type="varchar" size="32" comment="评论ID"/>
+			<field name="comment_userid" type="varchar" size="32" comment="被回复人userid"/>
+			<field name="reply_id" type="varchar" size="32" comment="评论回复ID"/>
+			<field name="reply_userid" type="varchar" size="32" comment="回复人userid"/>
+			<field name="reply_content" type="varchar" size="1024" comment="回复内容"/>
+			<field name="reimg_url" type="varchar" size="1024" comment="评论图片"/>
+			<field name="reimg_smallurl" type="varchar" size="1024" comment="评论图片300*300"/>
+			<field name="reimg_smaother" type="varchar" size="1024" comment="评论图片其他大小"/>
+			<field name="type" type="varchar" size="32" comment="类型"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" size="8" comment="创建日期"/>
+			<field name="modify_date" type="datetime" size="8" comment="最新修改日期"/>
+			<field name="attr1" type="varchar" size="64" comment="已读=1,未读=0"/>
+			<field name="attr2" type="varchar" size="64" comment="删除（隐藏回复，隐藏=0，显示=1）"/>
+		    <field name="attr3" type="varchar" size="64" comment="备用字段3"/>
+		    <field name="attr4" type="varchar" size="64" comment="备用字段4"/>
+		    <field name="attr5" type="varchar" size="64" comment="备用字段5"/>
+		</table>
+		
+		<table name="bas_comment_user" comment="用户评论表">
+			<field name="id" type="varchar" size="32" decimal="0" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="m_id" type="varchar" size="32" comment="被评论的ID"/>
+			<field name="comment_userid" type="varchar" size="32" comment="评论人ID"/>
+			<field name="comment_content" type="varchar" size="1024" comment="评论内容"/>
+			<field name="praise_num" type="int" size="8" default="0" comment="点赞数"/>
+			<field name="reply_num" type="int" size="8" default="0" comment="回复数"/>
+			<field name="coimg_url" type="varchar" size="1024" comment="评论图片"/>
+			<field name="coimg_smallurl" type="varchar" size="1024" comment="评论图片300*300"/>
+			<field name="coimg_smaother" type="varchar" size="1024" comment="评论图片其他大小"/>
+			<field name="type" type="varchar" size="32" comment="类型"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" size="8" comment="创建日期"/>
+			<field name="modify_date" type="datetime" size="8" comment="最新修改日期"/>
+			<field name="attr1" type="varchar" size="64" comment="备用字段1"/>
+			<field name="attr2" type="varchar" size="64" comment="备用字段2"/>
+		    <field name="attr3" type="varchar" size="64" comment="备用字段3"/>
+		    <field name="attr4" type="varchar" size="64" comment="备用字段4"/>
+		    <field name="attr5" type="varchar" size="64" comment="备用字段5"/>
+		</table>
+		
+		<!--点赞记录表-->
+		<table name="bas_praise_user" comment="用户点赞记录表">
+			<field name="id" type="varchar" size="32" decimal="0" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="comment_id" type="varchar" size="32" comment="评论ID" />
+			<field name="type" type="varchar" size="32" comment="类型（商品点赞type=10，评论点赞type=20）"/>
+			<field name="userid" type="varchar" size="32" />
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" size="8" comment="创建日期"/>
+			<field name="modify_date" type="datetime" size="8" comment="最新修改日期"/>
+			<field name="attr1" type="varchar" size="1024" comment="备用字段1"/>
+			<field name="attr2" type="varchar" size="64" comment="备用字段2"/>
+		    <field name="attr3" type="varchar" size="64" comment="备用字段3"/>
+		    <field name="attr4" type="varchar" size="64" comment="备用字段4"/>
+		    <field name="attr5" type="varchar" size="64" comment="备用字段5"/>
+		</table>
+		
+		<table name="bas_version_control" comment="版本控制表">
+		   <field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+		   <field name="num" type="varchar" size="64" comment="版本号"/>
+		   <field name="name" type="varchar" size="62" comment="版本名称"/>
+		   <field name="type" type="varchar" size="32" comment="更新类型"/>
+		   <field name="isnecessary" type="tinyint" size="1" default="0" comment="是否必要更新"/>
+		   <field name="content" type="varchar" size="1024" comment="更新内容"/>
+		   <field name="url" type="varchar" size="1024" comment="下载链接"/>
+		   <field name="version_date" type="datetime" size="8" comment="更新日期"/>
+		   <field name="create_date" type="datetime" size="8" comment="创建日期"/>
+		   <field name="modify_date" type="datetime" size="8" comment="最新修改日期"/>
+		   <field name="operator" type="varchar" size="32" comment="操作人"/>
+		   <field name="attr1" type="varchar" size="256" comment="APP简称"/>
+		   <field name="attr2" type="varchar" size="256" comment="备用字段2"/>
+		   <field name="attr3" type="varchar" size="64" comment="备用字段3"/>
+		   <field name="attr4" type="varchar" size="64" comment="备用字段4"/>
+		   <field name="attr5" type="varchar" size="64" comment="备用字段5"/>
+		</table>
+		
+		<table name="bas_visit_info" comment="访问信息记录">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="user_id" type="varchar" size="32" comment="用户ID"/>
+			<field name="vtype" type="varchar" size="32" comment="类型"/>
+			<field name="open_id" type="varchar" size="64" comment="微信ID"/>
+			<field name="visit_time" type="datetime" comment="访问时间"/>
+			<field name="visit_ip" type="varchar" size="32" comment="访问IP"/>
+			<field name="visit_area" type="varchar" size="64" comment="访问地点"/>
+			<field name="attr1" type="varchar" size="64" comment="备用1"/>
+			<field name="attr2" type="varchar" size="64" comment="备用2"/>
+			<field name="attr3" type="varchar" size="64" comment="备用3"/>
+			
+		</table>
+		
+		
+		<table name="quartz" comment="任务调度">
+			<field name="id" type="varchar" size="32" decimal="0"  primarykey="Y" isnull="Y" comment="ID主键"/>
+			<field name="createdate" type="datetime" comment="创建日期"/>
+			<field name="modifydate" type="datetime" comment="修改时候"/>
+			<field name="jobname" type="varchar" size="32" isnull="Y" comment="任务名"/>
+			<field name="description" type="varchar" size="256" comment="描述"/>
+			<field name="jobgroup" type="varchar" size="32" comment="任务组"/>
+			<field name="jobparams" type="varchar" size="1024" comment="任务执行参数"/>
+			<field name="tiggername" type="varchar" size="32" comment="定时器名"/>
+			<field name="tiggergroup" type="varchar" size="32" comment="定时器组"/>
+			<field name="executeclass" type="varchar" size="1024" isnull="Y" comment="触发器"/>
+			<field name="executetime" type="varchar" size="32" isnull="Y" comment="执行时间"/>
+			<field name="startDate" type="datetime" comment="开始时间"/>
+			<field name="endDate" type="datetime" comment="结束时间"/>
+			<field name="schename" type="varchar" size="32" isnull="Y" comment="任务调度器名"/>
+			<field name="qtype" type="int" size="4" default="0" comment="当前状态"/>
+			<field name="utype" type="int" size="4" default="0" comment="自定义状态"/>
+			<field name="qserver" type="varchar" size="64" isnull="Y" comment="所在服务器"/>
+		</table>
+		
+		<table name="users" comment="用户(会员)表">
+			<field name="userid" type="varchar" size="32" primarykey="Y" isnull="Y" comment="用户ID"/>
+			<field name="username" type="varchar" size="64" comment="用户名"/>
+			<field name="password" type="varchar" size="64" comment="用户密码"/>
+			<field name="salt" type="varchar" size="50" comment="盐"/>
+			<field name="nickname" type="varchar" size="64" comment="昵称"/>
+			<field name="sex" type="tinyint" size="1" comment="性别"/>
+			<field name="birthday" type="datetime" comment="生日"/>
+			<field name="card" type="varchar" size="32" comment="身份证号"/>
+			<field name="address" type="varchar" size="128" comment="地址"/>
+			<field name="headpicture" type="varchar" size="128" comment="头像地址"/>
+			<field name="mail" type="varchar" size="64" comment="邮箱"/>
+			<field name="truename" type="varchar" size="64" comment="姓名"/>
+			<field name="phone" type="varchar" size="11" comment="电话号码"/>
+			<field name="starttime" type="varchar" size="32" comment="有效开始时间"/>
+			<field name="endtime" type="varchar" size="32" comment="有效结束时间"/>
+			<field name="locked" type="tinyint" size="1" comment="是否被锁定"/>
+			<field name="paypass" type="varchar" size="64" comment="支付密码"/>
+			<field name="paysalt" type="varchar" size="50" comment="支付盐"/>
+			<field name="worklist" type="varchar" size="32" comment="账套列表"/>
+			<field name="sysidlist" type="varchar" size="32" comment="系统列表"/>
+			<field name="utype" type="varchar" size="8" comment="用户类型"/>
+			<field name="cardType" type="varchar" size="8" comment="证件类型"/>
+			<field name="province" type="varchar" size="8" comment="省份"/>
+			<field name="city" type="varchar" size="16" comment="所在城市"/>
+			<field name="postcode" type="varchar" size="8" comment="邮政编码"/>
+			<field name="emailIsActive" type="varchar" size="1" comment="邮箱是否已激活"/>
+			<field name="shopid" type="varchar" size="16" comment="商户码"/>
+			<field name="accountType" type="varchar" size="16" comment="会员类型"/>
+			<field name="rank" type="varchar" size="8" comment="等级"/>
+			<field name="score" type="int" size="32" comment="积分"/>
+			<field name="regeistDate" type="datetime" comment="注册日期"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+		
+		</table>
+		
+		<table name="role" comment="角色表">
+			<field name="roleid" type="varchar" size="32" primarykey="Y" isnull="Y" comment="角色ID"/>
+			<field name="rotype" type="varchar" size="64" comment="角色类型"/>
+			<field name="rolename" type="varchar" size="64" comment="角色名称"/>
+			<field name="description" type="varchar" size="300" comment="角色描述"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+		</table>
+		
+		<table name="bcode" comment="部门表">
+			<!--dtype  10:业务组织;20:法人组织;30:项目组织，是30时，shop_id 为空-->
+			<field name="bcode" type="varchar" size="32" primarykey="Y" isnull="Y" comment="部门码"/>
+			<field name="bname" type="varchar" size="128" comment="部门名"/>
+			<field name="dtype" type="varchar" size="8" comment="组织类型"/>
+			<field name="pbcode" type="varchar" size="32" comment="父节点组织单元"/>
+			<field name="mpath" type="varchar" size="256" comment="路径描述"/>
+			<field name="shop_id" type="varchar" size="32" comment="商户ID"/>
+			<field name="start_date" type="date" size="8" comment="生效时间"/>
+			<field name="end_date" type="date" size="8" comment="失效时间"/>
+			<field name="levl" type="tinyint" size="1" comment="级次"/>
+			<field name="isroot" type="varchar" size="8" comment="是否根节点"/>
+			<field name="isfinallevel" type="varchar" size="8" comment="是否为末级"/>
+			<field name="remark" type="varchar" size="256" comment="备注"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+			<field name="attr1" type="varchar" size="512" comment="备用1"/>
+			<field name="attr2" type="varchar" size="512" comment="备用2"/>
+			<field name="attr3" type="varchar" size="512" comment="备用3"/>
+			<field name="attr4" type="varchar" size="512" comment="备用4"/>
+			<field name="attr5" type="varchar" size="512" comment="备用5"/>
+			<field name="attr6" type="varchar" size="512" comment="备用6"/>
+			<field name="attr7" type="varchar" size="512" comment="备用7"/>
+			<field name="attr8" type="varchar" size="512" comment="备用8"/>
+			<field name="attr9" type="varchar" size="512" comment="备用9"/>
+			<field name="attr10" type="varchar" size="512" comment="备用10"/>
+		</table>
+		
+		<table name="menu" comment="菜单表">
+			<field name="menuid" type="varchar" size="8" primarykey="Y" isnull="Y" comment="菜单ID"/>
+			<field name="menuname" type="varchar" size="64" comment="菜单名称"/>
+			<field name="sysid" type="varchar" size="32" comment="系统号"/>
+			<field name="mlevel" type="int" size="1" comment="级次"/>
+			<field name="url" type="varchar" size="128" comment="菜单URL"/>
+			<field name="showtype" type="varchar" size="32" comment="显示方式"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+		</table>
+		<table name="bas_resource" comment="资源表">
+			<field name="resourceid" type="varchar" size="32" primarykey="Y" isnull="Y" comment="资源ID"/>
+			<field name="resname" type="varchar" size="64" comment="资源名"/>
+			<field name="sysid" type="varchar" size="32" comment="系统号"/>
+			<field name="remark" type="varchar" size="255" comment="备注"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+		</table>
+		<table name="role_users" comment="角色用户关联">
+			<field name="roleid" type="varchar" size="32" primarykey="Y" isnull="Y" comment="角色ID"/>
+			<field name="userid" type="varchar" size="32" primarykey="Y" isnull="Y" comment="用户ID"/>
+			<field name="rolename" type="varchar" size="64" comment="角色名称"/>
+			<field name="username" type="varchar" size="64" comment="用户名"/>
+			<field name="bcode" type="varchar" size="32" comment="部门码"/>
+			<field name="bname" type="varchar" size="128" comment="部门名"/>
+			<field name="availabe" type="tinyint" size="1" default="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+		</table>
+		<table name="role_menu" comment="角色菜单关联">
+			<field name="roleid" type="varchar" size="32" primarykey="Y" isnull="Y" comment="角色ID"/>
+			<field name="menuid" type="varchar" size="32" primarykey="Y" isnull="Y" comment="菜单ID"/>
+			<field name="rolename" type="varchar" size="64" comment="角色名称"/>
+			<field name="menuname" type="varchar" size="64" comment="菜单名称"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+		</table>
+		<table name="role_resource" comment="角色资源关联">
+			<field name="roreid" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="sysid" type="varchar" size="32" comment="系统ID"/>
+			<field name="roleid" type="varchar" size="32" comment="角色ID"/>
+			<field name="resourceid" type="varchar" size="32" comment="资源ID"/>
+			<field name="operaid" type="varchar" size="32" comment="操作ID"/>
+			<field name="idx" type="int" size="1" comment="序列号"/>
+			<field name="rolename" type="varchar" size="64" comment="角色名称"/>
+			<field name="resname" type="varchar" size="64" comment="资源名称"/>
+			<field name="operaname" type="varchar" size="64" comment="操作名称"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+		</table>
+		<table name="bas_operationcode" comment="操作码表">
+			<field name="operaid" type="varchar" size="32" primarykey="Y" isnull="Y" comment="操作码"/>
+			<field name="operaname" type="varchar" size="64" comment="操作名称"/>
+			<field name="remark" type="varchar" size="255" comment="备注"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+		</table>
+		<table name="bas_shirolimit" comment="Shiro权限控制表">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="sysid" type="varchar" size="64" comment="系统号"/>
+			<field name="name" type="varchar" size="64" comment="名称"/>
+			<field name="url" type="varchar" size="128" comment="URL描述"/>
+			<field name="limits" type="varchar" size="256" comment="User\角色\操作"/>
+			<field name="idx" type="int" size="2" comment="序号"/>
+			<field name="remark" type="varchar" size="50" comment="备注"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+		</table>
+		<table name="dictdef" comment="字典表(父表)">
+			<field name="dictid" type="int" size="11" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="cname" type="varchar" size="64" comment="中文名"/>
+			<field name="ename" type="varchar" size="64" comment="英文名"/>
+			<field name="remark" type="varchar" size="256" comment="备注"/>
+		</table>
+		<table name="dictinfo" comment="字典表(子表)">
+			<field name="dictid" type="int" size="11" primarykey="Y" isnull="Y" comment="父级ID"/>
+			<field name="code" type="varchar" size="32" primarykey="Y" isnull="Y" comment="子码"/>
+			<field name="cname" type="varchar" size="64" comment="中文名"/>
+			<field name="ename" type="varchar" size="64" comment="英文名"/>
+		</table>
+		
+		
+		<table name="bas_category" comment="类别">
+			<field name="code" type="varchar" size="32" primarykey="Y" isnull="Y" comment="码"/>
+			<field name="p_code" type="varchar" size="32" comment="父级ID"/>
+			<field name="name" type="varchar" size="64" comment="中文名"/>
+			<field name="ename" type="varchar" size="64" comment="英文名"/>
+			<field name="img" type="varchar" size="256" comment="图片"/>
+			<field name="eimg" type="varchar" size="256" comment="图片"/>
+			<field name="is_top" type="tinyint" size="1" default="0" comment="是否置顶"/>
+			<field name="availabe" type="tinyint" size="1" default="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" comment="创建日期"/>
+			<field name="modify_date" type="datetime" comment="修改时间"/>
+		</table>
+		
+		<!-- 
+		<table name="sysconfig" comment="系统配置表">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="createdate" type="datetime" comment="创建日期"/>
+			<field name="modifydate" type="datetime" comment="修改时间"/>
+			<field name="conno" type="varchar" size="16" comment="编号"/>
+			<field name="ename" type="varchar" size="100" comment="英文名"/>
+			<field name="name" type="varchar" size="255" comment="中文名"/>
+			<field name="url" type="varchar" size="512" comment="接口url"/>
+			<field name="method" type="varchar" size="512" comment="方法名"/>
+			<field name="userid" type="varchar" size="255" comment="使用id"/>
+			<field name="appid" type="varchar" size="255" comment="软件id"/>
+			<field name="payment_type" type="varchar" size="255" comment="支付类型"/>
+			<field name="seller_id" type="varchar" size="255" comment="卖家账号"/>
+			<field name="seller_password" type="varchar" size="255" comment="卖家密码"/>
+			<field name="privatekey" type="varchar" size="1024"/>
+			<field name="status" type="varchar" size="8" comment="状态"/>
+			<field name="timeout" type="int" size="32"/>
+			<field name="logo" type="varchar" size="255"/>
+		</table>
+		 -->
+		<table name="sysipfilter" comment="IP过滤表">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="createdate" type="datetime" comment="创建日期"/>
+			<field name="modifydate" type="datetime" comment="修改时间"/>
+			<field name="ip" type="varchar" size="15" comment="IP"/>
+			<field name="name" type="varchar" size="15" comment="名称"/>
+			<field name="port" type="varchar" size="10" comment="端口"/>
+			<field name="remark" type="varchar" size="512" comment="备注"/>
+			<field name="ispassd" type="tinyint" size="1" comment="是否允许/false(0)为禁止访问/true(1)为允许访问"/>
+		</table>
+		
+		
+		<!-- 2015年10月17号 -->
+		
+		<table name="busheetlim" comment="单据权限关系表" >
+			<field name="resourceid" type="varchar" size="32" isnull="Y" primarykey="Y" comment="资源号"/>
+			<field name="limid" type="varchar" size="32" isnull="Y" primarykey="Y" comment="权限编码"/>
+			<field name="idx" type="smallint" size="8" isnull="Y" primarykey="Y" comment="序号"/>
+			<field name="resname" type="varchar" size="64"   comment="资源名称"/>
+		</table>
+		
+		<table name="datalimflds" comment="权限字段表" >
+		    <field name="limid" type="varchar" size="32" isnull="Y" primarykey="Y" comment="权限编码"/>
+			<field name="fldname" type="varchar" size="32" isnull="Y" primarykey="Y" comment="字段名"/>
+			<field name="cfldname" type="varchar" size="80" isnull="Y" comment="字段显示名"/>
+			<field name="fldtype" type="int" size="8" isnull="Y" comment="类型"/>
+			<field name="idx" type="int" size="8"  comment="序号"/>
+			<field name="fldopts" type="int" size="8"  comment="选项"/>
+			<field name="unlimckvals" type="varchar" size="80"   comment="不做权限检查的值"/>
+		</table>
+		
+		<table name="datalimm" comment="权限类型表" >
+		    <field name="limid" type="varchar" size="32" isnull="Y" primarykey="Y" comment="权限编码"/>
+			<field name="limnm" type="varchar" size="80" isnull="Y"  comment="权限名称"/>
+			<field name="flags" type="int" size="2"  comment="标记"/>
+			<field name="modifier" type="varchar" size="32"   comment="修改人"/>
+			<field name="modifydate" type="date" comment="修改日期"/>
+			<field name="startflags" type="smallint" size="2" comment="启用标记"/>
+			<field name="ord" type="varchar" size="64"   comment="序号"/>
+		</table>
+		
+		<table name="datalimop" comment="权限操作表" >
+		    <field name="limid" type="varchar" size="32" isnull="Y" primarykey="Y" comment="权限编码"/>
+			<field name="opid" type="varchar" size="32" isnull="Y" primarykey="Y"  comment="操作编码"/>
+			<field name="opnm" type="varchar" size="80" isnull="Y"  comment="操作名称"/>
+		</table>
+		
+		<table name="datalims" comment="按岗位定义权限表" >
+		    <field name="limid" type="varchar" size="32" isnull="Y" primarykey="Y" comment="权限编码"/>
+		    <field name="opid" type="varchar" size="32" isnull="Y" primarykey="Y"  comment="操作编码"/>
+		    <field name="utype" type="char" size="1" isnull="Y" primarykey="Y"  comment="用户类型"/>
+		    <field name="ucode" type="varchar" size="32" isnull="Y" primarykey="Y"  comment="用户类型"/>
+		    <field name="idx" type="smallint" size="8" isnull="Y" primarykey="Y" comment="序号"/>
+		    <field name="startdate" type="varchar"  size="32" comment="启用日期"/>
+		    <field name="enddate" type="varchar" size="32" comment="终止日期"/>
+		    <field name="modifydate" type="varchar" size="32" comment="修改日期"/>
+		    <field name="fldname01" type="varchar" size="32" comment="字段名"/>
+		    <field name="values01" type="varchar" size="256"  comment="范围"/>
+		    <field name="fldname02" type="varchar" size="32"  comment="字段名"/>
+		    <field name="values02" type="varchar" size="256"  comment="范围"/>
+		    <field name="fldname03" type="varchar" size="32"  comment="字段名"/>
+		    <field name="values03" type="varchar" size="256"  comment="范围"/>
+		</table>
+		
+		<!-- 2015年10月19日  by吕康 -->
+		<table name="bas_readexceldef" comment="Execl导入配置表">
+			<field name="rxcode" type="varchar" size="64" isnull="Y" primarykey="Y" comment="编码"/>
+			<field name="rxname" type="varchar" size="50" comment="名字"/>
+			<field name="tblname" type="varchar" size="32" comment="表名"/>
+			<field name="model" type="varchar" size="64" comment="数据模型"/>
+			<field name="excelsheetname" type="varchar" size="50" comment="读入Excel表单名"/>
+			<field name="excelfromrow" type="smallint" size="2" comment="Excel起始读入行"/>
+			<field name="fortimes" type="smallint" size="2" comment="Excel每行循环执行次数"/>
+			<field name="groovy" type="text" comment="groovy"/>
+			<field name="flags" type="smallint" size="2" comment="选项"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+		</table>
+		<table name="bas_readexceldefg" comment="字段">
+			<field name="rxcode" type="varchar" size="64" isnull="Y" primarykey="Y" comment="编码"/>
+			<field name="fldname" type="varchar" size="128" isnull="Y" primarykey="Y" comment="字段名"/>
+			<field name="flddisplayname" type="varchar" size="128" comment="字段显示名"/>
+			<field name="excelcol" type="varchar" size="32" comment="该字段对应Excel列号"/>
+			<field name="fldtype" type="varchar" size="8" comment="字段类型"/>
+			<field name="fldsize" type="smallint" size="2" comment="大小"/>
+			<field name="flddecimal" type="smallint" size="2" comment="小数"/>
+			<field name="flddefault" type="varchar" size="64" comment="缺省值"/>
+			<field name="groupdesc" type="varchar" size="64" comment="分组描述"/>
+			<field name="idx" type="smallint" size="2" comment="排序号"/>
+			<field name="groovy" type="text" comment="groovy"/>
+			<field name="flags" type="smallint" size="2" comment="选项"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="createDate" type="datetime" comment="创建日期"/>
+			<field name="modifyDate" type="datetime" comment="修改时间"/>
+		</table>
+		<!-- END 2015年10月19日  by吕康  END -->
+		
+		<table name="mem_login_info" comment="会员登录信息">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="userid" type="varchar" size="32" comment="用户ID"/>
+			<field name="login_time" type="datetime" comment="登录时间"/>
+			<field name="login_ip" type="varchar" size="32" comment="登录IP"/>
+			<field name="login_area" type="varchar" size="64" comment="登录地点"/>
+		</table>
+		
+		<table name="sysoptions" comment="系统选项标识">
+		    <field name="code" type="varchar" size="32" primarykey="Y" isnull="Y" comment="配置Code"/>
+		    <field name="name" type="varchar" size="64" comment="名称"/>
+			<field name="create_date" type="datetime" comment="创建日期"/>
+			<field name="modify_Date" type="datetime" comment="修改时间"/>
+			<field name="option1" type="varchar" size="255" comment="属性1"/>
+			<field name="option2" type="varchar" size="255" comment="属性2"/>
+			<field name="option3" type="varchar" size="255" comment="属性3"/>
+			<field name="option4" type="varchar" size="255" comment="属性4"/>
+			<field name="option5" type="varchar" size="255" comment="属性5"/>
+			<field name="option6" type="varchar" size="255" comment="属性6"/>
+			<field name="option7" type="varchar" size="255" comment="属性7"/>
+			<field name="option8" type="varchar" size="255" comment="属性8"/>
+			<field name="option9" type="varchar" size="255" comment="属性9"/>
+			<field name="option10" type="varchar" size="255" comment="属性10"/>
+			<field name="option11" type="varchar" size="255" comment="属性11"/>
+			<field name="option12" type="varchar" size="255" comment="属性12"/>
+			<field name="option13" type="varchar" size="255" comment="属性13"/>
+			<field name="option14" type="varchar" size="255" comment="属性14"/>
+			<field name="option15" type="varchar" size="255" comment="属性15"/>
+			<field name="option16" type="varchar" size="255" comment="属性16"/>
+			<field name="option17" type="varchar" size="255" comment="属性17"/>
+			<field name="option18" type="varchar" size="1024" comment="属性18"/>
+			<field name="option19" type="varchar" size="1024" comment="属性19"/>
+			<field name="i_option1" type="int" size="4" comment="整形1"/>
+			<field name="i_option2" type="int" size="4" comment="整形2"/>
+			<field name="n_option1" type="DECIMAL" size="19" decimal="6" comment="数值1"/>
+			<field name="n_option2" type="DECIMAL" size="19" decimal="6" comment="数值2"/>
+			<field name="remark" type="varchar" size="1024" comment="备注"/>
+		</table>
+				
+		<table name="bas_sms_templet" comment="短信模板表">
+			<field name="temp_no" type="varchar" size="32" primarykey="Y" isnull="Y" comment="模板ID"/>
+			<field name="temp" type="varchar" size="256" comment="模板内容"/>
+			<field name="time_limit" type="int" size="3" comment="有效时间"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" comment="创建日期"/>
+			<field name="modify_date" type="datetime" comment="修改时间"/>
+		</table>
+		
+		<!-- END 2015年11月11日  by曾小明  END -->
+		<table name="bas_area" comment="省市地区表">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="createdate" type="datetime" comment="创建日期"/>
+			<field name="modifydate" type="datetime" comment="修改时间"/>
+			<field name="orders" type="int" size="11" comment="省"/>
+			<field name="full_name" type="varchar" size="512" isnull="Y" comment="省"/>
+			<field name="name" type="varchar" size="100" isnull="Y" comment="地区名称"/>
+			<field name="en_name" type="varchar" size="100" comment="地区名称英文"/>
+			<field name="tree_path" type="varchar" size="1024" isnull="Y" comment="关联省"/>
+			<field name="parent" type="varchar" size="32" comment="编号"/>
+			<field name="locked" type="tinyint" size="1" comment="是否启用"/>
+			<field name="attr_1" type="varchar" size="32" comment="备用1"/>
+			<field name="attr_2" type="varchar" size="32" comment="备用2"/>
+			<field name="province" type="varchar" size="100" comment="省"/>
+			<field name="city" type="varchar" size="100" comment="市"/>
+			<field name="area" type="varchar" size="100" comment="区"/>
+			<field name="img_url" type="varchar" size="1024" comment="城市图片原图"/>
+			<field name="img_smallurl" type="varchar" size="1024" comment="城市图片缩略图100*100"/>
+		</table>
+		
+		<table name="bas_country" comment="省市地区表">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="title" type="varchar" size="32" isnull="Y" comment="国家名称"/>
+			<field name="code" type="varchar" size="32"  isnull="Y" comment="编号"/>
+			<field name="locked" type="tinyint" size="1" comment="是否启用"/>
+			<field name="country_1" type="varchar" size="32" comment="备用1"/>
+			<field name="country_2" type="varchar" size="32" comment="备用2"/>
+		</table>
+		
+	<!-- END 2015年11月11日  by曾小明  END -->	
+	
+		<!-- start 2016-02-18 by 周雷  调整商户表结构 -->
+	
+		<table name="bas_district" comment="商圈表">
+			<field name="district" type="varchar" size="32" primarykey="Y" isnull="Y" comment="商圈ID"/>
+			<field name="disname" type="varchar" size="32" isnull="Y" comment="商圈名称"/>
+			<field name="city" type="varchar" size="32" comment="城市"/>
+			<field name="district_logo" type="varchar" size="256" comment="商圈logo"/>
+			<field name="idx" type="int" size="8" comment="排序"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" comment="创建日期"/>
+			<field name="modify_date" type="datetime" comment="最新修改时间"/>
+			<field name="tour_img" type="varchar" size="256" comment="商圈导览图"/>
+		</table>
+		
+		<table name="bas_block" comment="街区表">
+			<field name="block_id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="街区ID"/>
+			<field name="block_no" type="varchar" size="32" isnull="Y" comment="街区号"/>
+			<field name="district" type="varchar" size="32" isnull="Y" comment="商圈ID"/>
+			<field name="block_name" type="varchar" size="32" isnull="Y" comment="街区名称"/>
+			<field name="block_logo" type="varchar" size="256" comment="街区logo"/>
+			<field name="idx" type="int" size="8" comment="排序"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" comment="创建日期"/>
+			<field name="modify_date" type="datetime" comment="最新修改时间"/>
+			<field name="tour_img" type="varchar" size="256" comment="街区导览图"/>
+		</table>
+		
+		<table name="bas_building" comment="单元楼表">
+			<field name="building_id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="单元楼ID"/>
+			<field name="building_no" type="varchar" size="32" isnull="Y" comment="单元楼号"/>
+			<field name="block_id" type="varchar" size="32" isnull="Y" comment="街区ID"/>
+			<field name="building_name" type="varchar" size="32" isnull="Y" comment="单元名称"/>
+			<field name="building_logo" type="varchar" size="256" comment="单元logo"/>
+			<field name="idx" type="int" size="8" comment="排序"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" comment="创建日期"/>
+			<field name="modify_date" type="datetime" comment="最新修改时间"/>
+			<field name="tour_img" type="varchar" size="256" comment="单元导览图"/>
+		</table>
+		
+		<table name="bas_floor" comment="楼层表">
+			<field name="floor_id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="楼层ID"/>
+			<field name="floor_no" type="varchar" size="32" isnull="Y" comment="楼层号"/>
+			<field name="building_id" type="varchar" size="32" isnull="Y" comment="单元楼ID"/>
+			<field name="floor_name" type="varchar" size="32" isnull="Y" comment="楼层名称"/>
+			<field name="floor_logo" type="varchar" size="256" comment="楼层logo"/>
+			<field name="idx" type="int" size="8" comment="排序"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" comment="创建日期"/>
+			<field name="modify_date" type="datetime" comment="最新修改时间"/>
+			<field name="tour_img" type="varchar" size="256" comment="楼层导览图"/>
+		</table>
+
+		<table name="bas_shop" comment="商户表">
+			<field name="shop_id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="shop_id"/>
+			<field name="shopname" type="varchar" size="32" isnull="Y" comment="商户名称"/>
+			<field name="enshopname" type="varchar" size="32" comment="商户英文名称"/>
+			<field name="district" type="varchar" size="32" comment="商圈ID"/>
+			<field name="floor_id" type="varchar" size="32" comment="楼层ID"/>
+			<field name="shop_address" type="varchar" size="512" comment="商户详细地址"/>
+			<field name="shop_type" type="varchar" size="32" comment="商户类型"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="shop_logo" type="varchar" size="256" comment="商户logo"/>
+			<field name="longitude" type="varchar" size="32" comment="经度"/>
+			<field name="latitude" type="varchar" size="32"  comment="纬度"/>
+			<field name="nice" type="int" size="8" comment="人气数"/>
+			<field name="sort" type="tinyint" size="4" comment="排序"/>
+			<field name="phone" type="varchar" size="32" comment="电话"/>
+			<field name="per_consume" type="varchar" size="32" comment="人均消费"/>
+			<field name="images" type="varchar" size="1024" comment="图片"/>
+			<field name="cha_icon" type="varchar" size="1024" comment="特色图片"/>
+			<field name="reply_no" type="varchar" size="8" comment="评论数"/>
+			<field name="district_index" type="int" size="8" comment="商圈排行"/>
+			<field name="block_index" type="int" size="8" comment="街区排行"/>
+			<field name="building_index" type="int" size="8" comment="单元排行"/>
+			<field name="floor_index" type="int" size="8" comment="楼层排行"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" comment="创建日期"/>
+			<field name="modify_date" type="datetime" comment="最新修改时间"/>
+		</table>
+		
+		<!-- end 2016-02-18 by 周雷  调整商户表结构 -->
+		
+		<table name="bas_shop_info" comment="店铺信息">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="shop_id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="商户ID"/>
+			<field name="shopname" type="varchar" size="32" comment="商户名称"/>
+			<field name="show_type" type="varchar" size="16"  comment="展示类型"/>
+			<field name="show_point" type="int" size="4"  comment="展示位置"/>
+			<field name="show_title" type="varchar" size="64" comment="展示标题"/>
+			<field name="show_image" type="varchar" size="256" comment="展示图片"/>
+			<field name="show_explain" type="varchar" size="512" comment="展示说明"/>
+			<field name="aviliable" type="tinyint" size="1" default="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" comment="创建日期"/>
+			<field name="modify_date" type="datetime" comment="最新修改时间"/>
+		</table>
+	
+	   <table name="bas_user_shop" comment="商户表">
+			<field name="userid" type="varchar" size="32" primarykey="Y" isnull="Y" comment="用户ID"/>
+			<field name="shop_id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="商户ID"/>
+			<field name="shopname" type="varchar" size="32"  comment="商户名称"/>
+			<field name="username" type="varchar" size="64"  comment="用户名称"/>
+			<field name="availabe" type="tinyint" size="1" comment="是否启用"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="create_date" type="datetime" comment="创建日期"/>
+			<field name="modify_date" type="datetime" comment="最新修改时间"/>
+		</table>
+		
+		<table name="bas_quartz_update" comment="更新记录表">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="ID"/>
+			<field name="update_name" type="varchar" size="32" comment="描述"/>
+			<field name="update_date" type="datetime" comment="日期"/>
+			<field name="locked" type="int" size="1" comment="锁"/>
+			<field name="attr_name_1" type="varchar" size="32" comment="备用1"/>
+			<field name="attr_name_2" type="varchar" size="32" comment="备用2"/>
+		</table>
+		
+		<!-- 文章表-->
+		<!-- 2016/03/01 add by 周雷 start -->
+		<table name="bas_article_main" comment="文章主模块表">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="主键"/>
+			<field name="article_category" type="varchar" size="64" comment="类型 "/>
+			<field name="category" type="varchar" size="32" comment="文章大类"/>
+			<field name="status" type="int" size="4" comment="状态"/>
+			<field name="effective_date" type="datetime" size="0" comment="生效时间"/>
+			<field name="date_from" type="datetime" size="0" comment="时间从"/>
+			<field name="date_to" type="datetime" size="0" comment="时间到"/>
+			<field name="title" type="varchar" size="255" comment="标题"/>
+			<field name="create_date" type="datetime" size="0" comment="创建时间"/>
+			<field name="modify_date" type="datetime" size="0" comment="修改时间"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+		</table>
+		
+		<table name="bas_article_relation" comment="文章关联表">
+			<field name="article_main_id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="关联的文章模块的ID"/>	
+			<field name="article_id" type="varchar" size="32"  primarykey="Y" isnull="Y" comment="关联的文章的ID"/>
+		    <field name="is_top" type="tinyint" size="1" comment="是否置顶"/>
+			<field name="idx" type="int" size="8" comment="排序"/>
+		</table>
+		<!-- 2016/03/01 add by 周雷 end -->
+		<!-- 2016/03/01 add by 曾小明 start -->
+		<table name="bas_article" comment="文章表">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="主键"/>
+			<field name="author" type="varchar" size="255" comment="作者"/>
+			<field name="hits" type="bigint" size="20" comment="点击量"/>
+			<field name="is_publication" type="tinyint" size="1" comment="是否发布"/>
+			<field name="is_top" type="tinyint" size="1" comment="是否置顶"/>
+			<field name="seo_description" type="varchar" size="255" comment="描述"/>
+			<field name="seo_keywords" type="varchar" size="255" comment="关键字"/>
+			<field name="seo_title" type="varchar" size="255" comment="标题关键"/>
+			<field name="url" type="varchar" size="255" comment="预览图片地址"/>
+			<field name="effective_date" type="datetime" size="0" comment="生效日期"/>
+			<field name="title" type="varchar" size="255" comment="标题"/>
+			<field name="article_category" type="varchar" size="32" comment="文章类型"/>
+			<field name="content" type="longtext" comment="内容"/>
+			<field name="create_date" type="datetime" size="0" comment="创建时间"/>
+			<field name="modify_date" type="datetime" size="0" comment="修改时间"/>
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="category" type="varchar" size="32" comment="文章大类"/>
+			<field name="is_url" type="tinyint" size="1" comment="是否外部链接"/>
+			<field name="content_url" type="varchar" size="255" comment="内容链接"/>
+			<field name="active_date" type="datetime" size="0" comment="自定义时间"/>
+			<field name="sort" type="int" size="8" comment="排序"/>
+			<field name="attr1" type="varchar" size="256" comment="类型一"/>
+			<field name="attr2" type="varchar" size="512" comment="按钮一"/>
+			<field name="attr3" type="varchar" size="512" comment="按钮二"/>
+			<field name="attr4" type="varchar" size="512" comment="跳转类型"/>
+			<field name="attr5" type="varchar" size="512" comment="logo图片200*200"/>
+			<field name="attr6" type="varchar" size="512" comment="备用6"/>
+			<field name="attr7" type="varchar" size="512" comment="备用7"/>
+			<field name="attr8" type="varchar" size="512" comment="备用8"/>
+			<field name="attr9" type="varchar" size="512" comment="备用9"/>
+			<field name="attr10" type="varchar" size="512" comment="备用10"/>
+			<field name="attr11" type="varchar" size="512" comment="备用11"/>
+		</table>
+		<!-- 2016/03/01 add by 曾小明 end -->
+		<!-- 文章表 -->
+		<!-- 2016/03/02 add by 吕康 start -->
+		<table name="bas_advert" comment="广告管理表">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="主键"/>
+			<field name="create_date" type="datetime" size="0" comment="创建时间"/>
+			<field name="modify_date" type="datetime" size="0" comment="修改时间"/>
+			<field name="orders" type="integer" size="4" comment="排序"/>
+			<field name="content" type="longtext"  comment="内容"/>
+			<field name="path" type="varchar" size="255" comment="图片路径"/>
+			<field name="title" type="varchar" size="255" comment="标题"/>
+			<field name="type" type="int" size="4" comment="类型"/>
+			<field name="url" type="varchar" size="255" comment="地址"/>
+			<field name="introduction" type="varchar" size="512" comment="引言"/>
+			<field name="group_id" type="varchar" size="32" comment="分组ID"/>
+			<field name="begin_date" type="datetime" size="0" comment="开始时间"/>
+			<field name="end_date" type="datetime" size="0" comment="结束时间"/>
+			<field name="available" type="tinyint" size="1" comment="是否启用"/>
+		</table>
+		<table name="bas_advert_group" comment="广告分组管理表">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="主键"/>
+			<field name="create_date" type="datetime" size="0" comment="创建时间"/>
+			<field name="modify_date" type="datetime" size="0" comment="修改时间"/>
+			<field name="ad_position" type="varchar" size="32" comment="位置Id"/>
+			<field name="ad_position_name" type="varchar" size="32" comment="位置名"/>
+			<field name="name" type="varchar" size="64" comment="分组名称"/>
+			<field name="begin_date" type="datetime" size="0" comment="开始时间"/>
+			<field name="end_date" type="datetime" size="0" comment="结束时间"/>
+			<field name="available" type="tinyint" size="1" comment="是否启用"/>
+			<field name="remark" type="varchar" size="255" comment="备注"/>
+		</table>
+		<!-- 2016/03/02 add by 吕康 end -->
+		<!-- 2016/04/05 add by 周雷 start-->
+		<table name="bas_token_access" comment="令牌验证">
+			<field name="token_no" type="varchar" size="32" primarykey="Y" isnull="Y" comment="令牌号"/>
+			<field name="userid" type="varchar" size="32" comment="用户id"/>
+			<field name="username" type="varchar" size="64" comment="用户名"/>
+			<field name="access_time" type="datetime" size="8" comment="有效时间"/>
+			<field name="change_time" type="datetime" size="8" comment="更改时间"/>
+			<field name="attr1" type="varchar" size="64" comment="用户类型"/>
+			<field name="attr2" type="varchar" size="64" comment="备用2"/>
+			<field name="attr3" type="varchar" size="64" comment="备用3"/>
+		</table>
+		<!-- 2016/04/05 add by 周雷 end-->
+		<!-- 文章表(修改) start by lsw-->
+		<table name="bas_new_article" comment="文章表新">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="主键"/>
+			<field name="author" type="varchar" size="255" comment="作者"/>
+			<field name="title" type="varchar" size="255" comment="中文标题"/>
+			<field name="entitle" type="varchar" size="255" comment="英文标题"/>
+			<field name="content" type="clob" comment="内容"/>
+			<field name="is_url" type="tinyint" size="1" comment="是否外部链接"/>
+			<field name="outer_url" type="varchar" size="255" comment="内容链接"/>
+			<field name="icon" type="varchar" size="255" comment="预览图原图"/>
+			<field name="icon_small" type="varchar" size="255" comment="预览图小图"/>
+			<field name="icon_other" type="varchar" size="255" comment="预览图自定义尺寸"/>
+			<field name="img" type="varchar" size="255" comment="备用图原图"/>
+			<field name="img_small" type="varchar" size="255" comment="备用图小图"/>
+			<field name="img_other" type="varchar" size="255" comment="备用图自定义尺寸"/>
+			<field name="button_id" type="varchar" size="255" comment="按钮id"/>
+			<field name="hits" type="bigint" size="20" comment="点击量"/>
+			<field name="is_publication" type="tinyint" size="1" comment="是否发布"/>
+			<field name="is_top" type="tinyint" size="1" comment="是否置顶"/>
+			
+			
+			<field name="create_date" type="datetime" size="0" comment="创建时间"/>
+			<field name="modify_date" type="datetime" size="0" comment="修改时间"/>
+			<field name="effective_date" type="datetime" size="0" comment="生效日期"/>
+			<field name="active_date" type="datetime" size="0" comment="自定义时间"/>
+			
+			<field name="operator" type="varchar" size="32" comment="操作人"/>
+			<field name="category_id" type="varchar" size="32" comment="所属大类"/>
+			<field name="categoryg_id" type="varchar" size="32" comment="所属小类"/>
+			<field name="sort" type="int" size="8" comment="排序"/>
+			<field name="view_type" type="varchar" size="256" comment="显示类型"/>
+			<field name="is_tools" type="tinyint" size="1" comment="是否工具条"/>
+			<field name="return_type" type="varchar" size="512" comment="跳转类型"/>
+			
+			<field name="attr1" type="varchar" size="256" comment="类型一"/>
+			<field name="attr2" type="varchar" size="512" comment="按钮一"/>
+			<field name="attr3" type="varchar" size="512" comment="按钮二"/>
+			<field name="attr4" type="varchar" size="512" comment="跳转类型"/>
+			<field name="attr5" type="varchar" size="512" comment="备用5(已启用)"/>
+			<field name="attr6" type="varchar" size="1024" comment="备用6(已启用)"/>
+			<field name="attr7" type="varchar" size="2048" comment="中文内容"/>
+			<field name="attr8" type="varchar" size="2048" comment="英文内容"/>
+			<field name="attr9" type="varchar" size="512" comment="备用9"/>
+			<field name="attr10" type="varchar" size="512" comment="文章概述"/>
+			<field name="shop_id" type="varchar" size="32" comment="店铺ID"/>
+		</table>
+		<table name="bas_article_button" comment="按钮表">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="主键"/>
+			<field name="article_id" type="varchar" size="32" isnull="Y" comment="文章ID"/>
+			<field name="name" type="varchar" size="32" comment="按钮名称"/>
+			<field name="url" type="varchar" size="255" comment="按钮链接地址"/>
+			<field name="icon" type="varchar" size="255" comment="按钮图片地址"/>
+			<field name="location" type="int" size="8" comment="位置"/>
+			<field name="sort" type="int" size="8" comment="排序"/>
+			<field name="attr1" type="varchar" size="255" comment="备用1"/>
+			<field name="attr2" type="varchar" size="255" comment="备用2"/>
+		</table>
+		<table name="bas_article_category" comment="文章所属大类">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="主键"/>
+			<field name="num" type="varchar" size="32" comment="类别编号"/>
+			<field name="name" type="varchar" size="32" comment="类别名称"/>
+			<field name="sort" type="int" size="8" comment="排序"/>
+			<field name="attr1" type="varchar" size="255" comment="备用1"/>
+			<field name="attr2" type="varchar" size="255" comment="备用2"/>
+		</table>
+		<table name="bas_article_categoryg" comment="文章所属小类">
+			<field name="id" type="varchar" size="32" primarykey="Y" isnull="Y" comment="主键"/>
+			<field name="num"  type="varchar" size="32" comment="类别编号"/>
+			<field name="name" type="varchar" size="32" comment="类别名称"/>
+			<field name="sort" type="int" size="8" comment="排序"/>
+			<field name="attr1" type="varchar" size="255" comment="备用1"/>
+			<field name="attr2" type="varchar" size="255" comment="备用2"/>
+		</table>
+		<!-- 文章表(修改) end by lsw-->
+	</tables>
+	<refdefs COMMENT="表关联定义">
+		<!-- 
+		<ref table1="关联表名1" table2="关联表名2" name="关联名称" field1="表名1中的字段名" field2="表名2中的字段名"/>
+		 -->
+	</refdefs>
+	
+	<!--
+		数字列类型 int、bigint、smallint、tinyint 
+		　　数字列类型用于储存各种数字数据，如价格、年龄或者数量。数字列类型主要分为两种：整数型和浮点型。所有的数字列类型都允许有两个选项：UNSIGNED和ZEROFILL。选择UNSIGNED的列不允许有负数，选择了ZEROFILL的列会为数值添加零。下面是MySQL中可用的数字列类型 
+		• TINYINT——一个微小的整数，支持 -128到127(SIGNED)，0到255(UNSIGNED)，需要1个字节存储 
+		• BIT——同TINYINT(1) 
+		• BOOL——同TINYINT(1) 
+		• SMALLINT——一个小整数，支持 -32768到32767(SIGNED)，0到65535(UNSIGNED)，需要2个字节存储 MEDIUMINT——一个中等整数，支持 -8388608到8388607(SIGNED)，0到16777215(UNSIGNED)，需要3个字节存储 
+		• INT——一个整数，支持 -2147493648到2147493647(SIGNED)，0到4294967295(UNSIGNED)，需要4个字节存储 
+		• INTEGER——同INT 
+		• BIGINT——一个大整数，支持 -9223372036854775808到9223372036854775807(SIGNED)，0到18446744073709551615(UNSIGNED)，需要8个字节存储 
+		• FLOAT(precision)——一个浮点数。precision<=24用于单精度浮点数；precision在25和53之间，用于又精度浮点数。FLOAT(X)与相诮的FLOAT和DOUBLE类型有差相同的范围，但是没有定义显示尺寸和小数位数。在MySQL3.23之前，这不是一个真的浮点值，且总是有两位小数。MySQL中的所有计算都用双精度，所以这会带来一些意想不到的问题。 
+		• FLOAT——一个小的菜单精度浮点数。支持 -3.402823466E+38到-1.175494351E-38，0和1.175494351E-38 to 3.402823466E+38，需要4个字节存储。如果是UNSIGNED，正数的范围保持不变，但负数是不允许的。 
+		• DOUBLE——一个双精度浮点数。支持 -1.7976931348623157E+308到-2.2250738585072014E-308，0和2.2250738585072014E-308到1.7976931348623157E+308。如果是FLOAT，UNSIGNED不会改变正数范围，但负数是不允许的。 
+		• DOUBLE PRECISION——同DOUBLE 
+		• REAL——同DOUBLE 
+		• DECIMAL——将一个数像字符串那样存储，每个字符占一个字节 
+		• DEC——同DECIMAL 
+		• NUMERIC——同DECIMAL 
+		
+		字符串列类型:char、varchar、nvarchar 
+		　　字符串列类型用于存储任何类型的字符数据，如名字、地址或者报纸文章。下面是MySQL中可用的字符串列类型 
+		• CHAR——字符。固定长度的字串，在右边补齐空格，达到指定的长度。支持从0到155个字符。搜索值时，后缀的空格将被删除。 
+		• VARCHAR ——可变长的字符。一个可变长度的字串，其中的后缀空格在存储值时被删除。支持从0到255字符 
+		• TINYBLOB——微小的二进制对象。支持255个字符。需要长度+1字节的存储。与TINYTEXT一样，只不过搜索时是区分大小写的。(0.25KB) 
+		• TINYTEXT——支持255个字符。要求长度+1字节的存储。与TINYBLOB一样，只不过搜索时会忽略大小写。(0.25KB) 
+		• BLOB——二进制对象。支持65535个字符。需要长度+2字节的存储。 (64KB) 
+		• TEXT——支持65535个字符。要求长度+2字节的存储。 (64KB) 
+		• MEDIUMBLOB——中等大小的二进制对象。支持16777215个字符。需要长度+3字节的存储。 (16M) 
+		• MEDIUMTEXT——支持16777215个字符。需要长度+3字节的存储。 (16M) 
+		• LONGBLOB——大的的二进制对象。支持4294967295个字符。需要长度+4字节的存储。 (4G) 
+		• LONGTEXT——支持4294967295个字符。需要长度+4字节的存储。(4G) 
+		• ENUM——枚举。只能有一个指定的值，即NULL或""，最大有65535个值 
+		• SET——一个集合。可以有0到64个值，均来自于指定清单. 
+		
+		
+		
+		日期和时间列类型 
+		　　日期和时间列类型用于处理时间数据，可以存储当日的时间或出生日期这样的数据。格式的规定：Y表示年、M（前M）表示月、D表示日、H表示小时、M（后M）表示分钟、S表示秒。下面是MySQL中可用的日期和时间列类型 
+		• DATETIME——格式：'YYYY-MM-DD HH:MM:SS'，范围：'1000-01-01 00:00:00'到'9999-12-31 23:59:59' 
+		• DATE——格式：'YYYY-MM-DD'，范围：'1000-01-01'到'9999-12-31' 
+		• TIMESTAMP——格式：'YYYYMMDDHHMMSS'、'YYMMDDHHMMSS'、'YYYYMMDD'、'YYMMDD'，范围：'1970-01-01 00:00:00'到'2037-01-01 00:00:00' 
+		• TIME——格式：'HH:MM:SS' 
+		• YEAR——格式：'YYYY，范围：'1901'到'2155'  
+	 -->
+</tabledef>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.user.dao.ShirolimitMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.user.model.Shirolimit" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="sysid" property="sysid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="limits" property="limits" jdbcType="VARCHAR" />
+    <result column="idx" property="idx" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sysid, name, url, limits, idx, remark, availabe, operator, createDate, modifyDate
+  </sql>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_shirolimit
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from bas_shirolimit where availabe=true 
+    order by name,idx
+  </select>
+  
+  <select id="selectAllList" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from bas_shirolimit
+    order by url,idx
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from bas_shirolimit
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.user.model.Shirolimit" >
+    insert into bas_shirolimit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sysid != null" >
+        sysid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="limits != null" >
+        limits,
+      </if>
+      <if test="idx != null" >
+        idx,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="availabe != null" >
+        availabe,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sysid != null" >
+        #{sysid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="limits != null" >
+        #{limits,jdbcType=VARCHAR},
+      </if>
+      <if test="idx != null" >
+        #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.hibo.cms.user.model.Shirolimit" >
+    update bas_shirolimit
+    <set >
+      <if test="sysid != null" >
+        sysid = #{sysid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="limits != null" >
+        limits = #{limits,jdbcType=VARCHAR},
+      </if>
+      <if test="idx != null" >
+        idx = #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        availabe = #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+<!--    <insert id="insert" parameterType="com.hibo.cms.user.model.Shirolimit" >
+   insert into bas_shirolimit (id, sysid, name, 
+     url, limits, idx, remark, 
+     availabe, operator, createDate, 
+     modifyDate)
+   values (#{id,jdbcType=VARCHAR}, #{sysid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+     #{url,jdbcType=VARCHAR}, #{limits,jdbcType=VARCHAR}, #{idx,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+     #{availabe,jdbcType=BIT}, #{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+     #{modifyDate,jdbcType=TIMESTAMP})
+  </insert> -->
+<!--   <update id="updateByPrimaryKey" parameterType="com.hibo.cms.user.model.Shirolimit" >
+    update bas_shirolimit
+    set sysid = #{sysid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      limits = #{limits,jdbcType=VARCHAR},
+      idx = #{idx,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      availabe = #{availabe,jdbcType=BIT},
+      operator = #{operator,jdbcType=VARCHAR},
+      modifyDate = #{modifyDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update> -->
+</mapper>

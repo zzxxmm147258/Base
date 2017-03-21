@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.push.dao.PushDeviceBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.push.model.PushDeviceBas" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    <result column="attr_name1" property="attrName1" jdbcType="VARCHAR" />
+    <result column="attr_name2" property="attrName2" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, device_id, attr_name1, attr_name2, create_date, modify_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_push_device
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_push_device
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.push.model.PushDeviceBas" >
+    insert into bas_push_device (user_id, device_id, attr_name1, 
+      attr_name2, create_date, modify_date
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, #{attrName1,jdbcType=VARCHAR}, 
+      #{attrName2,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.push.model.PushDeviceBas" >
+    insert into bas_push_device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="attrName1 != null" >
+        attr_name1,
+      </if>
+      <if test="attrName2 != null" >
+        attr_name2,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName1 != null" >
+        #{attrName1,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName2 != null" >
+        #{attrName2,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.push.model.PushDeviceBas" >
+    update bas_push_device
+    <set >
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName1 != null" >
+        attr_name1 = #{attrName1,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName2 != null" >
+        attr_name2 = #{attrName2,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.push.model.PushDeviceBas" >
+    update bas_push_device
+    set device_id = #{deviceId,jdbcType=VARCHAR},
+      attr_name1 = #{attrName1,jdbcType=VARCHAR},
+      attr_name2 = #{attrName2,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

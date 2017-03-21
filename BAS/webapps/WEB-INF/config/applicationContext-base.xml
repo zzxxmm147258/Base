@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop     
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd     
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd     
+        http://www.springframework.org/schema/context     
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd     
+        http://www.springframework.org/schema/mvc     
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd     
+        http://www.springframework.org/schema/tx     
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+	
+	<context:annotation-config/>
+	
+	<!-- 引入注解扫描器 by zhoulei-->
+	<context:component-scan base-package="com.hibo.*" >
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	<!-- 数据源切换管理 by zhoulei-->
+	<!-- 配置数据源 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- 不使用properties来配置 -->
+		    <property name="driverClassName" value="com.mysql.jdbc.Driver" /> 
+			<property name="url" value="jdbc:mysql://localhost:3306/hibo" /> 
+			<property name="username" value="root" /> 
+			<property name="password" value="123456" /> 
+	   <!-- 使用properties来配置 -->
+		<!-- <property name="driverClassName">
+			<value>${jdbc.driverClass}</value>
+		</property>
+		<property name="url">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc.user}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property> -->
+	</bean>
+	
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations" value="classpath:com.hibo.*.*./dao/*.xml" />
+		<!-- 指定实体类所在的包 -->
+		<property name="typeAliasesPackage" value="com.hibo.*.*.model" />
+		<property name="configLocation" value="/WEB-INF/config/mybatis.xml"></property>
+		<property name="plugins">  
+	       <array>  
+	          <bean class="com.hibo.bas.mybaits.BasInterceptor"/>  
+	       </array>  
+   		</property>  
+	</bean>
+
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 by zhoulei-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" autowire="byName">
+		<property name="basePackage" value="com.hibo.*.*.dao" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx by zhoulei-->
+ 	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean> 
+	<bean id="SpringContextUtil" class="com.hibo.bas.spring.SpringContextUtil" />
+	<!-- 密码加密 by zhoulei-->
+	<bean id="passwordHelper" class="com.hibo.cms.sys.shiro.util.PasswordHelper"/>
+	
+	<bean id="shiroDataBaseRealm" class="com.hibo.cms.sys.shiro.realm.UserRealm">
+		<!-- MD5加密 -->
+		<property name="credentialsMatcher">
+			<bean class="com.hibo.cms.sys.shiro.util.SysHashedCredentialsMatcher">
+				<property name="passwordHelper" ref="passwordHelper"/>
+				<property name="hashAlgorithmName" value="md5"/>
+        		<property name="hashIterations" value="2"/>
+        		<property name="storedCredentialsHexEncoded" value="true"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<!-- 安全管理器 by zhoulei-->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="sessionManager" ref="sessionManager"/>
+		<property name="realm" ref="shiroDataBaseRealm" />
+	</bean>
+	<!-- 角色或关系 -->
+	<bean id="SysOrRoles" class="com.hibo.cms.sys.shiro.util.SysRolesAuthorizationFilter"/>
+	<!-- 登录拦截 -->
+	<bean id="sysUserFilter" class="com.hibo.cms.sys.shiro.util.SysUserFilter"/>
+	<!--退出 -->
+	<bean id="sysLogoutFilter" class="com.hibo.cms.sys.shiro.util.SysLogoutFilter"/>
+	<!-- 配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致by zhoulei -->
+	<bean id="shiroFilter" class="com.hibo.cms.sys.shiro.util.SysShiroFilterFactoryBean">
+		<!-- 调用我们配置的权限管理器 -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 配置我们的登录请求地址 -->
+		<property name="loginUrl" value="/login" />
+		<!-- 配置我们在登录页登录成功后的跳转地址，如果你访问的是非/login地址，则跳到您访问的地址 -->
+		<property name="successUrl" value="/main" />
+		<!-- 如果您请求的资源不再您的权限范围，则跳转到/403请求地址 -->
+		<property name="unauthorizedUrl" value="/message/unauthorized" />
+		<property name="filters">
+			<map>
+				<entry key="authc" value-ref="formAuthenticationFilter" />
+				<entry key="user" value-ref="sysUserFilter" />
+				<entry key="logout" value-ref="sysLogoutFilter" />
+				<entry key="oroles" value-ref="SysOrRoles"/>
+			</map>
+		</property>
+		<!-- 权限配置 -->
+		<property name="filterChainDefinitionMap" ref="sysfilterChainDefinitions" />
+	</bean>
+	<bean id="sysfilterChainDefinitions" class="com.hibo.cms.sys.shiro.chain.SysfilterChainDefinitions">  
+		<property name="filterChainDefinitions">
+			<value>
+				/login=authc
+				/logout = logout
+				/resources/**=anon
+				/common/**=anon
+				/message/**=anon
+				/app/**=anon
+				/edi/**=anon
+				/weixin/**=anon
+				/remoteinteraction/**=anon
+				/measure/**=anon
+			</value>
+		</property>
+	</bean>
+	<!-- 基于Form表单的身份验证过滤器 by zhoulei-->
+	<bean id="formAuthenticationFilter" class="com.hibo.cms.sys.shiro.util.SysFormAuthenticationFilter">
+		<property name="usernameParam" value="username" />
+		<property name="passwordParam" value="password" />
+		<property name="dbsource" value="db" />
+		<property name="sysid" value="sys" />
+		<property name="rememberMeParam" value="rememberMe" />
+	</bean>
+	<!-- 数据源切换  by 周雷 -->
+	<bean id="serviceAop" class="com.hibo.cms.sys.utils.aop.impl.ServiceAopImlp"/>
+	
+	<!-- 远程调用  by 周雷 -->
+	<bean id="remoteInterface" class="com.hibo.cms.sys.utils.aop.impl.RemoteAopImpl"/>
+	
+	<!-- 切换数据源的调用要在事物前 -->
+	<aop:config>
+		<aop:pointcut id="pointCut" expression="execution(* *..*ServiceImpl.*(..))" />
+		<aop:pointcut id="anPointCut" expression="@annotation(com.hibo.cms.sys.utils.anno.RemoteAnno)&amp;&amp;@annotation(ra)" />
+		<aop:aspect id="serviceAop" ref="serviceAop">
+			<aop:before method="before" pointcut-ref="pointCut"/>
+		</aop:aspect>
+		<aop:aspect id="remoteAop" ref="remoteInterface">
+			<aop:around method="around" pointcut-ref="anPointCut"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- aop调用顺序与配置的顺序有关，此事务设置，必须在 AOP 设置 后面-->
+	<tx:annotation-driven />
+	
+	<bean id="SpringServletContext" class="com.hibo.bas.spring.SpringWebUtil"/>
+	
+	<!-- 缓存 start by zhoulei-->
+<!-- 	改为静态方法了<bean id="redisUtil" class="com.hibo.cms.sys.cache.impl.redis.RedisUtil">
+		<property name="host" value="192.168.1.215"/>
+		<property name="port" value="6379"/>
+	</bean> -->
+	<bean id="cacheManager" class="com.hibo.cms.sys.cache.impl.redis.RedisCacheManager"/>
+	<!-- 会话ID生成器 -->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+    
+	<bean id="shiroSessionRepository" class="com.hibo.cms.sys.shiro.session.impl.SysShiroSessionRepository" >
+		<property name="cacheManager" ref="cacheManager"/>
+	</bean>  
+	
+	<bean id="sessionDao" class="com.hibo.cms.sys.shiro.session.impl.SysSessionDao">
+		<property name="shiroSessionRepository" ref="shiroSessionRepository" />
+		<property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+	</bean>
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="globalSessionTimeout" value="1800000"/><!-- session有效时间,毫秒 -->
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+		<property name="sessionDAO" ref="sessionDao"/>
+		<property name="cacheManager" ref="cacheManager"/>
+	</bean>
+	<!-- 会话验证调度器 -->
+    <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
+        <property name="sessionValidationInterval" value="1800000"/><!-- session刷新间隔,毫秒 -->
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+    <bean id="sysCacheManager" class="com.hibo.cms.sys.cache.Utils.SysCacheManager"/>
+	<!-- 缓存end by zhoulei -->
+	
+	<!-- 定时器初始化 -->
+	<bean class="com.hibo.cms.quartz.util.init.QuartzInit"/>
+	
+	<!-- solr服务 -->
+	<bean id="httpSolrServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
+ 		 <constructor-arg name="baseURL" value="http://61.50.100.66:8011/solr" />
+ 	</bean>
+	<!-- webService配置 by zhoulei-->
+<!--<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<jaxws:endpoint id="helloService" implementor="com.hibo.cms.sys.webservice.impl.HelloWordImpl" address="/helloService" />
+	 -->
+
+</beans>   

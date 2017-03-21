@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>SQL</title>
+<script src="../../../resources/hibo/js/hibo.js"></script>
+<script type="text/javascript">
+Import.Jc(['/resources/hibo/js/hibo_table.js','/resources/editor/kindeditor.js']);
+</script>
+<style>
+.td{width:100px;overflow:hidden} 
+</style>
+</head>
+<body style="height: 100%;">
+
+<div class="sql">
+     <textarea style="width:100%;height:50px;" id="sql" name="sql" placeholder="请输入查询的SQL"></textarea>
+     <button type="button" style="text-align:center;width:10%;" onclick="select_()" >查询</button>
+</div>
+<div class='editor' placeholder='Please enter the content...'></div>
+</body>
+<script type="text/javascript">
+$('.editor').height(document.documentElement.clientHeight-133);
+function select_(){
+	var sql=$("#sql").val();
+	$('.panel-body').children().remove();
+		$.ajax({
+		    type: 'post',
+		    url:$.Url('/main/bas/sql'),
+			data:{sql:sql},
+		    dataType: 'json',
+		    success: function(data){
+					console.log(data)
+					if(data.success){
+					   var datas=data.datas;
+					   var table = $('<table border="1px" cellpadding="0px" cellspacing="0px"></table>').appendTo('.panel-body'); 
+					   var flds = [];
+					   for (var i = 0; i < datas.length; i++) {
+						   var map = datas[i];
+						   if(i==0){
+							   var k = 0;
+							   var thead = $('<thead></thead>').appendTo(table);
+							   for (key in map) {
+								   flds[k] = key;
+								   $('<th style="text-align:center;">'+key+'</th>').appendTo(thead);
+								   k++;
+							   }
+						   }
+						   
+						   var tr = $('<tr></tr>').appendTo(table);
+						   for (var j = 0; j < flds.length; j++) {
+							   $('<td style="text-align:center;">'+$.Filter.target(map[flds[j]])+'</td>').appendTo(tr);
+						   }
+						}
+					   $(table).htablesize();
+					}else{
+					   $('<div>'+data.message+'</div>').appendTo('.shuju');
+					}
+		    },
+		    error: function(e){
+		    	console.log(e);
+		    }
+		});
+}
+
+
+</script>
+</html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.table.dao.TableMapper">
+	<resultMap id="BaseResultMap" type="com.hibo.cms.table.model.Tables">
+		<id column="sysid" property="sysid" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectTable" resultType="java.lang.String" parameterType="java.lang.String">
+		select TABLE_NAME 
+		from INFORMATION_SCHEMA.TABLES 
+		where TABLE_SCHEMA=#{dbname} and TABLE_NAME=#{tablename}
+	</select>
+	
+	<select id="selectTable1" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT  name FROM dbo.SysObjects 
+		WHERE ID = object_id(#{tablename}) 
+		and OBJECTPROPERTY(ID, 'IsTable')=1
+	</select>
+	
+	<select id="selectTable2" parameterType="java.lang.String"  resultType="java.lang.String">
+		select table_name
+		from user_tables 
+		where table_name = #{tablename}
+	</select>
+	
+	<select id="selectField" resultType="java.util.Map" parameterType="java.lang.String">
+		SELECT * 
+		FROM INFORMATION_SCHEMA.COLUMNS 
+		WHERE TABLE_SCHEMA=#{dbname} AND TABLE_NAME=#{tablename} 
+		<if test="colname != null" >
+			AND COLUMN_NAME=#{colname}
+		</if>
+	</select>
+	
+	<select id="selectField1" resultType="java.util.Map" parameterType="java.lang.String">
+		select c.name DATA_TYPE,b.length DATA_LENGTH,b.scale DATA_SCALE,b.isnullable NULLABLE
+		from sysobjects a,syscolumns b,systypes c where a.id=b.id
+		and a.name=#{tablename} and b.name=#{colname} and a.xtype='U'
+		and b.xtype=c.xtype
+	</select>
+	
+	<select id="selectField2" resultType="java.util.Map" parameterType="java.lang.String">
+		select DATA_TYPE,DATA_LENGTH,DATA_SCALE,NULLABLE 
+		from user_tab_columns
+		where table_name=#{tablename} and column_name=#{colname}
+	</select>
+	
+	<select id="selectIndex" resultType="java.util.Map" parameterType="java.lang.String">
+		SELECT * 
+		FROM INFORMATION_SCHEMA.STATISTICS 
+		WHERE TABLE_SCHEMA=#{dbname} AND TABLE_NAME=#{tablename}
+		<if test="indexname != null" >
+			AND INDEX_NAME=#{indexname}
+		</if>
+	</select>
+	
+	<select id="selectIndex1" resultType="java.util.Map" parameterType="java.lang.String">
+		select * 
+		from sys.indexes 
+		where name=#{indexname};
+	</select>
+	
+	<select id="selectIndex2" resultType="java.util.Map" parameterType="java.lang.String">
+		select * 
+		from user_indexes 
+		where table_name=#{tablename} and index_name=#{indexname};
+	</select>
+	
+	<select id="selectSql" resultType="java.util.Map" parameterType="java.lang.String">
+		${sql}
+	</select>
+	
+	<update id="updateSql" parameterType="java.lang.String">
+		${sql}
+	</update>
+
+</mapper>

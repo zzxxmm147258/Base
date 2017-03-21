@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.component.dao.AreaBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.component.model.AreaBas" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="createdate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="modifydate" property="modifydate" jdbcType="TIMESTAMP" />
+    <result column="orders" property="orders" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="tree_path" property="treePath" jdbcType="VARCHAR" />
+    <result column="parent" property="parent" jdbcType="VARCHAR" />
+    <result column="locked" property="locked" jdbcType="BIT" />
+    <result column="attr_1" property="area1" jdbcType="VARCHAR" />
+    <result column="attr_2" property="area2" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="img_smallurl" property="imgSmallurl" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hibo.cms.component.model.AreaBas" extends="BaseResultMap" >
+    <result column="full_name" property="fullName" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, createdate, modifydate, orders, name,en_name, tree_path, parent, locked, attr_1, attr_2, 
+    province, city, area,img_url,img_smallurl
+  </sql>
+  <sql id="Blob_Column_List" >
+    full_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bas_area
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectHotcity" resultType="String">
+  	SELECT DISTINCT city FROM bas_area WHERE attr_1 = 'hot';
+  </select>
+  <select id="selectCityByProvince" parameterType="java.lang.String" resultType="java.lang.String">
+  	SELECT distinct city 
+  	FROM bas_area 
+  	WHERE 
+  	province=#{province,jdbcType=VARCHAR}
+  	and city is not null
+  	and city != ''
+  </select>
+   <select id="selectAreaByCity" parameterType="java.lang.String" resultType="java.lang.String">
+  	SELECT distinct area 
+  	FROM bas_area 
+  	WHERE 
+  	city=#{city,jdbcType=VARCHAR} 
+  	and area is not null
+  	and area != ''
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_area
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.component.model.AreaBas" >
+    insert into bas_area (id, createdate, modifydate, 
+      orders, name, en_name,tree_path, 
+      parent, locked, attr_1, 
+      attr_2, province, city, 
+      area, full_name,
+      img_url,img_smallurl)
+    values (#{id,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{modifydate,jdbcType=TIMESTAMP}, 
+      #{orders,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},#{enName,jdbcType=VARCHAR} #{treePath,jdbcType=VARCHAR}, 
+      #{parent,jdbcType=VARCHAR}, #{locked,jdbcType=BIT}, #{area1,jdbcType=VARCHAR}, 
+      #{area2,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{fullName,jdbcType=LONGVARCHAR},
+      #{imgUrl,jdbcType=VARCHAR},#{imgSmallurl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.component.model.AreaBas" >
+    insert into bas_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdate != null" >
+        createdate,
+      </if>
+      <if test="modifydate != null" >
+        modifydate,
+      </if>
+      <if test="orders != null" >
+        orders,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="enName != null" >
+        en_name,
+      </if>
+      <if test="treePath != null" >
+        tree_path,
+      </if>
+      <if test="parent != null" >
+        parent,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="area1 != null" >
+        attr_1,
+      </if>
+      <if test="area2 != null" >
+        attr_2,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="fullName != null" >
+        full_name,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="imgSmallurl != null" >
+        img_smallurl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null" >
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orders != null" >
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="treePath != null" >
+        #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null" >
+        #{parent,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=BIT},
+      </if>
+      <if test="area1 != null" >
+        #{area1,jdbcType=VARCHAR},
+      </if>
+      <if test="area2 != null" >
+        #{area2,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        #{fullName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSmallurl != null" >
+        #{imgSmallurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.component.model.AreaBas" >
+    update bas_area
+    <set >
+      <if test="createdate != null" >
+        createdate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null" >
+        modifydate = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orders != null" >
+        orders = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        en_name = #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="treePath != null" >
+        tree_path = #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null" >
+        parent = #{parent,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=BIT},
+      </if>
+      <if test="area1 != null" >
+        attr_1 = #{area1,jdbcType=VARCHAR},
+      </if>
+      <if test="area2 != null" >
+        attr_2 = #{area2,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        full_name = #{fullName,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgSmallurl != null" >
+        img_smallurl = #{imgSmallurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hibo.cms.component.model.AreaBas" >
+    update bas_area
+    set createdate = #{createdate,jdbcType=TIMESTAMP},
+      modifydate = #{modifydate,jdbcType=TIMESTAMP},
+      orders = #{orders,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      en_name = #{enName,jdbcType=VARCHAR},
+      tree_path = #{treePath,jdbcType=VARCHAR},
+      parent = #{parent,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=BIT},
+      attr_1 = #{area1,jdbcType=VARCHAR},
+      attr_2 = #{area2,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=LONGVARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      img_smallurl = #{imgSmallurl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.component.model.AreaBas" >
+    update bas_area
+    set createdate = #{createdate,jdbcType=TIMESTAMP},
+      modifydate = #{modifydate,jdbcType=TIMESTAMP},
+      orders = #{orders,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      en_name = #{enName,jdbcType=VARCHAR},
+      tree_path = #{treePath,jdbcType=VARCHAR},
+      parent = #{parent,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=BIT},
+      attr_1 = #{area1,jdbcType=VARCHAR},
+      attr_2 = #{area2,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      img_smallurl = #{imgSmallurl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectById" parameterType="String" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List"/>
+		from bas_area
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByParent" parameterType="String" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List"></include>
+		from bas_area
+		where parent 
+		<if test='parent == "0"'>
+			is null or parent = ''
+		</if>
+		<if test='parent != "0"'>
+			= #{parent,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	  <select id="selectFullNameById" parameterType="String" resultType="String">
+		select full_name 
+		from bas_area
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+    <delete id="delete" parameterType="java.lang.String" statementType="STATEMENT">
+    delete
+    from bas_area
+    where id = '${id}'
+    or parent = '${id}'
+    or tree_path like ',${id},%'
+    </delete>
+    
+      <update id="update" parameterType="com.hibo.cms.component.model.AreaBas" >
+     update bas_area
+     set createdate = #{createdate,jdbcType=TIMESTAMP},
+      modifydate = #{modifydate,jdbcType=TIMESTAMP},
+      orders = #{orders,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      en_name = #{enName,jdbcType=VARCHAR},
+      tree_path = #{treePath,jdbcType=VARCHAR},
+      parent = #{parent,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=LONGVARCHAR},
+      attr_1 = #{area1,jdbcType=VARCHAR},
+      attr_2 = #{area2,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      img_smallurl = #{imgSmallurl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+    </update>
+  
+  <select id="selectByAreaBas" parameterType="String" resultMap="BaseResultMap">
+		select  distinct
+		 b.province
+		 <if test="province == null and province != '' ">
+	    ,b.city
+	    </if>
+	    <if test="city != null and city != '' ">
+	    ,b.area
+	    </if>
+		from bas_area
+		where 1=1 
+		<if test="province == null and province != '' ">
+		and	province like CONCAT('%',#{province,jdbcType=VARCHAR},'%')  
+		</if>
+		<if test="city != null and city != '' ">
+		and  city like CONCAT('%',#{city,jdbcType=VARCHAR},'%')
+		</if>
+	</select>
+	
+	<select id="selectByCity" parameterType="String" resultType="String">
+		select distinct
+		city
+		from bas_area
+		where  1=1 and city is not null and city!=''
+		<if test="city != null and city != '' ">
+		and  city like CONCAT('%',#{city,jdbcType=VARCHAR},'%')
+		</if>
+	</select>
+	
+	<select id="selectCity" parameterType="String" resultType="String">
+		select distinct
+		name
+		from bas_area
+		where  attr_1='2'
+		<if test="city != null and city != '' ">
+		 and  name like CONCAT('%',#{city,jdbcType=VARCHAR},'%')
+		</if>
+	</select>
+	
+	<select id="selectByProvince" parameterType="String" resultType="String">
+		select distinct
+		province
+		from bas_area
+		where  1=1
+		<if test="province != null and province != '' ">
+		and  province like CONCAT('%',#{province,jdbcType=VARCHAR},'%')
+		</if>
+	</select>
+	
+	
+	<select id="selectByProvinces" parameterType="String" resultType="String">
+		select distinct
+		province
+		from bas_area where  province is not null
+	</select>
+	
+	<select id="selectByCitys" parameterType="String" resultType="String">
+		select distinct
+		city
+		from bas_area
+		where 1=1
+		<if test="province != null and province != '' ">
+		and  province like CONCAT('%',#{province,jdbcType=VARCHAR},'%')
+		</if>
+		and  city is not null
+	</select>
+	
+	<select id="selectByAreas" parameterType="String" resultType="String">
+		select distinct
+		area
+		from bas_area
+		where 1=1
+		<if test="province != null and province != '' and  city != null and city != '' ">
+		and  province like CONCAT('%',#{province,jdbcType=VARCHAR},'%')
+		and  city like CONCAT('%',#{city,jdbcType=VARCHAR},'%')
+		</if>
+		and  area is not null
+		
+	</select>
+	
+	<select id="selectByArea" parameterType="String" resultType="String">
+		select distinct
+		area
+		from bas_area
+		where  1=1 and area is not null and area!=''
+		<if test="area != null and area != '' ">
+		and  area like CONCAT('%',#{area,jdbcType=VARCHAR},'%')
+		</if>
+	</select>
+	
+	<select id="selectYicAreaBas" resultMap="BaseResultMap">
+    select 
+     *
+    from bas_area
+    where  attr_1='2'
+   </select>
+  
+</mapper>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.readexcel.dao.ReadexceldefMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.readexcel.model.Readexceldef" >
+    <id column="rxcode" property="rxcode" jdbcType="VARCHAR" />
+    <result column="rxname" property="rxname" jdbcType="VARCHAR" />
+    <result column="tblname" property="tblname" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="excelsheetname" property="excelsheetname" jdbcType="VARCHAR" />
+    <result column="excelfromrow" property="excelfromrow" jdbcType="SMALLINT" />
+    <result column="fortimes" property="fortimes" jdbcType="SMALLINT" />
+    <result column="flags" property="flags" jdbcType="SMALLINT" />
+    <result column="groovy" property="groovy" jdbcType="LONGVARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rxcode, rxname, tblname, model, excelsheetname, excelfromrow, fortimes, flags, operator, 
+    createDate, modifyDate,groovy
+  </sql>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_readexceldef
+    where rxcode = #{rxcode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_readexceldef
+  </select>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from bas_readexceldef
+    where rxcode = #{rxcode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.readexcel.model.Readexceldef" >
+    insert into bas_readexceldef
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rxcode != null" >
+        rxcode,
+      </if>
+      <if test="rxname != null" >
+        rxname,
+      </if>
+      <if test="tblname != null" >
+        tblname,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="excelsheetname != null" >
+        excelsheetname,
+      </if>
+      <if test="excelfromrow != null" >
+        excelfromrow,
+      </if>
+      <if test="fortimes != null" >
+        fortimes,
+      </if>
+      <if test="flags != null" >
+        flags,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate,
+      </if>
+      <if test="groovy != null" >
+        groovy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rxcode != null" >
+        #{rxcode,jdbcType=VARCHAR},
+      </if>
+      <if test="rxname != null" >
+        #{rxname,jdbcType=VARCHAR},
+      </if>
+      <if test="tblname != null" >
+        #{tblname,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="excelsheetname != null" >
+        #{excelsheetname,jdbcType=VARCHAR},
+      </if>
+      <if test="excelfromrow != null" >
+        #{excelfromrow,jdbcType=SMALLINT},
+      </if>
+      <if test="fortimes != null" >
+        #{fortimes,jdbcType=SMALLINT},
+      </if>
+      <if test="flags != null" >
+        #{flags,jdbcType=SMALLINT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groovy != null" >
+        #{groovy,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByOldrxcode" parameterType="com.hibo.cms.readexcel.model.Readexceldef" >
+    update bas_readexceldef
+    <set >
+    	<if test="rdexdef.rxcode != null" >
+        rxcode = #{rdexdef.rxcode,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdef.rxname != null" >
+        rxname = #{rdexdef.rxname,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdef.tblname != null" >
+        tblname = #{rdexdef.tblname,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdef.model != null" >
+        model = #{rdexdef.model,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdef.excelsheetname != null" >
+        excelsheetname = #{rdexdef.excelsheetname,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdef.excelfromrow != null" >
+        excelfromrow = #{rdexdef.excelfromrow,jdbcType=SMALLINT},
+      </if>
+      <if test="rdexdef.fortimes != null" >
+        fortimes = #{rdexdef.fortimes,jdbcType=SMALLINT},
+      </if>
+      <if test="rdexdef.flags != null" >
+        flags = #{rdexdef.flags,jdbcType=SMALLINT},
+      </if>
+      <if test="rdexdef.operator != null" >
+        operator = #{rdexdef.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="rdexdef.modifyDate != null" >
+        modifyDate = #{rdexdef.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rdexdef.groovy != null" >
+        groovy = #{rdexdef.groovy,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where rxcode = #{oldrxcode,jdbcType=VARCHAR}
+  </update>
+  <update id="update" parameterType="com.hibo.cms.readexcel.model.Readexceldef" >
+    update bas_readexceldef
+    <set >
+      <if test="rxname != null" >
+        rxname = #{rxname,jdbcType=VARCHAR},
+      </if>
+      <if test="tblname != null" >
+        tblname = #{tblname,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="excelsheetname != null" >
+        excelsheetname = #{excelsheetname,jdbcType=VARCHAR},
+      </if>
+      <if test="excelfromrow != null" >
+        excelfromrow = #{excelfromrow,jdbcType=SMALLINT},
+      </if>
+      <if test="fortimes != null" >
+        fortimes = #{fortimes,jdbcType=SMALLINT},
+      </if>
+      <if test="flags != null" >
+        flags = #{flags,jdbcType=SMALLINT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groovy != null" >
+        groovy = #{groovy,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where rxcode = #{rxcode,jdbcType=VARCHAR}
+  </update>
+<!--   <update id="update" parameterType="com.hibo.cms.readexcel.model.Readexceldef" >
+    update bas_readexceldef
+    set rxname = #{rxname,jdbcType=VARCHAR},
+      tblname = #{tblname,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      excelsheetname = #{excelsheetname,jdbcType=VARCHAR},
+      excelfromrow = #{excelfromrow,jdbcType=SMALLINT},
+      fortimes = #{fortimes,jdbcType=SMALLINT},
+      flags = #{flags,jdbcType=SMALLINT},
+      operator = #{operator,jdbcType=VARCHAR},
+      modifyDate = #{modifyDate,jdbcType=TIMESTAMP},
+      groovy = #{groovy,jdbcType=LONGVARCHAR}
+    where rxcode = #{rxcode,jdbcType=VARCHAR}
+  </update> -->
+  <!--   <insert id="insert" parameterType="com.hibo.cms.readexcel.model.Readexceldef" >
+    insert into bas_readexceldef (rxcode, rxname, tblname, 
+      model, excelsheetname, excelfromrow, 
+      fortimes, flags, operator, 
+      createDate, modifyDate, groovy
+      )
+    values (#{rxcode,jdbcType=VARCHAR}, #{rxname,jdbcType=VARCHAR}, #{tblname,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{excelsheetname,jdbcType=VARCHAR}, #{excelfromrow,jdbcType=SMALLINT}, 
+      #{fortimes,jdbcType=SMALLINT}, #{flags,jdbcType=SMALLINT}, #{operator,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{groovy,jdbcType=LONGVARCHAR}
+      )
+  </insert> -->
+</mapper>

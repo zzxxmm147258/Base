@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title>分类</title>
+<script src="../../../resources/hibo/js/hibo.js"></script>
+<script type="text/javascript">
+	Import.Jc([ '/resources/bootstrap/css/bootstrap.min.css',
+			'/resources/bootstrap/js/bootstrap.min.js',
+			'/resources/hibo/js/hibo_image.js']);
+</script>
+<style type="text/css">
+	.on{
+		background-color: #8A9294;
+	}
+	.select{
+		background-color: #6BBFF1;
+	}
+</style>
+</head>
+<body style="overflow-y: hidden;">
+	<div class="main">
+		<div class="tableDiv" style="margin: 0 10px;">
+			<div class="tableShow" style="float: left;position: relative;margin-top: 10px;">
+				<div class='tableShowtou' style="width: 20px;height: 20px;float: left;position: absolute;top: 5px;left: 0;">
+					<span class="glyphicon glyphicon-chevron-right" style="font-size:20px;color: #0094EA;cursor: pointer;"></span>
+				</div>
+				<div class='tableTitle' style="width: 100%;height:30px;border: 1px gray solid;margin-left: 20px;line-height: 30px;background-color: #0094EA;color:white;font-size: 20px;font-weight: bold;text-align: center;"> 
+				</div>
+				<div class='tableShowDiv' style="border:1px gray solid;height: 100%;float: left;margin-left: 20px;overflow-y:scroll; ">
+					<table class="tableDate table-bordered table-condensed">
+						<thead>
+					        <tr class="hang">
+						        <th>序号</th>
+						        <th>操作</th>
+						        <th>编码</th>
+						        <th>中文名</th>
+						        <th>英文名</th>
+						        <th>图一</th>
+						        <th>图二</th>
+						        <th>置顶</th>
+						        <th>启用</th>
+						      </tr>
+					    </thead>
+					    <tbody class="tbody">
+					    	<tr class="trDate" style="cursor: pointer;">
+					    		<td class="index clickNext"></td>
+					    		<td class="operna">
+					    			<span class="glyphicon glyphicon-edit" style="font-size:16px;color: #0094EA;" title="编辑"></span>
+					    			<span class="glyphicon glyphicon-remove" style="font-size:16px;color:red;" title="删除"></span>
+					    		</td>
+					    		<td class='accpetData clickNext' name='code'></td>
+					    		<td class='accpetData clickNext' name='name'></td>
+					    		<td class='accpetData clickNext' name='ename'></td>
+					    		<td class='clickNext'><img class='accpetData' name='img' src='' style="width: 30px;height: 30px;" htype="attr"></td>
+					    		<td class='clickNext'><img class='accpetData' name='eimg' src='' style="width: 30px;height: 30px;" htype="attr"></td>
+					    		<td class='accpetData clickNext' name='isTop' htype='select'></td>
+					    		<td class='accpetData clickNext' name='availabe' htype='select'></td>
+					    	</tr>
+							<tr class="trAdd">
+								<td name="addTd" colspan="9" class="text-center">
+									<span class="glyphicon glyphicon-plus rowAdd" style="font-size:16px;color: #0094EA;cursor: pointer;"></span>
+								</td>
+							</tr>
+					    </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="inputMake" style='top:0;right:0;position: relative;display: none;width: 100%'>
+			<div class='inputDiv' style="position: absolute;width: 100%;height: 100%;top:0;left:0;background-color: black;opacity:0.4;z-index: 200;"></div>
+			<div class="panel panel-primary panelDiv" style='width:400px;position: absolute;top: 30px;left: 50%;z-index: 201;margin-left: -300px;'>
+				<div class="panel-heading">
+					<h3 class="panel-title">更新分类</h3>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="firstname" class="col-sm-3 control-label">父编码</label>
+							<div class="col-sm-9">
+								<input class='dataSubmit' name='pCode' type="text" class="form-control" placeholder="父编码" disabled="disabled">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="firstname" class="col-sm-3 control-label">编码</label>
+							<div class="col-sm-9">
+								<input class='dataSubmit' name='code' type="text" class="form-control" placeholder="编码">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-3 control-label">中文名</label>
+							<div class="col-sm-9">
+								<input class='dataSubmit' name='name' type="text" class="form-control" placeholder="中文名">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-3 control-label">英文名</label>
+							<div class="col-sm-9">
+								<input class='dataSubmit' name='ename' type="text" class="form-control" placeholder="英文名">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-3 control-label">图一</label>
+							<div class="col-sm-2">
+								<img class='img-thumbnail' name='img' alt="" src="" style="width: 40px;height: 40px;">
+								<input class='image' name='img' type="file" placeholder="图一" style="width: 0;height: 0;position: absolute;top: -1200px;left: -1200px;">
+								<input class='dataSubmit' name='img' type="hidden" placeholder="图一" style="width: 0;height: 0;">
+							</div>
+							<label for="lastname" class="col-sm-2 control-label">图二</label>
+							<div class="col-sm-2">
+								<img class='img-thumbnail' name='eimg' alt="" src="" style="width: 40px;height: 40px;">
+								<input class='image' name='eimg' type="file" placeholder="图二" style="width: 0;height: 0;position: absolute;top: -1200px;left: -1200px;">
+								<input class='dataSubmit' name='eimg' type="hidden" placeholder="图二" style="width: 0;height: 0;">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-3 control-label">启用</label>
+							<div class="col-sm-2" style="margin-top: 8px;">
+						    	<select class='dataSubmit' name='availabe' htype='select'>
+						    		<option value="1">是</option>
+						    		<option value="0">否</option>
+						    	</select>
+							</div>
+							<label for="lastname" class="col-sm-2 control-label isTopDiv">置顶</label>
+							<div class="col-sm-2 isTopDiv" style="margin-top: 8px;">
+						    	<select class='dataSubmit' name='isTop' htype='select'>
+						    		<option value="0">否</option>
+						    		<option value="1">是</option>
+						    	</select>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="panel-body" style="float: right;">
+					<button type="button" class="btn btn-info makeSure">提交</button>
+					<button type="button" class="btn btn-default makeCanlce">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var table = $('.tableShow').clone();
+	var cates = [];
+	var codes = [];
+	var isAdd = false;
+	var isSubmit = true;
+	var selects = {};
+	loadTable();
+	function loadTable(){
+		$('.tableShow').remove();
+		selects = JSON.parse(sessionStorage.getItem('hibo-base-cate-selects'));
+		selects = selects?selects:{};
+		$.ajax({
+		    type: 'post',
+		    url:$.Url('/common/bas/categroy/catelist'),
+		    dataType: 'json',
+		    success: function(data){
+				if(data.success){
+					cates = data.datas;
+					addTable(cates,'','顶级');
+					
+				}
+		    },
+		    error: function(e){
+		    	console.log(e);
+		    }
+		});
+	}
+	function addTable(thisCates,level,name){
+			var tableClone = table.clone();
+			var tableTarget = tableClone.find('.tableDate').addClass('table-'+level).attr('pCode',level).attr('pname',name);
+			var tbody = tableTarget.children('tbody');
+			var tr = tbody.children('.trDate');
+			var addTr = tbody.children('.trAdd');
+			tableClone.appendTo('.tableDiv');
+			var addCode = null;
+			if(thisCates&&thisCates.length>0){
+				for ( var i in thisCates) {
+					var trDate = tr;
+					if(i>0){
+						trDate = tr.clone();
+						trDate.insertBefore(addTr);
+					}
+					trDate.find('.index').text(i);
+					trDate.find('.accpetData').each(function(){
+						var name = $(this).attr('name');
+						var htype = $(this).attr('htype');
+						if(htype=='attr'){
+							$(this).attr('src',thisCates[i][name]);
+						}else{
+							$(this).text(thisCates[i][name]);
+						}
+					});
+					trDate.attr('code',thisCates[i].code);
+					trDate.find('.clickNext').click(function(){
+						/* var code = $(this).find('td[name="code"]').text(); */
+						var tTr = $(this).parent('tr');
+						tTr.addClass('select');
+						tTr.siblings().removeClass('select');
+						var code = tTr.attr('code');
+						var childCate = findCate(code, cates);
+						$(this).closest('.tableShow').nextAll().remove();
+						addTable(childCate.cates, code,childCate.name);
+						selects = {};
+						$('.select').each(function(){
+							var thiscode = $(this).attr('code');
+							if(thiscode){
+								selects[thiscode] = true;
+								sessionStorage.setItem('hibo-base-cate-selects', JSON.stringify(selects));
+							}
+						});
+					});
+					if(selects[thisCates[i].code]){
+						addCode = thisCates[i];
+						trDate.addClass('select');
+					}else{
+						trDate.removeClass('select');
+					}
+					trDate.mouseover(function(){
+						$(this).addClass('on');
+					}).mouseout(function(){
+						$(this).removeClass('on');
+					});
+					trDate.find('.glyphicon-edit').click(function(){
+						isAdd = false;
+						$('.panelDiv').css('left',($('body').scrollLeft()+screen.width/2)+'px');
+						var tableDate = $(this).closest('.tableDate');
+						var pCode = tableDate.attr('pCode');
+						$('.isTopDiv').show();
+						$(this).closest('.trDate').find('.accpetData').each(function(){
+							var htype = $(this).attr('htype');
+							var name = $(this).attr('name');
+							var text = $(this).text();
+							if(htype=='attr'){
+								var src = $(this).attr('src');
+								$('.img-thumbnail[name="'+name+'"]').attr('src',src?src:'');
+							}else if(htype=='select'){
+								if(text==true||text=='true'){
+									$('.dataSubmit[name="'+name+'"]').val(1);
+								}else{
+									$('.dataSubmit[name="'+name+'"]').val(0);
+								}
+							}else{
+								$('.dataSubmit[name="'+name+'"]').val(text);
+							}
+						});
+						$('.dataSubmit[name="pCode"]').val(pCode?pCode:'').attr('disabled','disabled');
+						$('.dataSubmit[name="code"]').attr('disabled','disabled');
+						$('.inputMake').show();
+					});
+					trDate.find('.glyphicon-remove').click(function(){
+						var code = $(this).closest('.trDate').attr('code');
+						deleteDate(code);
+					});
+				}
+			}else{
+				tr.remove();
+			}
+			addTr.find('.rowAdd').click(function(){
+				isAdd = true
+				$('.panelDiv').css('left',($('body').scrollLeft()+screen.width/2)+'px');
+				$('.inputMake').show();
+				var tableDate = $(this).closest('.tableDate');
+				var pCode = tableDate.attr('pCode');
+				var pname = tableDate.attr('pname');
+				var inputMake = $('.inputMake');
+				inputMake.find('.dataSubmit').val('');
+				inputMake.find('img').removeAttr('src');
+				inputMake.find('.panel-title').text('添加<'+pname+'>分类');
+				inputMake.find('.dataSubmit[name="pCode"]').val(pCode).attr('disabled','disabled');
+				inputMake.find('.dataSubmit[name="code"]').removeAttr('disabled');
+				var isTop = inputMake.find('.dataSubmit[name="isTop"]');
+				if(!pCode){
+					isTop.val(1);
+				}
+				$('.isTopDiv').hide();
+			});
+			if(level){
+				var width = 0
+				$('.tableShow').each(function(){
+					width = width + $(this).outerWidth(true);
+				});
+				$('.tableDiv').width(width + 50);
+				var sww = $('.inputMake').width();
+				sww = sww>(width + 60)?sww:(width + 60);
+				$('.inputMake').width(sww);
+			}else{
+				tableClone.children('.tableShowtou').hide();
+				$('.tableDiv').width(tableClone.outerWidth(true)+100);
+			}
+			tableClone.find('.tableTitle').width(tableClone.find('.tableShowDiv').width()).text(name);
+			$(window).resize();
+			if(addCode){
+				addTable(addCode.cates, addCode.code, addCode.name);
+			}
+	}
+	
+	$('.dataSubmit[name="isTop"]').change(function(){
+		var v = $(this).val();
+		if(v==1){
+			$('.dataSubmit[name="pCode"]').attr('disabled','disabled');
+		}else{
+			$('.dataSubmit[name="pCode"]').removeAttr('disabled');
+		}
+	});
+	
+	$('.dataSubmit[name="code"]').blur(function(){
+		if(isAdd){
+			if(findCate($(this).val(),cates)){
+				isSubmit = false;
+				$(this).focus();
+				alert('已有此编码');
+			}else{
+				isSubmit = true;
+			}
+		}
+	});
+	
+	$('.dataSubmit[name="pCode"]').blur(function(){
+		var code = $('.dataSubmit[name="code"]').val();
+		var v = $(this).val();
+		if(v){
+			if(code==v){
+				isSubmit = false;
+				$(this).focus();
+				alert('父子编码不能相同');
+			}else if(findCate(v,cates)){
+				isSubmit = true;
+			}else{
+				isSubmit = false;
+				$(this).focus();
+				alert('无此父编码');
+			}
+		}
+	});
+	function findCate(code,arrayCates){
+		for ( var i in arrayCates) {
+			var cate = arrayCates[i];
+			if(code == cate.code){
+				return cate.cates?cate:{};
+			}else{
+				if(cate.cates){
+					var ra = findCate(code, cate.cates);
+					if(ra){
+						return ra;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	$(window).resize(function(){
+		$('.tableShow').css('height',(document.documentElement.clientHeight-50)+'px');
+		$('.inputMake').height(document.documentElement.clientHeight);
+	});
+	
+	$('.img-thumbnail').click(function(){
+		$(this).next('input').click();
+	});
+	
+	$('.image').change(function(){
+		var file = this.files[0];
+		var _this = this;
+		$.ImgUtils.zip({
+	 		file:file,
+	 		success:function(data){
+	 			$(_this).prev('.img-thumbnail').attr('src',data.base64);
+	 			$(_this).next('.dataSubmit').val(data.base64);
+	 		},
+	 		error:function(e){
+	 			
+	 		}
+	 	 })
+	});
+	$('.makeCanlce').click(function(){
+		$('.inputMake').hide();
+	});
+	$('.makeSure').click(function(){
+		var parems = {};
+		var isTop = 1;
+		$('.dataSubmit').each(function(){
+			var htype = $(this).attr('htype');
+			var name = $(this).attr('name');
+			var text = $(this).val();
+			if(htype=='attr'){
+				text = $(this).attr('src');
+			}
+			if('isTop'==name){
+				if(text==0&&!parems.pCode){
+					isSubmit = false;
+					return alert('父类编码不能为空');
+				}
+			}
+			parems[name] = text;
+		});
+		if(isSubmit){
+			$.ajax({
+			    type: 'post',
+			    url:$.Url('/main/bas/categroy/add'),
+			    data:parems,
+			    dataType: 'json',
+			    success: function(data){
+			    	console.log(data);
+			    	if(data.success){
+			    		loadTable();
+			    		$('.inputMake').hide();
+			    	}else{
+			    		alert(data.message);
+			    	}
+			    },
+			    error: function(e){
+			    	console.log(e);
+			    }
+			});
+		}
+		isSubmit = true;
+	});
+	function deleteDate(code,obj){
+		if(confirm("确认删除?")){
+			$.ajax({
+			    type: 'post',
+			    url:$.Url('/main/bas/categroy/del.ajax'),
+			    data:{code:code},
+			    dataType: 'json',
+			    success: function(data){
+			    	console.log(data);
+			    	if(data.success){
+			    		loadTable();
+			    		$('.inputMake').hide();
+			    	}else{
+			    		alert(data.message);
+			    	}
+			    },
+			    error: function(e){
+			    	console.log(e);
+			    }
+			});
+		}
+	}
+</script>
+</html>

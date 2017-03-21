@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.lims.dao.DatalimsMapper">
+	<resultMap type="com.hibo.cms.lims.model.Datalims" id="BaseResultMap">
+    <id column="idx" property="idx" jdbcType="SMALLINT" />
+    <id column="limid" property="limid" jdbcType="VARCHAR" />
+    <id column="opid" property="opid" jdbcType="VARCHAR" />
+    <id column="ucode" property="ucode" jdbcType="VARCHAR" />
+    <id column="utype" property="utype" jdbcType="CHAR" />
+    <result column="startdate" property="startdate" jdbcType="VARCHAR" />
+    <result column="enddate" property="enddate" jdbcType="VARCHAR" />
+    <result column="modifydate" property="modifydate" jdbcType="VARCHAR" />
+    <result column="fldname01" property="fldname01" jdbcType="VARCHAR" />
+    <result column="values01" property="values01" jdbcType="VARCHAR" />
+    <result column="fldname02" property="fldname02" jdbcType="VARCHAR" />
+    <result column="values02" property="values02" jdbcType="VARCHAR" />
+    <result column="fldname03" property="fldname03" jdbcType="VARCHAR" />
+    <result column="values03" property="values03" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	 <sql id="Base_Column_List" >
+    idx, limid, opid, ucode, utype, startdate, enddate, modifydate, fldname01, values01, 
+    fldname02, values02, fldname03, values03
+    </sql>
+	
+	
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from datalims  where 1=1 ORDER BY  idx
+	</select>
+	
+	<delete id="delete" parameterType="String">
+		delete from datalims
+		where  limid= #{limid}
+	</delete>
+	
+	<select id="selectDatalims" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from datalims
+		where limid = #{datalimmid}
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.hibo.cms.lims.model.DatalimsKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from datalims
+    where idx = #{idx,jdbcType=SMALLINT}
+      and limid = #{limid,jdbcType=VARCHAR}
+      and opid = #{opid,jdbcType=VARCHAR}
+      and ucode = #{ucode,jdbcType=VARCHAR}
+      and utype = #{utype,jdbcType=CHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.hibo.cms.lims.model.DatalimsKey" >
+    delete from datalims
+    where idx = #{idx,jdbcType=SMALLINT}
+      and limid = #{limid,jdbcType=VARCHAR}
+      and opid = #{opid,jdbcType=VARCHAR}
+      and ucode = #{ucode,jdbcType=VARCHAR}
+      and utype = #{utype,jdbcType=CHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.hibo.cms.lims.model.Datalims" >
+    insert into datalims (idx, limid, opid, 
+      ucode, utype, startdate, 
+      enddate, modifydate, fldname01, 
+      values01, fldname02, values02, 
+      fldname03, values03)
+    values (#{idx,jdbcType=SMALLINT}, #{limid,jdbcType=VARCHAR}, #{opid,jdbcType=VARCHAR}, 
+      #{ucode,jdbcType=VARCHAR}, #{utype,jdbcType=CHAR}, #{startdate,jdbcType=VARCHAR}, 
+      #{enddate,jdbcType=VARCHAR}, #{modifydate,jdbcType=VARCHAR}, #{fldname01,jdbcType=VARCHAR}, 
+      #{values01,jdbcType=VARCHAR}, #{fldname02,jdbcType=VARCHAR}, #{values02,jdbcType=VARCHAR}, 
+      #{fldname03,jdbcType=VARCHAR}, #{values03,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.hibo.cms.lims.model.Datalims" >
+    insert into datalims
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idx != null" >
+        idx,
+      </if>
+      <if test="limid != null" >
+        limid,
+      </if>
+      <if test="opid != null" >
+        opid,
+      </if>
+      <if test="ucode != null" >
+        ucode,
+      </if>
+      <if test="utype != null" >
+        utype,
+      </if>
+      <if test="startdate != null" >
+        startdate,
+      </if>
+      <if test="enddate != null" >
+        enddate,
+      </if>
+      <if test="modifydate != null" >
+        modifydate,
+      </if>
+      <if test="fldname01 != null" >
+        fldname01,
+      </if>
+      <if test="values01 != null" >
+        values01,
+      </if>
+      <if test="fldname02 != null" >
+        fldname02,
+      </if>
+      <if test="values02 != null" >
+        values02,
+      </if>
+      <if test="fldname03 != null" >
+        fldname03,
+      </if>
+      <if test="values03 != null" >
+        values03,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idx != null" >
+        #{idx,jdbcType=SMALLINT},
+      </if>
+      <if test="limid != null" >
+        #{limid,jdbcType=VARCHAR},
+      </if>
+      <if test="opid != null" >
+        #{opid,jdbcType=VARCHAR},
+      </if>
+      <if test="ucode != null" >
+        #{ucode,jdbcType=VARCHAR},
+      </if>
+      <if test="utype != null" >
+        #{utype,jdbcType=CHAR},
+      </if>
+      <if test="startdate != null" >
+        #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null" >
+        #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydate != null" >
+        #{modifydate,jdbcType=VARCHAR},
+      </if>
+      <if test="fldname01 != null" >
+        #{fldname01,jdbcType=VARCHAR},
+      </if>
+      <if test="values01 != null" >
+        #{values01,jdbcType=VARCHAR},
+      </if>
+      <if test="fldname02 != null" >
+        #{fldname02,jdbcType=VARCHAR},
+      </if>
+      <if test="values02 != null" >
+        #{values02,jdbcType=VARCHAR},
+      </if>
+      <if test="fldname03 != null" >
+        #{fldname03,jdbcType=VARCHAR},
+      </if>
+      <if test="values03 != null" >
+        #{values03,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.lims.model.Datalims" >
+    update datalims
+    <set >
+     <if test="record.idx != null and record.idx !='' " >
+        idx = #{record.idx,jdbcType=SMALLINT},
+      </if>
+      <if test="record.opid != null and record.opid !='' " >
+        opid = #{record.opid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ucode != null and record.ucode !='' " >
+        ucode = #{record.ucode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.utype != null  and record.utype !='' " >
+        utype = #{record.utype,jdbcType=CHAR},
+      </if>
+      
+      <if test="record.startdate != null and record.startdate !=''" >
+        startdate = #{record.startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enddate != null and record.enddate !='' " >
+        enddate = #{record.enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifydate != null and record.modifydate !='' " >
+        modifydate = #{record.modifydate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fldname01 != null and record.fldname01 !='' " >
+        fldname01 = #{record.fldname01,jdbcType=VARCHAR},
+      </if>
+      <if test="record.values01 != null and record.values01 !='' " >
+        values01 = #{record.values01,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fldname02 != null and record.fldname02 !=''" >
+        fldname02 = #{record.fldname02,jdbcType=VARCHAR},
+      </if>
+      <if test="record.values02 != null and record.values02 !='' " >
+        values02 = #{record.values02,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fldname03 != null  and record.fldname03 !='' " >
+        fldname03 = #{record.fldname03,jdbcType=VARCHAR},
+      </if>
+      <if test="record.values03 != null and record.values03 !='' " >
+        values03 = #{record.values03,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idx = #{key.idx,jdbcType=SMALLINT}
+      and limid = #{key.limid,jdbcType=VARCHAR}
+      and opid = #{key.opid,jdbcType=VARCHAR}
+      and ucode = #{key.ucode,jdbcType=VARCHAR}
+      and utype = #{key.utype,jdbcType=CHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.lims.model.Datalims" >
+    update datalims
+    set startdate = #{startdate,jdbcType=VARCHAR},
+      enddate = #{enddate,jdbcType=VARCHAR},
+      modifydate = #{modifydate,jdbcType=VARCHAR},
+      fldname01 = #{fldname01,jdbcType=VARCHAR},
+      values01 = #{values01,jdbcType=VARCHAR},
+      fldname02 = #{fldname02,jdbcType=VARCHAR},
+      values02 = #{values02,jdbcType=VARCHAR},
+      fldname03 = #{fldname03,jdbcType=VARCHAR},
+      values03 = #{values03,jdbcType=VARCHAR}
+    where idx = #{idx,jdbcType=SMALLINT}
+      and limid = #{limid,jdbcType=VARCHAR}
+      and opid = #{opid,jdbcType=VARCHAR}
+      and ucode = #{ucode,jdbcType=VARCHAR}
+      and utype = #{utype,jdbcType=CHAR}
+  </update>
+  
+	
+</mapper>

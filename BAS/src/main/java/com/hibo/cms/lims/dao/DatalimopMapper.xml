@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.lims.dao.DatalimopMapper">
+	<resultMap type="com.hibo.cms.lims.model.Datalimop" id="BaseResultMap">
+		 <id column="limid" property="limid" jdbcType="VARCHAR" />
+         <id column="opid" property="opid" jdbcType="VARCHAR" />
+         <result column="opnm" property="opnm" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		limid,opid,opnm
+	</sql>
+	
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from datalimop
+	</select>
+	
+	<delete id="delete" parameterType="String">
+		delete from datalimop
+		where  limid= #{limid}
+	</delete>
+	
+	<select id="selectDatalimop" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from datalimop
+		where limid = #{datalimmid}
+	</select>
+	
+	
+	<delete id="deleteByDatalimopId" parameterType="String">
+		delete from datalimop
+		where limid = #{datalimopid}
+	</delete>
+	
+	<update id="updateByDatalimopId" parameterType="com.hibo.cms.lims.model.Datalimop">
+		update datalimop 
+		<set>
+			<if test="datalimop.limid != null">
+				limid = #{datalimop.limid,jdbcType=VARCHAR},
+			</if>
+			<if test="datalimop.limnm != null">
+				limnm = #{datalimop.limnm,jdbcType=VARCHAR},
+			</if>
+			<if test="datalimop.opnm != null">
+				opnm = #{datalimop.opnm,jdbcType=VARCHAR},
+			</if>	
+		</set>
+		where limid = #{olddatalimmid,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.hibo.cms.lims.model.DatalimopKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from datalimop
+    where limid = #{limid,jdbcType=VARCHAR}
+      and opid = #{opid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.hibo.cms.lims.model.DatalimopKey" >
+    delete from datalimop
+    where limid = #{limid,jdbcType=VARCHAR}
+      and opid = #{opid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.hibo.cms.lims.model.Datalimop" >
+    insert into datalimop (limid, opid, opnm
+      )
+    values (#{limid,jdbcType=VARCHAR}, #{opid,jdbcType=VARCHAR}, #{opnm,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.hibo.cms.lims.model.Datalimop" >
+    insert into datalimop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="limid != null" >
+        limid,
+      </if>
+      <if test="opid != null" >
+        opid,
+      </if>
+      <if test="opnm != null" >
+        opnm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="limid != null" >
+        #{limid,jdbcType=VARCHAR},
+      </if>
+      <if test="opid != null" >
+        #{opid,jdbcType=VARCHAR},
+      </if>
+      <if test="opnm != null" >
+        #{opnm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.lims.model.Datalimop" >
+    update datalimop
+    <set >
+      <if test="record.opnm != null" >
+        opnm = #{record.opnm,jdbcType=VARCHAR},
+      </if>
+       <if test="record.opid != null" >
+        opid = #{record.opid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where limid = #{key.limid,jdbcType=VARCHAR}
+      and opid = #{key.opid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.lims.model.Datalimop" >
+    update datalimop
+    set opnm = #{opnm,jdbcType=VARCHAR}
+    where limid = #{limid,jdbcType=VARCHAR}
+      and opid = #{opid,jdbcType=VARCHAR}
+  </update>
+  
+	
+</mapper>

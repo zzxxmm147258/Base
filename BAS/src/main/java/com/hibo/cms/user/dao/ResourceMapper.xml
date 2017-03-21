@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.user.dao.ResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.user.model.Resource" >
+    <id column="resourceid" property="resourceid" jdbcType="VARCHAR" />
+    <result column="resname" property="resname" jdbcType="VARCHAR" />
+    <result column="sysid" property="sysid" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="availabe" property="availabe" jdbcType="BIT" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifyDate" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    resourceid, resname, sysid, remark, availabe, operator, createDate, modifyDate
+  </sql>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_resource
+    where resourceid = #{resourceid,jdbcType=VARCHAR}
+  </select>
+   <select id="selectAll" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from bas_resource
+    order by createDate
+  </select>
+  <select id="selectFuzzy" parameterType="com.hibo.cms.user.model.Resource" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from bas_resource
+     <where>
+	   	<if test="resourceid !=null and resourceid != ''">
+	   		and resourceid like '%${resourceid}%'
+	   	</if>
+	   	<if test="resname !=null and resname != ''">
+	   		and resname like '%${resname}%'
+	   	</if>
+    </where>
+  </select>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from bas_resource
+    where resourceid = #{resourceid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.cms.user.model.Resource" >
+    insert into bas_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceid != null" >
+        resourceid,
+      </if>
+      <if test="resname != null" >
+        resname,
+      </if>
+      <if test="sysid != null" >
+        sysid,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="availabe != null" >
+        availabe,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="modifyDate != null" >
+        modifyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceid != null" >
+        #{resourceid,jdbcType=VARCHAR},
+      </if>
+      <if test="resname != null" >
+        #{resname,jdbcType=VARCHAR},
+      </if>
+      <if test="sysid != null" >
+        #{sysid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="availabe != null" >
+        #{availabe,jdbcType=BIT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.hibo.cms.user.model.Resource" >
+    update bas_resource
+    <set>
+    	<if test="resource.resourceid != null" >
+    	resourceid = #{resource.resourceid,jdbcType=VARCHAR},
+    	</if>
+      <if test="resource.resname != null" >
+        resname = #{resource.resname,jdbcType=VARCHAR},
+      </if>
+      <if test="resource.sysid != null" >
+        sysid = #{resource.sysid,jdbcType=VARCHAR},
+      </if>
+      <if test="resource.remark != null" >
+        remark = #{resource.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="resource.availabe != null" >
+        availabe = #{resource.availabe,jdbcType=BIT},
+      </if>
+      <if test="resource.operator != null" >
+        operator = #{resource.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="resource.modifyDate != null" >
+        modifyDate = #{resource.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where resourceid = #{oldresourceid,jdbcType=VARCHAR}
+  </update>
+<!--   <update id="updateByPrimaryKey" parameterType="com.hibo.cms.user.model.Resource" >
+    update resource
+    set resname = #{resname,jdbcType=VARCHAR},
+      sysid = #{sysid,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      availabe = #{availabe,jdbcType=BIT},
+      operator = #{operator,jdbcType=VARCHAR},
+      modifyDate = #{modifyDate,jdbcType=TIMESTAMP}
+    where resourceid = #{resourceid,jdbcType=VARCHAR}
+  </update>
+    <insert id="insert" parameterType="com.hibo.cms.user.model.Resource" >
+    insert into resource (resourceid, resname, sysid, 
+      remark, availabe, operator, 
+      createDate, modifyDate)
+    values (#{resourceid,jdbcType=VARCHAR}, #{resname,jdbcType=VARCHAR}, #{sysid,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{availabe,jdbcType=BIT}, #{operator,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP})
+  </insert> -->
+</mapper>

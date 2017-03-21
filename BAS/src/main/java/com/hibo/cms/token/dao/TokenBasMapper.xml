@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.token.dao.TokenBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.token.model.TokenBas" >
+    <id column="token_no" property="tokenNo" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="access_time" property="accessTime" jdbcType="TIMESTAMP" />
+    <result column="change_time" property="changeTime" jdbcType="TIMESTAMP" />
+    <result column="attr1" property="attr1" jdbcType="VARCHAR" />
+    <result column="attr2" property="attr2" jdbcType="VARCHAR" />
+    <result column="attr3" property="attr3" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    token_no, userid, access_time, change_time, attr1, attr2, attr3, username
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_token_access
+    where token_no = #{tokenNo,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPrimaryUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_token_access
+    where username = #{username,jdbcType=VARCHAR}
+    <if test="null != utype">
+    	and attr1 = #{utype,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_token_access
+    where token_no = #{tokenNo,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteByPrimaryUserName" parameterType="java.lang.String" >
+    delete from bas_token_access
+    where username = #{username,jdbcType=VARCHAR}
+    <if test="null != utype">
+    	and attr1 = #{utype,jdbcType=VARCHAR}
+    </if>
+  </delete>
+  
+  <insert id="insert" parameterType="com.hibo.cms.token.model.TokenBas" >
+    insert into bas_token_access (token_no, userid, access_time, 
+      change_time, attr1, attr2, 
+      attr3, username)
+    values (#{tokenNo,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{accessTime,jdbcType=TIMESTAMP}, 
+      #{changeTime,jdbcType=TIMESTAMP}, #{attr1,jdbcType=VARCHAR}, #{attr2,jdbcType=VARCHAR}, 
+      #{attr3,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.cms.token.model.TokenBas" >
+    insert into bas_token_access
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tokenNo != null" >
+        token_no,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="accessTime != null" >
+        access_time,
+      </if>
+      <if test="changeTime != null" >
+        change_time,
+      </if>
+      <if test="attr1 != null" >
+        attr1,
+      </if>
+      <if test="attr2 != null" >
+        attr2,
+      </if>
+      <if test="attr3 != null" >
+        attr3,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tokenNo != null" >
+        #{tokenNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="accessTime != null" >
+        #{accessTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeTime != null" >
+        #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attr1 != null" >
+        #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.cms.token.model.TokenBas" >
+    update bas_token_access
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="accessTime != null" >
+        access_time = #{accessTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeTime != null" >
+        change_time = #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attr1 != null" >
+        attr1 = #{attr1,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        attr2 = #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        attr3 = #{attr3,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where token_no = #{tokenNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.cms.token.model.TokenBas" >
+    update bas_token_access
+    set userid = #{userid,jdbcType=VARCHAR},
+      access_time = #{accessTime,jdbcType=TIMESTAMP},
+      change_time = #{changeTime,jdbcType=TIMESTAMP},
+      attr1 = #{attr1,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR},
+      attr3 = #{attr3,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR}
+    where token_no = #{tokenNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

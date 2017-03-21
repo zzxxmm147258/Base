@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.cms.filter.dao.IPFilterMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.cms.filter.model.SysIPFilter" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="createdate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modifydate" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="ispassd" property="ispassd" jdbcType="BOOLEAN" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, createdate, modifydate, ip, name, port, remark,ispassd
+  </sql>
+  <select id="getIPFilterList" parameterType="java.lang.Boolean" resultMap="BaseResultMap">
+  	select * from sysipfilter where ispassd=#{ispassd}
+  </select>
+  
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from sysipfilter where id=#{id}
+  </select>
+  
+  <insert id="addIp" parameterType="com.hibo.cms.filter.model.SysIPFilter">
+  	insert into sysipfilter (id,createdate,modifydate,ip,name,port,remark,ispassd) 
+  	values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+  	#{ip,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{port,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{ispassd,jdbcType=BOOLEAN})
+  </insert>
+  
+  <update id="updataIp" parameterType="com.hibo.cms.filter.model.SysIPFilter">
+  	update sysipfilter
+  	<set >
+      <if test="createDate != null" >
+        createdate = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modifydate = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        port = #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ispassd != null" >
+        ispassd = #{ispassd,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="delIp" parameterType="java.lang.String">
+  	delete from sysipfilter where id = #{id,jdbcType=VARCHAR}
+  </delete>
+</mapper>

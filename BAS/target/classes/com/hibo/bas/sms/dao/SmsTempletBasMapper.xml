@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hibo.bas.sms.dao.SmsTempletBasMapper" >
+  <resultMap id="BaseResultMap" type="com.hibo.bas.sms.model.SmsTempletBas" >
+    <id column="temp_no" property="tempNo" jdbcType="VARCHAR" />
+    <result column="temp" property="temp" jdbcType="VARCHAR" />
+    <result column="time_limit" property="timeLimit" jdbcType="INTEGER" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    temp_no, temp, time_limit, operator, create_date, modify_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_sms_templet
+    where temp_no = #{tempNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bas_sms_templet
+    where temp_no = #{tempNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hibo.bas.sms.model.SmsTempletBas" >
+    insert into bas_sms_templet (temp_no, temp, time_limit, 
+      operator, create_date, modify_date
+      )
+    values (#{tempNo,jdbcType=VARCHAR}, #{temp,jdbcType=VARCHAR}, #{timeLimit,jdbcType=INTEGER}, 
+      #{operator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hibo.bas.sms.model.SmsTempletBas" >
+    insert into bas_sms_templet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tempNo != null" >
+        temp_no,
+      </if>
+      <if test="temp != null" >
+        temp,
+      </if>
+      <if test="timeLimit != null" >
+        time_limit,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tempNo != null" >
+        #{tempNo,jdbcType=VARCHAR},
+      </if>
+      <if test="temp != null" >
+        #{temp,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLimit != null" >
+        #{timeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hibo.bas.sms.model.SmsTempletBas" >
+    update bas_sms_templet
+    <set >
+      <if test="temp != null" >
+        temp = #{temp,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLimit != null" >
+        time_limit = #{timeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where temp_no = #{tempNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hibo.bas.sms.model.SmsTempletBas" >
+    update bas_sms_templet
+    set temp = #{temp,jdbcType=VARCHAR},
+      time_limit = #{timeLimit,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where temp_no = #{tempNo,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectPage" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bas_sms_templet
+    <where>
+  		<if test="wStr!=null">
+  			${wStr}
+  		</if>
+  	</where>
+  </select>
+  
+</mapper>
